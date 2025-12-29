@@ -232,9 +232,9 @@ const Auth: React.FC = () => {
           </CardTitle>
           <CardDescription>
             {activeTab === 'login' 
-              ? 'Sign in to your TiqBud account' 
+              ? 'Sign in to your KidZone account' 
               : activeTab === 'signup'
-              ? 'Join TiqBud for the best tech deals'
+              ? 'Join KidZone for amazing toys!'
               : 'Enter your email to reset password'}
           </CardDescription>
         </CardHeader>
@@ -287,7 +287,7 @@ const Auth: React.FC = () => {
                 
                 <Button 
                   type="submit" 
-                  className="w-full bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                  className="w-full bg-brand-orange hover:bg-brand-orange-dark text-white"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? 'Signing in...' : 'Sign In'}
@@ -412,7 +412,7 @@ const Auth: React.FC = () => {
                 
                 <Button 
                   type="submit" 
-                  className="w-full bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                  className="w-full bg-brand-orange hover:bg-brand-orange-dark text-white"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? 'Creating account...' : 'Create Account'}

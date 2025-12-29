@@ -115,7 +115,7 @@ const Header = () => {
       {announcement?.is_visible !== false && (
         <div className="bg-gradient-to-r from-brand-orange via-brand-pink to-brand-purple text-white text-center py-2 text-sm font-bold">
           <Sparkles className="inline-block w-4 h-4 mr-2 animate-wiggle" />
-          {announcement?.message || '🎁 Free Shipping on orders over $50! Shop now!'} 
+          {announcement?.message || '🎁 ঢাকায় ৳৫,০০০+ অর্ডারে ফ্রি ডেলিভারি!'} 
           <Sparkles className="inline-block w-4 h-4 ml-2 animate-wiggle" />
         </div>
       )}
