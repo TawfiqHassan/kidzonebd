@@ -208,10 +208,11 @@ serve(async (req) => {
         }
       } catch (fetchError) {
         console.error('Fetch error:', fetchError);
+        const errorMessage = fetchError instanceof Error ? fetchError.message : 'Unknown error';
         return new Response(
           JSON.stringify({ 
             success: false, 
-            error: `Failed to connect: ${fetchError.message}`
+            error: `Failed to connect: ${errorMessage}`
           }),
           { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
@@ -337,10 +338,11 @@ serve(async (req) => {
         );
       } catch (fetchError) {
         console.error('Fetch error:', fetchError);
+        const errorMessage = fetchError instanceof Error ? fetchError.message : 'Unknown error';
         return new Response(
           JSON.stringify({ 
             success: false, 
-            error: `Failed to fetch products: ${fetchError.message}`
+            error: `Failed to fetch products: ${errorMessage}`
           }),
           { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
