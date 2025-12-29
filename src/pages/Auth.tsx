@@ -176,7 +176,7 @@ const Auth: React.FC = () => {
       return;
     }
     
-    toast.success('Account created! Awaiting admin approval.');
+    toast.success('Account created! Check your email to verify.');
   };
 
   const handleForgotPassword = async (e: React.FormEvent) => {
@@ -219,8 +219,9 @@ const Auth: React.FC = () => {
       </Link>
       
       <div className="mb-8">
-        <Link to="/">
-          <img src={logo} alt="TiqBud" className="h-16 w-auto" />
+        <Link to="/" className="flex items-center space-x-2">
+          <span className="text-4xl">🧸</span>
+          <span className="text-3xl font-fredoka font-bold bg-gradient-to-r from-brand-orange to-brand-purple bg-clip-text text-transparent">KidZone</span>
         </Link>
       </div>
       

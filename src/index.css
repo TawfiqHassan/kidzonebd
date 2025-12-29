@@ -2,101 +2,105 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* KidZone Design System - Playful Kids Toy Store Theme */
+/* All colors in HSL format */
 
 @layer base {
   :root {
-    --background: 220 20% 97%;
-    --foreground: 222.2 84% 4.9%;
+    /* Light playful theme for kids */
+    --background: 45 100% 98%;
+    --foreground: 260 30% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 260 30% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 260 30% 20%;
 
-    --primary: 45 100% 50%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    /* Vibrant orange-red for primary (playful & energetic) */
+    --primary: 15 95% 55%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Soft lavender for secondary */
+    --secondary: 270 50% 95%;
+    --secondary-foreground: 260 30% 20%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Light pastel for muted */
+    --muted: 45 40% 96%;
+    --muted-foreground: 260 20% 50%;
 
-    --accent: 45 100% 50%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Bright teal accent */
+    --accent: 175 70% 45%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 45 100% 50%;
+    --border: 260 20% 90%;
+    --input: 260 20% 90%;
+    --ring: 15 95% 55%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
 
-    /* TiqBud brand colors */
-    --brand-gold: 45 100% 50%;
-    --brand-gold-dark: 40 100% 45%;
-    --brand-dark: 220 25% 10%;
-    --brand-slate: 215 20% 65%;
+    /* KidZone brand colors - playful palette */
+    --brand-orange: 15 95% 55%;
+    --brand-orange-dark: 15 95% 45%;
+    --brand-purple: 270 60% 60%;
+    --brand-teal: 175 70% 45%;
+    --brand-yellow: 45 100% 60%;
+    --brand-pink: 330 80% 65%;
+    --brand-green: 145 60% 50%;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 45 100% 50%;
+    /* Sidebar light theme */
+    --sidebar-background: 270 50% 98%;
+    --sidebar-foreground: 260 30% 20%;
+    --sidebar-primary: 15 95% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 270 50% 95%;
+    --sidebar-accent-foreground: 260 30% 20%;
+    --sidebar-border: 260 20% 90%;
+    --sidebar-ring: 15 95% 55%;
   }
 
   .dark {
-    --background: 220 25% 8%;
-    --foreground: 210 40% 98%;
+    /* Dark mode fallback - still playful */
+    --background: 260 30% 12%;
+    --foreground: 45 100% 98%;
 
-    --card: 220 25% 12%;
-    --card-foreground: 210 40% 98%;
+    --card: 260 30% 16%;
+    --card-foreground: 45 100% 98%;
 
-    --popover: 220 25% 12%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 260 30% 16%;
+    --popover-foreground: 45 100% 98%;
 
-    --primary: 45 100% 50%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 15 95% 55%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 260 30% 22%;
+    --secondary-foreground: 45 100% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 260 30% 22%;
+    --muted-foreground: 260 20% 65%;
 
-    --accent: 45 100% 50%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 175 70% 45%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 45 100% 50%;
+    --border: 260 30% 25%;
+    --input: 260 30% 25%;
+    --ring: 15 95% 55%;
 
-    /* TiqBud brand colors - dark mode */
-    --brand-gold: 45 100% 50%;
-    --brand-gold-dark: 40 100% 45%;
-    --brand-dark: 220 25% 6%;
-    --brand-slate: 215 20% 65%;
-
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 45 100% 50%;
+    /* Dark sidebar */
+    --sidebar-background: 260 30% 10%;
+    --sidebar-foreground: 45 100% 98%;
+    --sidebar-primary: 15 95% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 45 100% 50%;
+    --sidebar-accent: 260 30% 18%;
+    --sidebar-accent-foreground: 45 100% 98%;
+    --sidebar-border: 260 30% 20%;
+    --sidebar-ring: 15 95% 55%;
   }
 }
 
@@ -107,5 +111,9 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Nunito', 'Comic Sans MS', cursive, sans-serif;
   }
 }
+
+/* Import playful Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka:wght@400;500;600;700&display=swap');

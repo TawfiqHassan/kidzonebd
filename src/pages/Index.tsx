@@ -11,7 +11,7 @@ import { CartProvider } from '@/context/CartContext';
 const Index = () => {
   return (
     <CartProvider>
-      <div className="min-h-screen bg-background dark">
+      <div className="min-h-screen bg-background font-nunito">
         {/* Header with navigation and cart */}
         <Header />
         
