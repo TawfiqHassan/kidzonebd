@@ -81,19 +81,19 @@ const Footer = () => {
                 <div className="p-2 bg-brand-teal/20 rounded-full">
                   <MapPin className="w-4 h-4 text-brand-teal" />
                 </div>
-                <span>{footer?.address || '123 Toy Street, Fun City, FC 12345'}</span>
+                <span>{footer?.address || 'Dhanmondi, Dhaka, Bangladesh'}</span>
               </div>
               <div className="flex items-center gap-3 text-muted-foreground">
                 <div className="p-2 bg-brand-purple/20 rounded-full">
                   <Phone className="w-4 h-4 text-brand-purple" />
                 </div>
-                <span>{footer?.phone || '+1 (555) TOY-ZONE'}</span>
+                <span>{footer?.phone || '+880 1XXX-XXXXXX'}</span>
               </div>
               <div className="flex items-center gap-3 text-muted-foreground">
                 <div className="p-2 bg-brand-orange/20 rounded-full">
                   <Mail className="w-4 h-4 text-brand-orange" />
                 </div>
-                <span>{footer?.email || 'hello@kidzone.com'}</span>
+                <span>{footer?.email || 'hello@kidzone.com.bd'}</span>
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className="border-t-2 border-brand-yellow/30 mt-8 pt-6 text-center text-sm text-muted-foreground">
           <p className="flex items-center justify-center gap-1">
-            © 2024 KidZone. Made with <Heart className="w-4 h-4 text-brand-pink fill-current" /> for happy kids everywhere!
+            © 2025 KidZone. Made with <Heart className="w-4 h-4 text-brand-pink fill-current" /> for happy kids everywhere!
           </p>
         </div>
       </div>
