@@ -33,16 +33,18 @@ export const useNavbarSettings = () => {
         .select('value')
         .eq('key', 'navbar')
         .maybeSingle();
-      
+
       if (error) throw error;
-      
+
       if (data?.value) {
         const settings = data.value as unknown as NavbarSettings;
         return settings.menu_items || defaultMenuItems;
       }
-      
+
       return defaultMenuItems;
     },
-    staleTime: 1000 * 60 * 5, // Cache for 5 minutes
+    // Always be fresh so admin changes appear instantly
+    staleTime: 0,
+    refetchOnWindowFocus: true,
   });
 };

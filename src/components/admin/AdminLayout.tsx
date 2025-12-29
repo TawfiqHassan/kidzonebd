@@ -59,10 +59,10 @@ const AdminLayout: React.FC = () => {
     { path: '/admin/blog-posts', icon: FileText, label: 'Blog Posts' },
     { path: '/admin/reviews', icon: Star, label: 'Reviews' },
     { path: '/admin/site-content', icon: Layout, label: 'Site Content' },
-    { path: '/admin/navbar', icon: Menu, label: 'Navbar' },
+    { path: '/admin/navbar', icon: Menu, label: 'Store Navbar' },
+    { path: '/admin/design', icon: Palette, label: 'Store Design' },
+    { path: '/admin/settings', icon: Settings, label: 'Store Settings' },
     { path: '/admin/analytics', icon: BarChart3, label: 'Analytics & Reports' },
-    { path: '/admin/settings', icon: Settings, label: 'Settings' },
-    { path: '/admin/design', icon: Palette, label: 'Design' },
   ];
 
   const isActive = (path: string, exact?: boolean) => {

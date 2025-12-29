@@ -42,6 +42,11 @@
 
     --radius: 1rem;
 
+    /* Dynamic typography tokens (Admin > Design) */
+    --font-heading: 'Fredoka', 'Comic Sans MS', cursive, sans-serif;
+    --font-body: 'Nunito', 'Comic Sans MS', cursive, sans-serif;
+    --font-size-base: 16px;
+
     /* KidZone brand colors - playful palette */
     --brand-orange: 15 95% 55%;
     --brand-orange-dark: 15 95% 45%;

@@ -17,10 +17,14 @@ export default {
 				'2xl': '1400px'
 			}
 		},
-		extend: {
+			extend: {
 			fontFamily: {
-				'nunito': ['Nunito', 'Comic Sans MS', 'cursive', 'sans-serif'],
-				'fredoka': ['Fredoka', 'Comic Sans MS', 'cursive', 'sans-serif'],
+				// Legacy classes kept, but now dynamic (Admin > Design)
+				'nunito': ['var(--font-body)', 'Nunito', 'Comic Sans MS', 'cursive', 'sans-serif'],
+				'fredoka': ['var(--font-heading)', 'Fredoka', 'Comic Sans MS', 'cursive', 'sans-serif'],
+				// Semantic, dynamic fonts driven by Admin > Design (CSS variables)
+				'body': ['var(--font-body)', 'Nunito', 'Comic Sans MS', 'cursive', 'sans-serif'],
+				'heading': ['var(--font-heading)', 'Fredoka', 'Comic Sans MS', 'cursive', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
