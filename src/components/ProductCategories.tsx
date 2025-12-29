@@ -1,57 +1,63 @@
 import { Link } from 'react-router-dom';
-import { Keyboard, Mouse, Gamepad2, Headphones, Volume2, Smartphone } from 'lucide-react';
+import { Heart, Blocks, Puzzle, Swords, Palette, GraduationCap } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
 const ProductCategories = () => {
-  // Product categories with icons and details
+  // Product categories with icons and details - Kids toys theme
   const categories = [
     {
-      id: 'keyboards',
-      name: 'Keyboards',
-      icon: Keyboard,
-      description: 'Mechanical & Gaming',
-      productCount: '150+',
-      href: '/pc-accessories'
+      id: 'plush-toys',
+      name: 'Plush Toys',
+      icon: Heart,
+      description: 'Soft & Cuddly',
+      productCount: '50+',
+      href: '/pc-accessories',
+      color: 'text-brand-pink'
     },
     {
-      id: 'mice',
-      name: 'Gaming Mice',
-      icon: Mouse,
-      description: 'Precision Gaming',
-      productCount: '80+',
-      href: '/pc-accessories'
-    },
-    {
-      id: 'gamepads',
-      name: 'Gamepads',
-      icon: Gamepad2,
-      description: 'Controllers',
-      productCount: '45+',
-      href: '/pc-accessories'
-    },
-    {
-      id: 'headsets',
-      name: 'Headsets',
-      icon: Headphones,
-      description: 'Gaming & Professional',
-      productCount: '120+',
-      href: '/pc-accessories'
-    },
-    {
-      id: 'speakers',
-      name: 'Speakers',
-      icon: Volume2,
-      description: 'Desktop & Gaming',
+      id: 'building-blocks',
+      name: 'Building Blocks',
+      icon: Blocks,
+      description: 'Creative Building',
       productCount: '60+',
-      href: '/pc-accessories'
+      href: '/pc-accessories',
+      color: 'text-brand-orange'
     },
     {
-      id: 'mobile',
-      name: 'Mobile',
-      icon: Smartphone,
-      description: 'Chargers & Earbuds',
-      productCount: '200+',
-      href: '/mobile-accessories'
+      id: 'board-games',
+      name: 'Board Games',
+      icon: Puzzle,
+      description: 'Family Fun',
+      productCount: '40+',
+      href: '/pc-accessories',
+      color: 'text-brand-teal'
+    },
+    {
+      id: 'action-figures',
+      name: 'Action Figures',
+      icon: Swords,
+      description: 'Heroes & Adventures',
+      productCount: '45+',
+      href: '/pc-accessories',
+      color: 'text-brand-purple'
+    },
+    {
+      id: 'arts-crafts',
+      name: 'Arts & Crafts',
+      icon: Palette,
+      description: 'Creative Kits',
+      productCount: '35+',
+      href: '/mobile-accessories',
+      color: 'text-brand-yellow'
+    },
+    {
+      id: 'educational',
+      name: 'Educational',
+      icon: GraduationCap,
+      description: 'Learn & Play',
+      productCount: '55+',
+      href: '/mobile-accessories',
+      color: 'text-brand-green'
     }
   ];
 
@@ -60,11 +66,11 @@ const ProductCategories = () => {
       <div className="container mx-auto px-4">
         {/* Section header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-foreground mb-3">
-            Shop by Category
+          <h2 className="text-3xl font-fredoka font-bold text-foreground mb-3">
+            🎈 Shop by Category
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Explore our comprehensive collection of tech accessories
+            Discover amazing toys for every little adventurer!
           </p>
         </div>
 
@@ -75,15 +81,15 @@ const ProductCategories = () => {
             
             return (
               <Link key={category.id} to={category.href}>
-                <Card className="group bg-card border-border hover:border-brand-gold/50 transition-all duration-300 hover:shadow-lg cursor-pointer h-full">
+                <Card className="group bg-card border-2 border-brand-yellow/20 hover:border-brand-orange/50 transition-all duration-300 hover:shadow-xl cursor-pointer h-full rounded-2xl">
                   <CardContent className="p-5 text-center">
                     {/* Category icon */}
-                    <div className="w-14 h-14 mx-auto mb-3 rounded-xl bg-brand-gold/10 flex items-center justify-center group-hover:bg-brand-gold group-hover:scale-110 transition-all duration-300">
-                      <IconComponent className="w-7 h-7 text-brand-gold group-hover:text-brand-dark" />
+                    <div className={`w-16 h-16 mx-auto mb-3 rounded-2xl bg-secondary flex items-center justify-center group-hover:scale-110 transition-all duration-300`}>
+                      <IconComponent className={`w-8 h-8 ${category.color}`} />
                     </div>
 
                     {/* Category information */}
-                    <h3 className="font-semibold text-foreground mb-1 group-hover:text-brand-gold transition-colors">
+                    <h3 className="font-fredoka font-bold text-foreground mb-1 group-hover:text-brand-orange transition-colors">
                       {category.name}
                     </h3>
                     
@@ -91,7 +97,7 @@ const ProductCategories = () => {
                       {category.description}
                     </p>
                     
-                    <div className="text-brand-gold text-sm font-medium">
+                    <div className="text-brand-orange text-sm font-bold">
                       {category.productCount}
                     </div>
                   </CardContent>

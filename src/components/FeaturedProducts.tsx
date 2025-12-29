@@ -14,72 +14,72 @@ const FeaturedProducts = () => {
   const { isInWishlist, toggleWishlist } = useWishlist();
   const { addToComparison, isInComparison } = useProductComparison();
 
-  // Sample featured products data with BDT pricing
+  // Sample featured products data - Kids toys theme
   const featuredProducts: Product[] = [
     {
       id: '1',
-      name: 'TiqBud Pro Mechanical Keyboard',
-      price: 12999,
-      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop',
-      category: 'Keyboards',
-      description: 'Premium mechanical keyboard with RGB lighting and tactile switches',
+      name: 'Cuddles the Teddy Bear',
+      price: 24.99,
+      image: 'https://images.unsplash.com/photo-1559715745-e1b33a271c8f?w=400&h=300&fit=crop',
+      category: 'Plush Toys',
+      description: 'Super soft and cuddly brown teddy bear, perfect for hugs and bedtime snuggles!',
       inStock: true,
-      rating: 4.8,
+      rating: 4.9,
       reviews: 324
     },
     {
       id: '2',
-      name: 'Precision Gaming Mouse X1',
-      price: 6999,
-      image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=300&fit=crop',
-      category: 'Mice',
-      description: 'High-precision gaming mouse with customizable DPI settings',
+      name: 'Creative Block Set 200pcs',
+      price: 34.99,
+      image: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&h=300&fit=crop',
+      category: 'Building Blocks',
+      description: 'Colorful building blocks in various shapes. Develops creativity and motor skills!',
       inStock: true,
-      rating: 4.7,
+      rating: 4.8,
       reviews: 256
     },
     {
       id: '3',
-      name: 'UltraSound Pro Headset',
-      price: 15999,
-      image: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=300&fit=crop',
-      category: 'Headsets',
-      description: 'Premium gaming headset with 7.1 surround sound and noise cancellation',
+      name: 'Rainbow Unicorn Plush',
+      price: 29.99,
+      image: 'https://images.unsplash.com/photo-1563396983906-b3795482a59a?w=400&h=300&fit=crop',
+      category: 'Plush Toys',
+      description: 'Magical rainbow unicorn with sparkly horn and soft mane. Every child\'s dream!',
       inStock: true,
       rating: 4.9,
       reviews: 445
     },
     {
       id: '4',
-      name: 'Wireless Controller Pro',
-      price: 5499,
-      image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=300&fit=crop',
-      category: 'Gamepads',
-      description: 'Wireless gaming controller with haptic feedback and long battery life',
+      name: 'Superhero Action Set',
+      price: 34.99,
+      image: 'https://images.unsplash.com/photo-1608278047522-58806a6fd94a?w=400&h=300&fit=crop',
+      category: 'Action Figures',
+      description: 'Set of 5 superhero action figures with movable joints. Save the world!',
       inStock: true,
-      rating: 4.6,
+      rating: 4.7,
       reviews: 189
     },
     {
       id: '5',
-      name: 'SoundWave Desktop Speakers',
-      price: 9999,
-      image: 'https://images.unsplash.com/photo-1473091534298-04dcbce3278c?w=400&h=300&fit=crop',
-      category: 'Speakers',
-      description: 'High-quality desktop speakers with deep bass and crystal clear highs',
+      name: 'Ultimate Art Kit',
+      price: 39.99,
+      image: 'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=400&h=300&fit=crop',
+      category: 'Arts & Crafts',
+      description: 'Complete art set with crayons, markers, paints, and brushes. 150+ pieces!',
       inStock: true,
-      rating: 4.5,
+      rating: 4.8,
       reviews: 167
     },
     {
       id: '6',
-      name: '20000mAh Power Bank Pro',
-      price: 3999,
-      image: 'https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=400&h=300&fit=crop',
-      category: 'Mobile',
-      description: '65W fast charging power bank with LED display',
+      name: 'STEM Science Lab',
+      price: 44.99,
+      image: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=400&h=300&fit=crop',
+      category: 'Educational',
+      description: 'Exciting science experiments kit with 20+ experiments. Ages 6+.',
       inStock: true,
-      rating: 4.8,
+      rating: 4.9,
       reviews: 89
     }
   ];
@@ -97,9 +97,9 @@ const FeaturedProducts = () => {
         key={i}
         className={`w-4 h-4 ${
           i < Math.floor(rating)
-            ? 'fill-brand-gold text-brand-gold'
+            ? 'fill-brand-yellow text-brand-yellow'
             : i < rating
-            ? 'fill-brand-gold/50 text-brand-gold'
+            ? 'fill-brand-yellow/50 text-brand-yellow'
             : 'text-muted-foreground'
         }`}
       />
@@ -107,15 +107,15 @@ const FeaturedProducts = () => {
   };
 
   return (
-    <section className="py-16 bg-secondary/30">
+    <section className="py-16 bg-gradient-to-b from-brand-purple/5 to-brand-teal/5">
       <div className="container mx-auto px-4">
         {/* Section header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-foreground mb-3">
-            Featured Products
+          <h2 className="text-3xl font-fredoka font-bold text-foreground mb-3">
+            ⭐ Featured Toys
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover our most popular and highest-rated tech accessories
+            Discover our most popular and highest-rated toys for kids!
           </p>
         </div>
 
@@ -124,7 +124,7 @@ const FeaturedProducts = () => {
           {featuredProducts.map((product) => (
             <Card 
               key={product.id}
-              className="group bg-card border-border hover:border-brand-gold/50 transition-all duration-300 hover:shadow-xl overflow-hidden"
+              className="group bg-card border-2 border-brand-yellow/20 hover:border-brand-orange/50 transition-all duration-300 hover:shadow-xl overflow-hidden rounded-2xl"
             >
               <div className="relative">
                 {/* Product image */}
@@ -140,11 +140,11 @@ const FeaturedProducts = () => {
 
                 {/* Product badges */}
                 <div className="absolute top-4 left-4 flex flex-col gap-2">
-                  <Badge className="bg-brand-gold text-brand-dark hover:bg-brand-gold-dark">
+                  <Badge className="bg-brand-purple text-white hover:bg-brand-purple/90 rounded-full">
                     {product.category}
                   </Badge>
                   {!product.inStock && (
-                    <Badge variant="destructive">
+                    <Badge variant="destructive" className="rounded-full">
                       Out of Stock
                     </Badge>
                   )}
@@ -156,12 +156,12 @@ const FeaturedProducts = () => {
                     size="sm"
                     variant="secondary"
                     onClick={() => toggleWishlist(product.id)}
-                    className="w-10 h-10 p-0"
+                    className="w-10 h-10 p-0 rounded-full"
                   >
                     <Heart 
                       className={`w-4 h-4 ${
                         isInWishlist(product.id) 
-                          ? 'fill-red-500 text-red-500' 
+                          ? 'fill-brand-pink text-brand-pink' 
                           : 'text-muted-foreground'
                       }`} 
                     />
@@ -171,15 +171,15 @@ const FeaturedProducts = () => {
                     variant="secondary"
                     onClick={() => addToComparison(product.id)}
                     disabled={isInComparison(product.id)}
-                    className="w-10 h-10 p-0"
+                    className="w-10 h-10 p-0 rounded-full"
                   >
-                    <GitCompare className={`w-4 h-4 ${isInComparison(product.id) ? 'text-brand-gold' : ''}`} />
+                    <GitCompare className={`w-4 h-4 ${isInComparison(product.id) ? 'text-brand-teal' : ''}`} />
                   </Button>
                   <Link to={`/product/${product.id}`}>
                     <Button
                       size="sm"
                       variant="secondary"
-                      className="w-10 h-10 p-0"
+                      className="w-10 h-10 p-0 rounded-full"
                     >
                       <Eye className="w-4 h-4" />
                     </Button>
@@ -192,7 +192,7 @@ const FeaturedProducts = () => {
                 <div className="space-y-3">
                   <div>
                     <Link to={`/product/${product.id}`}>
-                      <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-brand-gold transition-colors">
+                      <h3 className="text-lg font-fredoka font-bold text-foreground mb-1 group-hover:text-brand-orange transition-colors">
                         {product.name}
                       </h3>
                     </Link>
@@ -212,14 +212,14 @@ const FeaturedProducts = () => {
                   </div>
 
                   <div className="flex items-center justify-between pt-2">
-                    <div className="text-xl font-bold text-foreground">
-                      ৳{product.price.toLocaleString()}
+                    <div className="text-xl font-bold text-brand-orange">
+                      ${product.price.toLocaleString()}
                     </div>
                     <Button
                       onClick={() => handleAddToCart(product)}
                       disabled={!product.inStock}
                       size="sm"
-                      className="bg-brand-gold hover:bg-brand-gold-dark text-brand-dark disabled:opacity-50"
+                      className="bg-brand-orange hover:bg-brand-orange-dark text-white disabled:opacity-50 rounded-full"
                     >
                       <ShoppingCart className="w-4 h-4 mr-1" />
                       {product.inStock ? 'Add' : 'Out'}
@@ -235,10 +235,9 @@ const FeaturedProducts = () => {
           <Link to="/pc-accessories">
             <Button 
               size="lg"
-              variant="outline"
-              className="border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-brand-dark px-8"
+              className="bg-brand-purple hover:bg-brand-purple/90 text-white px-8 rounded-full font-bold"
             >
-              View All Products
+              🎁 View All Toys
             </Button>
           </Link>
         </div>
