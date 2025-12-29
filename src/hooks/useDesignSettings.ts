@@ -53,6 +53,9 @@ export const useDesignSettings = () => {
         root.style.setProperty('--primary', settings.colors.primary);
         root.style.setProperty('--ring', settings.colors.primary);
       }
+      if (settings.colors.primaryForeground) {
+        root.style.setProperty('--primary-foreground', settings.colors.primaryForeground);
+      }
       if (settings.colors.accent) {
         root.style.setProperty('--accent', settings.colors.accent);
       }
@@ -64,36 +67,23 @@ export const useDesignSettings = () => {
       }
     }
 
-    // Apply typography - directly set font-family on elements
+    // Apply typography (store as CSS variables; storefront scopes will consume them)
     if (settings.typography) {
       const headingFont = settings.typography.headingFont || 'Fredoka';
       const bodyFont = settings.typography.bodyFont || 'Nunito';
       const fontSize = settings.typography.baseFontSize || '16px';
 
-      // Set CSS variables
-      root.style.setProperty('--font-heading', `'${headingFont}', sans-serif`);
-      root.style.setProperty('--font-body', `'${bodyFont}', sans-serif`);
+      const quote = (name: string) => (name.includes(' ') ? `"${name}"` : name);
+
+      root.style.setProperty(
+        '--font-heading',
+        `${quote(headingFont)}, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif`
+      );
+      root.style.setProperty(
+        '--font-body',
+        `${quote(bodyFont)}, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif`
+      );
       root.style.setProperty('--font-size-base', fontSize);
-
-      // Directly apply to body
-      document.body.style.fontFamily = `'${bodyFont}', sans-serif`;
-      document.body.style.fontSize = fontSize;
-
-      // Apply heading font to all headings via style tag
-      let styleEl = document.getElementById('design-settings-styles');
-      if (!styleEl) {
-        styleEl = document.createElement('style');
-        styleEl.id = 'design-settings-styles';
-        document.head.appendChild(styleEl);
-      }
-      styleEl.textContent = `
-        h1, h2, h3, h4, h5, h6, .font-heading {
-          font-family: '${headingFont}', sans-serif !important;
-        }
-        body, p, span, div, input, textarea, button, a, li {
-          font-family: '${bodyFont}', sans-serif;
-        }
-      `;
     }
 
     // Apply branding
