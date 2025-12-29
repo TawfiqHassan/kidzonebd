@@ -838,7 +838,7 @@ const AdminProducts: React.FC = () => {
                 </Button>
                 <Button 
                   type="submit" 
-                  className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
                   disabled={createMutation.isPending || updateMutation.isPending}
                 >
                   {editingProduct ? 'Update' : 'Create'}
@@ -966,7 +966,7 @@ const AdminProducts: React.FC = () => {
               <Button 
                 onClick={handleBulkEdit}
                 disabled={bulkUpdateMutation.isPending}
-                className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground"
               >
                 Update Products
               </Button>
@@ -998,7 +998,7 @@ const AdminProducts: React.FC = () => {
             {isLoading ? (
               <TableRow>
                 <TableCell colSpan={7} className="text-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-gold mx-auto"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
                 </TableCell>
               </TableRow>
             ) : products && products.length > 0 ? (
@@ -1034,7 +1034,7 @@ const AdminProducts: React.FC = () => {
                   <TableCell>{product.category?.name || '-'}</TableCell>
                   <TableCell>
                     <div>
-                      <p className="font-medium text-brand-gold">{formatPrice(Number(product.price))}</p>
+                      <p className="font-medium text-primary">{formatPrice(Number(product.price))}</p>
                       {product.original_price && (
                         <p className="text-xs text-muted-foreground line-through">
                           {formatPrice(Number(product.original_price))}
@@ -1057,7 +1057,7 @@ const AdminProducts: React.FC = () => {
                         {product.is_active ? 'Active' : 'Inactive'}
                       </span>
                       {product.is_featured && (
-                        <span className="text-xs px-2 py-1 rounded-full bg-brand-gold/20 text-brand-gold w-fit">
+                        <span className="text-xs px-2 py-1 rounded-full bg-primary/20 text-primary w-fit">
                           Featured
                         </span>
                       )}

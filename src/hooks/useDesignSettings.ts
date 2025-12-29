@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 
 interface DesignSettings {
@@ -9,8 +9,6 @@ interface DesignSettings {
     accent: string;
     background: string;
     foreground: string;
-    brandGold: string;
-    brandGoldDark: string;
   };
   typography: {
     headingFont: string;
@@ -25,7 +23,9 @@ interface DesignSettings {
 }
 
 export const useDesignSettings = () => {
-  const { data: settings } = useQuery({
+  const queryClient = useQueryClient();
+  
+  const { data: settings, refetch } = useQuery({
     queryKey: ['design-settings'],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -37,7 +37,8 @@ export const useDesignSettings = () => {
       if (error && error.code !== 'PGRST116') throw error;
       return data?.value as unknown as DesignSettings | null;
     },
-    staleTime: 1000 * 60 * 5, // Cache for 5 minutes
+    staleTime: 0, // Always refetch
+    refetchOnWindowFocus: true,
   });
 
   // Apply design settings to CSS variables
@@ -50,7 +51,7 @@ export const useDesignSettings = () => {
     if (settings.colors) {
       if (settings.colors.primary) {
         root.style.setProperty('--primary', settings.colors.primary);
-        root.style.setProperty('--brand-orange', settings.colors.primary);
+        root.style.setProperty('--ring', settings.colors.primary);
       }
       if (settings.colors.accent) {
         root.style.setProperty('--accent', settings.colors.accent);
@@ -63,18 +64,36 @@ export const useDesignSettings = () => {
       }
     }
 
-    // Apply typography
+    // Apply typography - directly set font-family on elements
     if (settings.typography) {
-      if (settings.typography.headingFont) {
-        root.style.setProperty('--font-heading', `'${settings.typography.headingFont}', sans-serif`);
+      const headingFont = settings.typography.headingFont || 'Fredoka';
+      const bodyFont = settings.typography.bodyFont || 'Nunito';
+      const fontSize = settings.typography.baseFontSize || '16px';
+
+      // Set CSS variables
+      root.style.setProperty('--font-heading', `'${headingFont}', sans-serif`);
+      root.style.setProperty('--font-body', `'${bodyFont}', sans-serif`);
+      root.style.setProperty('--font-size-base', fontSize);
+
+      // Directly apply to body
+      document.body.style.fontFamily = `'${bodyFont}', sans-serif`;
+      document.body.style.fontSize = fontSize;
+
+      // Apply heading font to all headings via style tag
+      let styleEl = document.getElementById('design-settings-styles');
+      if (!styleEl) {
+        styleEl = document.createElement('style');
+        styleEl.id = 'design-settings-styles';
+        document.head.appendChild(styleEl);
       }
-      if (settings.typography.bodyFont) {
-        root.style.setProperty('--font-body', `'${settings.typography.bodyFont}', sans-serif`);
-        document.body.style.fontFamily = `'${settings.typography.bodyFont}', sans-serif`;
-      }
-      if (settings.typography.baseFontSize) {
-        root.style.setProperty('--font-size-base', settings.typography.baseFontSize);
-      }
+      styleEl.textContent = `
+        h1, h2, h3, h4, h5, h6, .font-heading {
+          font-family: '${headingFont}', sans-serif !important;
+        }
+        body, p, span, div, input, textarea, button, a, li {
+          font-family: '${bodyFont}', sans-serif;
+        }
+      `;
     }
 
     // Apply branding
@@ -83,14 +102,17 @@ export const useDesignSettings = () => {
         document.title = settings.branding.siteName;
       }
       if (settings.branding.faviconUrl) {
-        const link = document.querySelector("link[rel*='icon']") as HTMLLinkElement || document.createElement('link');
+        let link = document.querySelector("link[rel*='icon']") as HTMLLinkElement;
+        if (!link) {
+          link = document.createElement('link');
+          link.rel = 'shortcut icon';
+          document.head.appendChild(link);
+        }
         link.type = 'image/x-icon';
-        link.rel = 'shortcut icon';
         link.href = settings.branding.faviconUrl;
-        document.head.appendChild(link);
       }
     }
   }, [settings]);
 
-  return settings;
+  return { settings, refetch };
 };

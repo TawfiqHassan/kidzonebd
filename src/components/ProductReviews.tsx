@@ -83,7 +83,7 @@ const ProductReviews = ({ productId }: ProductReviewsProps) => {
         onClick={() => interactive && onRatingChange && onRatingChange(i + 1)}
         className={`w-5 h-5 ${interactive ? 'cursor-pointer' : ''} ${
           i < rating
-            ? 'fill-brand-gold text-brand-gold'
+            ? 'fill-primary text-primary'
             : 'text-muted-foreground'
         }`}
       />
@@ -114,7 +114,7 @@ const ProductReviews = ({ productId }: ProductReviewsProps) => {
             {user && (
               <Button
                 onClick={() => setShowForm(!showForm)}
-                className="bg-brand-gold hover:bg-brand-gold-dark text-brand-dark"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground"
               >
                 Write a Review
               </Button>
@@ -155,7 +155,7 @@ const ProductReviews = ({ productId }: ProductReviewsProps) => {
                 <Button
                   onClick={() => submitReviewMutation.mutate()}
                   disabled={submitReviewMutation.isPending}
-                  className="bg-brand-gold hover:bg-brand-gold-dark text-brand-dark"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
                 >
                   {submitReviewMutation.isPending ? 'Submitting...' : 'Submit Review'}
                 </Button>
@@ -174,7 +174,7 @@ const ProductReviews = ({ productId }: ProductReviewsProps) => {
       {/* Reviews List */}
       {isLoading ? (
         <div className="flex justify-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-gold"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
         </div>
       ) : reviews && reviews.length > 0 ? (
         <div className="space-y-4">

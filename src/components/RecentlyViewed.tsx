@@ -32,7 +32,7 @@ const RecentlyViewed: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
-            <Clock className="h-5 w-5 text-brand-gold" />
+            <Clock className="h-5 w-5 text-primary" />
             <h2 className="text-2xl font-bold">Recently Viewed</h2>
           </div>
           <Button variant="ghost" size="sm" onClick={() => clearHistory()}>
@@ -56,12 +56,12 @@ const RecentlyViewed: React.FC = () => {
               <CardContent className="p-3">
                 <Link 
                   to={`/product/${item.product_id}`}
-                  className="font-medium text-sm line-clamp-2 hover:text-brand-gold"
+                  className="font-medium text-sm line-clamp-2 hover:text-primary"
                 >
                   {item.product?.name}
                 </Link>
                 <div className="flex items-center justify-between mt-2">
-                  <span className="text-brand-gold font-bold">
+                  <span className="text-primary font-bold">
                     {formatPrice(item.product?.price || 0)}
                   </span>
                   <Button
