@@ -203,7 +203,7 @@ const Auth: React.FC = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-gold"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -457,7 +457,7 @@ const Auth: React.FC = () => {
                   
                   <Button 
                     type="submit" 
-                    className="w-full bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? 'Sending...' : 'Send Reset Link'}

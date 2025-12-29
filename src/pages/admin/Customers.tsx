@@ -292,7 +292,7 @@ const AdminCustomers: React.FC = () => {
             {isLoading ? (
               <TableRow>
                 <TableCell colSpan={9} className="text-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-gold mx-auto"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
                 </TableCell>
               </TableRow>
             ) : customers && customers.length > 0 ? (
@@ -324,7 +324,7 @@ const AdminCustomers: React.FC = () => {
                     </TableCell>
                     <TableCell>{formatDate(customer.created_at)}</TableCell>
                     <TableCell>{customer.orders_count}</TableCell>
-                    <TableCell className="font-medium text-brand-gold">
+                    <TableCell className="font-medium text-primary">
                       {formatPrice(customer.total_spent || 0)}
                     </TableCell>
                     <TableCell className="text-right">

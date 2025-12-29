@@ -397,7 +397,7 @@ const AdminOrders: React.FC = () => {
             {isLoading ? (
               <TableRow>
                 <TableCell colSpan={7} className="text-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-gold mx-auto"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
                 </TableCell>
               </TableRow>
             ) : orders && orders.length > 0 ? (
@@ -423,7 +423,7 @@ const AdminOrders: React.FC = () => {
                   <TableCell className="text-sm">
                     {formatDate(order.created_at)}
                   </TableCell>
-                  <TableCell className="font-medium text-brand-gold">
+                  <TableCell className="font-medium text-primary">
                     {formatPrice(Number(order.total))}
                   </TableCell>
                   <TableCell>
@@ -570,7 +570,7 @@ const AdminOrders: React.FC = () => {
                 )}
                 <div className="flex justify-between font-bold text-lg border-t pt-2">
                   <span>Total</span>
-                  <span className="text-brand-gold">{formatPrice(Number(selectedOrder.total))}</span>
+                  <span className="text-primary">{formatPrice(Number(selectedOrder.total))}</span>
                 </div>
               </div>
 

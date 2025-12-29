@@ -313,7 +313,7 @@ const ProductVariantsDialog: React.FC<ProductVariantsDialogProps> = ({
               <div className="flex gap-2">
                 <Button
                   type="submit"
-                  className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
                   disabled={createMutation.isPending || updateMutation.isPending}
                 >
                   {isEditing ? 'Update Variant' : 'Add Variant'}
@@ -332,7 +332,7 @@ const ProductVariantsDialog: React.FC<ProductVariantsDialogProps> = ({
             <h3 className="font-semibold mb-4">Existing Variants ({variants?.length || 0})</h3>
             {isLoading ? (
               <div className="flex justify-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-gold"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
               </div>
             ) : variants && variants.length > 0 ? (
               <div className="border rounded-lg overflow-hidden">
@@ -389,7 +389,7 @@ const ProductVariantsDialog: React.FC<ProductVariantsDialogProps> = ({
                         </TableCell>
                         <TableCell>
                           <div>
-                            <span className="font-medium text-brand-gold">
+                            <span className="font-medium text-primary">
                               {formatPrice(calculateFinalPrice(variant.price_adjustment))}
                             </span>
                             {variant.price_adjustment !== 0 && (

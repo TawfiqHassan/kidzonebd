@@ -38,7 +38,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-border">
           <div className="flex items-center space-x-2">
-            <ShoppingBag className="w-6 h-6 text-brand-gold" />
+            <ShoppingBag className="w-6 h-6 text-primary" />
             <h2 className="text-xl font-bold text-foreground">Shopping Cart</h2>
           </div>
           <Button
@@ -58,7 +58,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
               <ShoppingBag className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-foreground mb-2">Your cart is empty</h3>
               <p className="text-muted-foreground mb-6">Add some products to get started</p>
-              <Button onClick={onClose} className="bg-brand-gold hover:bg-brand-gold-dark text-brand-dark">
+              <Button onClick={onClose} className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 Continue Shopping
               </Button>
             </div>
@@ -77,7 +77,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                       <h4 className="font-semibold text-foreground truncate text-sm">
                         {item.name}
                       </h4>
-                      <p className="text-base font-bold text-brand-gold">
+                      <p className="text-base font-bold text-primary">
                         ৳{item.price.toLocaleString()}
                       </p>
                     </div>
@@ -141,12 +141,12 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
           <div className="border-t border-border p-6 space-y-4 bg-card">
             <div className="flex items-center justify-between text-xl font-bold text-foreground">
               <span>Total:</span>
-              <span className="text-brand-gold">৳{getTotalPrice().toLocaleString()}</span>
+              <span className="text-primary">৳{getTotalPrice().toLocaleString()}</span>
             </div>
 
             <Button
               onClick={handleCheckout}
-              className="w-full bg-brand-gold hover:bg-brand-gold-dark text-brand-dark font-semibold py-3"
+              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3"
             >
               Proceed to Checkout
             </Button>

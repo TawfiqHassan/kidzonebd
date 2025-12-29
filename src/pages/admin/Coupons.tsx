@@ -183,7 +183,7 @@ const AdminCoupons: React.FC = () => {
         </div>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button onClick={resetForm} className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark">
+            <Button onClick={resetForm} className="bg-primary hover:bg-primary/90 text-primary-foreground">
               <Plus className="h-4 w-4 mr-2" />
               Create Coupon
             </Button>
@@ -273,7 +273,7 @@ const AdminCoupons: React.FC = () => {
               </div>
               <div className="flex gap-2 justify-end">
                 <Button type="button" variant="outline" onClick={resetForm}>Cancel</Button>
-                <Button type="submit" className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark">
+                <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                   {editingCoupon ? 'Update' : 'Create'}
                 </Button>
               </div>
