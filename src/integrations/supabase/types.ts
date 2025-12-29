@@ -853,18 +853,21 @@ export type Database = {
       site_settings: {
         Row: {
           id: string
+          is_public: boolean | null
           key: string
           updated_at: string
           value: Json | null
         }
         Insert: {
           id?: string
+          is_public?: boolean | null
           key: string
           updated_at?: string
           value?: Json | null
         }
         Update: {
           id?: string
+          is_public?: boolean | null
           key?: string
           updated_at?: string
           value?: Json | null
