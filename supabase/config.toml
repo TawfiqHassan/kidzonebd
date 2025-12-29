@@ -1,7 +1,1 @@
-project_id = "hjoihbjeiisnitxbrter"
-
-[functions.scrape-product-url]
-verify_jwt = true
-
-[functions.supplier-api]
-verify_jwt = true
+project_id = "vvklvjxfbjdgsnmubrhh"
