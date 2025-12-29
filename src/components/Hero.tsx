@@ -92,7 +92,7 @@ const Hero = () => {
                 {/* Floating product cards */}
                 <div className="absolute -top-4 -left-4 bg-brand-purple text-white p-4 rounded-2xl shadow-lg transform rotate-3">
                   <div className="text-sm font-bold">🧸 Plush Toys</div>
-                  <div className="text-xs font-semibold">From $9.99</div>
+                  <div className="text-xs font-semibold">From ৳999</div>
                 </div>
                 
                 <div className="absolute -bottom-4 -right-4 bg-brand-teal text-white p-4 rounded-2xl shadow-lg transform -rotate-3">

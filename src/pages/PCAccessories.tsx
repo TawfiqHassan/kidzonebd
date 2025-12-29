@@ -179,7 +179,7 @@ const PCAccessoriesContent = () => {
         key={i}
         className={`w-4 h-4 ${
           i < Math.floor(rating)
-            ? 'fill-brand-gold text-brand-gold'
+            ? 'fill-brand-yellow text-brand-yellow'
             : 'text-muted-foreground'
         }`}
       />
@@ -196,13 +196,13 @@ const PCAccessoriesContent = () => {
       <Header />
       
       {/* Page Header */}
-      <div className="bg-card border-b border-border py-12">
+      <div className="bg-gradient-to-r from-brand-purple/10 via-card to-brand-teal/10 border-b-4 border-brand-yellow py-12">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold text-foreground mb-2">
-            PC Accessories
+          <h1 className="text-4xl font-fredoka font-bold text-foreground mb-2">
+            🧸 All Toys
           </h1>
           <p className="text-muted-foreground text-lg">
-            Premium keyboards, mice, headsets, gamepads, and speakers for your setup
+            Discover amazing toys, games, and fun for kids of all ages!
           </p>
         </div>
       </div>
@@ -220,14 +220,14 @@ const PCAccessoriesContent = () => {
               <div className="space-y-2">
                 <button
                   onClick={() => setActiveCategory('all')}
-                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${
+                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-colors ${
                     activeCategory === 'all'
-                      ? 'bg-brand-gold/10 text-brand-gold'
+                      ? 'bg-brand-orange/10 text-brand-orange font-bold'
                       : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
                   }`}
                 >
                   <Grid className="w-4 h-4" />
-                  All Products
+                  All Toys
                 </button>
                 {subcategories.map((cat) => {
                   const IconComponent = getIcon(cat.slug);
@@ -235,9 +235,9 @@ const PCAccessoriesContent = () => {
                     <button
                       key={cat.id}
                       onClick={() => setActiveCategory(cat.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${
+                      className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-colors ${
                         activeCategory === cat.id
-                          ? 'bg-brand-gold/10 text-brand-gold'
+                          ? 'bg-brand-orange/10 text-brand-orange font-bold'
                           : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
                       }`}
                     >
@@ -281,18 +281,18 @@ const PCAccessoriesContent = () => {
             {/* Products Grid */}
             {productsLoading ? (
               <div className="flex items-center justify-center py-12">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-gold"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-orange"></div>
               </div>
             ) : sortedProducts.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-muted-foreground">No products found in this category.</p>
+                <p className="text-muted-foreground text-lg">🧸 No toys found in this category yet!</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {sortedProducts.map((product) => (
                   <Card 
                     key={product.id}
-                    className="group bg-card border-border hover:border-brand-gold/50 transition-all duration-300 overflow-hidden"
+                    className="group bg-card border-2 border-brand-yellow/20 hover:border-brand-orange/50 transition-all duration-300 overflow-hidden rounded-2xl"
                   >
                     <div className="relative">
                       <Link to={`/product/${product.id}`}>
@@ -341,7 +341,7 @@ const PCAccessoriesContent = () => {
 
                     <CardContent className="p-4">
                       <Link to={`/product/${product.id}`}>
-                        <h3 className="font-semibold text-foreground mb-1 group-hover:text-brand-gold transition-colors line-clamp-1">
+                        <h3 className="font-fredoka font-bold text-foreground mb-1 group-hover:text-brand-orange transition-colors line-clamp-1">
                           {product.name}
                         </h3>
                       </Link>
@@ -371,7 +371,7 @@ const PCAccessoriesContent = () => {
                           onClick={() => handleAddToCart(product)}
                           disabled={!product.inStock}
                           size="sm"
-                          className="bg-brand-gold hover:bg-brand-gold-dark text-brand-dark"
+                          className="bg-brand-orange hover:bg-brand-orange-dark text-white rounded-full"
                         >
                           <ShoppingCart className="w-4 h-4 mr-1" />
                           Add
