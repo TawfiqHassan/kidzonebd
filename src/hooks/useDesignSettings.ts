@@ -26,7 +26,7 @@ interface DesignSettings {
 
 export const useDesignSettings = () => {
   const { data: settings } = useQuery({
-    queryKey: ['design-settings-global'],
+    queryKey: ['design-settings'],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('site_settings')

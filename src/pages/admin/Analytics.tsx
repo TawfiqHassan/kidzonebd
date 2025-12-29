@@ -174,10 +174,10 @@ const AdminAnalytics: React.FC = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <DollarSign className="h-4 w-4 text-brand-gold" />
+            <DollarSign className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-brand-gold">
+            <div className="text-2xl font-bold text-primary">
               {formatPrice(stats?.totalRevenue || 0)}
             </div>
             <div className="flex items-center text-xs mt-1">

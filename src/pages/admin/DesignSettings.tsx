@@ -150,7 +150,8 @@ const AdminDesignSettings: React.FC = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['design-settings'] });
-      toast.success('Design settings saved successfully');
+      queryClient.invalidateQueries({ queryKey: ['site-settings'] });
+      toast.success('Design settings saved! Changes applied site-wide.');
       setPreviewMode(false);
     },
     onError: (error: Error) => {
@@ -241,7 +242,7 @@ const AdminDesignSettings: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-gold"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -261,7 +262,7 @@ const AdminDesignSettings: React.FC = () => {
           <Button 
             onClick={() => saveMutation.mutate()}
             disabled={saveMutation.isPending}
-            className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground"
           >
             <Save className="h-4 w-4 mr-2" />
             {saveMutation.isPending ? 'Saving...' : 'Save Changes'}

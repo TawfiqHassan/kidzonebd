@@ -235,7 +235,7 @@ const AdminFlashSales: React.FC = () => {
               </div>
               <div className="flex justify-end gap-2">
                 <Button type="button" variant="outline" onClick={resetForm}>Cancel</Button>
-                <Button type="submit" className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark">
+                <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                   {editingSale ? 'Update' : 'Create'}
                 </Button>
               </div>

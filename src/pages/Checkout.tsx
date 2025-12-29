@@ -237,7 +237,7 @@ const CheckoutContent = () => {
         <Header />
         <div className="container mx-auto px-4 py-16 text-center">
           <h1 className="text-2xl font-bold text-foreground mb-4">Your cart is empty</h1>
-          <Button onClick={() => navigate('/')} className="bg-brand-gold hover:bg-brand-gold-dark text-brand-dark">
+          <Button onClick={() => navigate('/')} className="bg-primary hover:bg-primary/90 text-primary-foreground">
             Continue Shopping
           </Button>
         </div>
@@ -269,7 +269,7 @@ const CheckoutContent = () => {
               {/* Contact Information */}
               <div className="bg-card rounded-lg border border-border p-6">
                 <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-brand-gold" />
+                  <MapPin className="w-5 h-5 text-primary" />
                   Contact Information
                 </h2>
                 <div className="grid md:grid-cols-2 gap-4">
@@ -314,7 +314,7 @@ const CheckoutContent = () => {
               {/* Shipping Address */}
               <div className="bg-card rounded-lg border border-border p-6">
                 <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
-                  <Truck className="w-5 h-5 text-brand-gold" />
+                  <Truck className="w-5 h-5 text-primary" />
                   Shipping Address
                 </h2>
                 <div className="space-y-4">
@@ -369,7 +369,7 @@ const CheckoutContent = () => {
               {/* Coupon Code */}
               <div className="bg-card rounded-lg border border-border p-6">
                 <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
-                  <Tag className="w-5 h-5 text-brand-gold" />
+                  <Tag className="w-5 h-5 text-primary" />
                   Coupon Code
                 </h2>
                 {appliedCoupon ? (
@@ -418,7 +418,7 @@ const CheckoutContent = () => {
               {/* Payment Method */}
               <div className="bg-card rounded-lg border border-border p-6">
                 <h2 className="text-xl font-semibold text-foreground mb-4 flex items-center gap-2">
-                  <CreditCard className="w-5 h-5 text-brand-gold" />
+                  <CreditCard className="w-5 h-5 text-primary" />
                   Payment Method
                 </h2>
                 <RadioGroup
@@ -426,28 +426,28 @@ const CheckoutContent = () => {
                   onValueChange={(value) => setFormData(prev => ({ ...prev, paymentMethod: value }))}
                   className="space-y-3"
                 >
-                  <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-brand-gold/50 transition-colors">
+                  <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-primary/50 transition-colors">
                     <RadioGroupItem value="cod" id="cod" />
                     <Label htmlFor="cod" className="flex-1 cursor-pointer">
                       <span className="font-medium">Cash on Delivery</span>
                       <p className="text-sm text-muted-foreground">Pay when you receive your order</p>
                     </Label>
                   </div>
-                  <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-brand-gold/50 transition-colors">
+                  <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-primary/50 transition-colors">
                     <RadioGroupItem value="bkash" id="bkash" />
                     <Label htmlFor="bkash" className="flex-1 cursor-pointer">
                       <span className="font-medium">bKash</span>
                       <p className="text-sm text-muted-foreground">Pay via bKash mobile banking</p>
                     </Label>
                   </div>
-                  <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-brand-gold/50 transition-colors">
+                  <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-primary/50 transition-colors">
                     <RadioGroupItem value="nagad" id="nagad" />
                     <Label htmlFor="nagad" className="flex-1 cursor-pointer">
                       <span className="font-medium">Nagad</span>
                       <p className="text-sm text-muted-foreground">Pay via Nagad mobile banking</p>
                     </Label>
                   </div>
-                  <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-brand-gold/50 transition-colors bg-gradient-to-r from-green-500/5 to-blue-500/5">
+                  <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-primary/50 transition-colors bg-gradient-to-r from-green-500/5 to-blue-500/5">
                     <RadioGroupItem value="sslcommerz" id="sslcommerz" />
                     <Label htmlFor="sslcommerz" className="flex-1 cursor-pointer">
                       <span className="font-medium">SSLCommerz</span>
@@ -480,7 +480,7 @@ const CheckoutContent = () => {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-brand-gold hover:bg-brand-gold-dark text-brand-dark font-semibold py-6 text-lg"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-6 text-lg"
               >
                 {isSubmitting ? 'Placing Order...' : `Place Order - ৳${total.toLocaleString()}`}
               </Button>
@@ -533,7 +533,7 @@ const CheckoutContent = () => {
                 )}
                 <div className="flex justify-between text-lg font-bold text-foreground pt-2 border-t border-border">
                   <span>Total</span>
-                  <span className="text-brand-gold">৳{total.toLocaleString()}</span>
+                  <span className="text-primary">৳{total.toLocaleString()}</span>
                 </div>
               </div>
             </div>
