@@ -121,8 +121,8 @@ const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
               className={cn(
                 "shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all",
                 selectedIndex === index
-                  ? "border-brand-gold ring-2 ring-brand-gold/20"
-                  : "border-border hover:border-brand-gold/50"
+                  ? "border-primary ring-2 ring-primary/20"
+                  : "border-border hover:border-primary/50"
               )}
             >
               <img

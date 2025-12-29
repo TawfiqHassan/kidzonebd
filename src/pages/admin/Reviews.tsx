@@ -162,7 +162,7 @@ const AdminReviews: React.FC = () => {
           key={star}
           onClick={() => interactive && onRatingChange && onRatingChange(star)}
           className={`h-4 w-4 ${interactive ? 'cursor-pointer' : ''} ${
-            star <= rating ? 'fill-brand-gold text-brand-gold' : 'text-muted'
+            star <= rating ? 'fill-primary text-primary' : 'text-muted'
           }`}
         />
       ))}
@@ -172,7 +172,7 @@ const AdminReviews: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-gold"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -224,7 +224,7 @@ const AdminReviews: React.FC = () => {
               </Button>
               <Button 
                 type="submit" 
-                className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground"
                 disabled={updateMutation.isPending}
               >
                 {updateMutation.isPending ? 'Saving...' : 'Save Changes'}

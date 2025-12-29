@@ -175,7 +175,7 @@ const MobileAccessoriesContent = () => {
         key={i}
         className={`w-4 h-4 ${
           i < Math.floor(rating)
-            ? 'fill-brand-gold text-brand-gold'
+            ? 'fill-primary text-primary'
             : 'text-muted-foreground'
         }`}
       />
@@ -188,7 +188,7 @@ const MobileAccessoriesContent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background dark">
+    <div className="min-h-screen bg-background">
       <Header />
       
       {/* Page Header */}
@@ -216,7 +216,7 @@ const MobileAccessoriesContent = () => {
                   onClick={() => setActiveCategory('all')}
                   className={`w-full flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${
                     activeCategory === 'all'
-                      ? 'bg-brand-gold/10 text-brand-gold'
+                      ? 'bg-primary/10 text-primary'
                       : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
                   }`}
                 >
@@ -231,7 +231,7 @@ const MobileAccessoriesContent = () => {
                       onClick={() => setActiveCategory(cat.id)}
                       className={`w-full flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${
                         activeCategory === cat.id
-                          ? 'bg-brand-gold/10 text-brand-gold'
+                          ? 'bg-primary/10 text-primary'
                           : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
                       }`}
                     >
@@ -275,7 +275,7 @@ const MobileAccessoriesContent = () => {
             {/* Products Grid */}
             {productsLoading ? (
               <div className="flex items-center justify-center py-12">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-gold"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
               </div>
             ) : sortedProducts.length === 0 ? (
               <div className="text-center py-12">
@@ -286,7 +286,7 @@ const MobileAccessoriesContent = () => {
                 {sortedProducts.map((product) => (
                   <Card 
                     key={product.id}
-                    className="group bg-card border-border hover:border-brand-gold/50 transition-all duration-300 overflow-hidden"
+                    className="group bg-card border-border hover:border-primary/50 transition-all duration-300 overflow-hidden"
                   >
                     <div className="relative">
                       <Link to={`/product/${product.id}`}>
@@ -335,7 +335,7 @@ const MobileAccessoriesContent = () => {
 
                     <CardContent className="p-4">
                       <Link to={`/product/${product.id}`}>
-                        <h3 className="font-semibold text-foreground mb-1 group-hover:text-brand-gold transition-colors line-clamp-1">
+                        <h3 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-1">
                           {product.name}
                         </h3>
                       </Link>
@@ -365,7 +365,7 @@ const MobileAccessoriesContent = () => {
                           onClick={() => handleAddToCart(product)}
                           disabled={!product.inStock}
                           size="sm"
-                          className="bg-brand-gold hover:bg-brand-gold-dark text-brand-dark"
+                          className="bg-primary hover:bg-primary/90 text-primary-foreground"
                         >
                           <ShoppingCart className="w-4 h-4 mr-1" />
                           Add

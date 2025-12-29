@@ -60,9 +60,9 @@ const AdminLayout: React.FC = () => {
     { path: '/admin/reviews', icon: Star, label: 'Reviews' },
     { path: '/admin/site-content', icon: Layout, label: 'Site Content' },
     { path: '/admin/navbar', icon: Menu, label: 'Navbar' },
-    { path: '/admin/design', icon: Palette, label: 'Design Settings' },
     { path: '/admin/analytics', icon: BarChart3, label: 'Analytics & Reports' },
     { path: '/admin/settings', icon: Settings, label: 'Settings' },
+    { path: '/admin/design', icon: Palette, label: 'Design' },
   ];
 
   const isActive = (path: string, exact?: boolean) => {
@@ -135,8 +135,8 @@ const AdminLayout: React.FC = () => {
                   onClick={() => setIsMobileSidebarOpen(false)}
                   className={`
                     flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors
-                    ${isActive(item.path, item.exact) 
-                      ? 'bg-brand-gold text-brand-dark' 
+                  ${isActive(item.path, item.exact) 
+                    ? 'bg-primary text-primary-foreground'
                       : 'hover:bg-muted text-muted-foreground hover:text-foreground'}
                   `}
                 >

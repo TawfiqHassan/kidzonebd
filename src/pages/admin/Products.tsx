@@ -675,7 +675,7 @@ const AdminProducts: React.FC = () => {
                       {/* Import Button */}
                       <Button 
                         onClick={handleBulkImport}
-                        className="w-full bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                         disabled={isImporting}
                       >
                         {isImporting ? 'Importing...' : `Import ${bulkImportData.length} Products`}
@@ -693,7 +693,7 @@ const AdminProducts: React.FC = () => {
             if (!open) resetForm();
           }}>
             <DialogTrigger asChild>
-              <Button className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark">
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 <Plus className="h-4 w-4 mr-2" />
                 Add Product
               </Button>
