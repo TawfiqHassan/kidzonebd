@@ -14,12 +14,12 @@ const FeaturedProducts = () => {
   const { isInWishlist, toggleWishlist } = useWishlist();
   const { addToComparison, isInComparison } = useProductComparison();
 
-  // Sample featured products data - Kids toys theme
+  // Sample featured products data - Kids toys theme (BDT pricing)
   const featuredProducts: Product[] = [
     {
       id: '1',
       name: 'Cuddles the Teddy Bear',
-      price: 24.99,
+      price: 1499,
       image: 'https://images.unsplash.com/photo-1559715745-e1b33a271c8f?w=400&h=300&fit=crop',
       category: 'Plush Toys',
       description: 'Super soft and cuddly brown teddy bear, perfect for hugs and bedtime snuggles!',
@@ -30,7 +30,7 @@ const FeaturedProducts = () => {
     {
       id: '2',
       name: 'Creative Block Set 200pcs',
-      price: 34.99,
+      price: 2499,
       image: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&h=300&fit=crop',
       category: 'Building Blocks',
       description: 'Colorful building blocks in various shapes. Develops creativity and motor skills!',
@@ -41,7 +41,7 @@ const FeaturedProducts = () => {
     {
       id: '3',
       name: 'Rainbow Unicorn Plush',
-      price: 29.99,
+      price: 1799,
       image: 'https://images.unsplash.com/photo-1563396983906-b3795482a59a?w=400&h=300&fit=crop',
       category: 'Plush Toys',
       description: 'Magical rainbow unicorn with sparkly horn and soft mane. Every child\'s dream!',
@@ -52,7 +52,7 @@ const FeaturedProducts = () => {
     {
       id: '4',
       name: 'Superhero Action Set',
-      price: 34.99,
+      price: 2199,
       image: 'https://images.unsplash.com/photo-1608278047522-58806a6fd94a?w=400&h=300&fit=crop',
       category: 'Action Figures',
       description: 'Set of 5 superhero action figures with movable joints. Save the world!',
@@ -63,7 +63,7 @@ const FeaturedProducts = () => {
     {
       id: '5',
       name: 'Ultimate Art Kit',
-      price: 39.99,
+      price: 2999,
       image: 'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=400&h=300&fit=crop',
       category: 'Arts & Crafts',
       description: 'Complete art set with crayons, markers, paints, and brushes. 150+ pieces!',
@@ -74,7 +74,7 @@ const FeaturedProducts = () => {
     {
       id: '6',
       name: 'STEM Science Lab',
-      price: 44.99,
+      price: 3499,
       image: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=400&h=300&fit=crop',
       category: 'Educational',
       description: 'Exciting science experiments kit with 20+ experiments. Ages 6+.',
@@ -213,7 +213,7 @@ const FeaturedProducts = () => {
 
                   <div className="flex items-center justify-between pt-2">
                     <div className="text-xl font-bold text-brand-orange">
-                      ${product.price.toLocaleString()}
+                      ৳{product.price.toLocaleString()}
                     </div>
                     <Button
                       onClick={() => handleAddToCart(product)}

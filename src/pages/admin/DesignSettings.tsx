@@ -40,27 +40,29 @@ interface DesignSettings {
 
 const defaultSettings: DesignSettings = {
   colors: {
-    primary: '45 100% 50%',
-    primaryForeground: '222.2 47.4% 11.2%',
-    accent: '45 100% 50%',
-    background: '220 20% 97%',
-    foreground: '222.2 84% 4.9%',
-    brandGold: '45 100% 50%',
-    brandGoldDark: '40 100% 45%',
+    primary: '15 95% 55%',
+    primaryForeground: '0 0% 100%',
+    accent: '175 70% 45%',
+    background: '45 100% 98%',
+    foreground: '260 30% 20%',
+    brandGold: '15 95% 55%',
+    brandGoldDark: '15 95% 45%',
   },
   typography: {
-    headingFont: 'Inter',
-    bodyFont: 'Inter',
+    headingFont: 'Fredoka',
+    bodyFont: 'Nunito',
     baseFontSize: '16px',
   },
   branding: {
     logoUrl: '',
     faviconUrl: '',
-    siteName: 'TiqBud',
+    siteName: 'KidZone',
   },
 };
 
 const fontOptions = [
+  { value: 'Fredoka', label: 'Fredoka' },
+  { value: 'Nunito', label: 'Nunito' },
   { value: 'Inter', label: 'Inter' },
   { value: 'Roboto', label: 'Roboto' },
   { value: 'Open Sans', label: 'Open Sans' },
@@ -68,9 +70,7 @@ const fontOptions = [
   { value: 'Montserrat', label: 'Montserrat' },
   { value: 'Poppins', label: 'Poppins' },
   { value: 'Playfair Display', label: 'Playfair Display' },
-  { value: 'Oswald', label: 'Oswald' },
-  { value: 'Raleway', label: 'Raleway' },
-  { value: 'Nunito', label: 'Nunito' },
+  { value: 'Comic Sans MS', label: 'Comic Sans' },
 ];
 
 const fontSizeOptions = [
@@ -79,16 +79,16 @@ const fontSizeOptions = [
   { value: '18px', label: 'Large (18px)' },
 ];
 
-// Color presets for quick selection
+// Color presets for quick selection - KidZone themed
 const colorPresets = [
-  { name: 'Gold (Default)', primary: '45 100% 50%', accent: '45 100% 50%' },
-  { name: 'Blue', primary: '210 100% 50%', accent: '210 100% 50%' },
-  { name: 'Green', primary: '142 76% 36%', accent: '142 76% 36%' },
-  { name: 'Purple', primary: '262 80% 50%', accent: '262 80% 50%' },
-  { name: 'Red', primary: '0 84% 60%', accent: '0 84% 60%' },
-  { name: 'Orange', primary: '24 100% 50%', accent: '24 100% 50%' },
-  { name: 'Teal', primary: '180 100% 30%', accent: '180 100% 30%' },
-  { name: 'Pink', primary: '330 80% 60%', accent: '330 80% 60%' },
+  { name: 'KidZone Orange', primary: '15 95% 55%', accent: '175 70% 45%' },
+  { name: 'Playful Purple', primary: '270 60% 60%', accent: '330 80% 65%' },
+  { name: 'Ocean Teal', primary: '175 70% 45%', accent: '145 60% 50%' },
+  { name: 'Sunny Yellow', primary: '45 100% 60%', accent: '15 95% 55%' },
+  { name: 'Candy Pink', primary: '330 80% 65%', accent: '270 60% 60%' },
+  { name: 'Forest Green', primary: '145 60% 50%', accent: '175 70% 45%' },
+  { name: 'Royal Blue', primary: '210 100% 50%', accent: '270 60% 60%' },
+  { name: 'Cherry Red', primary: '0 84% 60%', accent: '330 80% 65%' },
 ];
 
 const AdminDesignSettings: React.FC = () => {

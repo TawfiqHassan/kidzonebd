@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
+import { useDesignSettings } from "@/hooks/useDesignSettings";
 import Index from "./pages/Index";
 import PCAccessories from "./pages/PCAccessories";
 import MobileAccessories from "./pages/MobileAccessories";
@@ -42,12 +43,19 @@ import Returns from "./pages/admin/Returns";
 
 const queryClient = new QueryClient();
 
+// Component to apply design settings
+const DesignSettingsProvider = ({ children }: { children: React.ReactNode }) => {
+  useDesignSettings();
+  return <>{children}</>;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
+      <DesignSettingsProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
@@ -89,7 +97,8 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
-      </TooltipProvider>
+        </TooltipProvider>
+      </DesignSettingsProvider>
     </AuthProvider>
   </QueryClientProvider>
 );

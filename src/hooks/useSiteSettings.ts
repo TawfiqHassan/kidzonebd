@@ -33,21 +33,21 @@ export interface SiteSettingsData {
 
 const defaultSettings: SiteSettingsData = {
   hero: {
-    title: 'Premium Tech & Gadgets',
-    subtitle: 'Discover the best PC and mobile accessories at unbeatable prices',
+    title: 'Welcome to KidZone!',
+    subtitle: 'Discover amazing toys, games, and adventures for kids of all ages!',
     image_url: '',
-    cta_text: 'Shop Now',
+    cta_text: 'Shop Toys',
     cta_link: '/pc-accessories'
   },
   announcement_bar: {
-    message: 'Free Delivery in Dhaka on orders over ৳5,000!',
+    message: '🎁 ঢাকায় ৳৫,০০০+ অর্ডারে ফ্রি ডেলিভারি!',
     phone: '+880 1XXX-XXXXXX',
     is_visible: true
   },
   footer: {
-    about: 'TiqBud is your one-stop destination for premium tech accessories.',
+    about: 'KidZone is your favorite toy store! We bring joy and fun to kids of all ages with the best selection of toys and games.',
     address: 'Dhaka, Bangladesh',
-    email: 'info@tiqbud.com',
+    email: 'hello@kidzone.com.bd',
     phone: '+880 1XXX-XXXXXX',
     facebook: '',
     instagram: '',
