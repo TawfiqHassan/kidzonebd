@@ -73,6 +73,7 @@ const AdminNavbarSettings: React.FC = () => {
           .from('site_settings')
           .update({ 
             value: valueData,
+            is_public: true,
             updated_at: new Date().toISOString()
           })
           .eq('key', 'navbar');
@@ -82,7 +83,8 @@ const AdminNavbarSettings: React.FC = () => {
           .from('site_settings')
           .insert([{ 
             key: 'navbar', 
-            value: valueData
+            value: valueData,
+            is_public: true
           }]);
         if (error) throw error;
       }
