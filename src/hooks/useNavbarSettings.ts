@@ -43,8 +43,11 @@ export const useNavbarSettings = () => {
 
       return defaultMenuItems;
     },
-    // Always be fresh so admin changes appear instantly
+    // Aggressive refetching for instant updates
     staleTime: 0,
+    gcTime: 0,
     refetchOnWindowFocus: true,
+    refetchOnMount: 'always',
+    refetchOnReconnect: true,
   });
 };
