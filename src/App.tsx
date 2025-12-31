@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound";
 import ProductDetail from "./pages/ProductDetail";
 import Compare from "./pages/Compare";
 import FlashSale from "./pages/FlashSale";
+import TrackOrder from "./pages/TrackOrder";
 
 // Admin pages
 import AdminLayout from "./components/admin/AdminLayout";
@@ -71,6 +72,7 @@ const App = () => (
                 <Route path="/product/:id" element={<ProductDetail />} />
                 <Route path="/compare" element={<Compare />} />
                 <Route path="/flash-sale/:id" element={<FlashSale />} />
+                <Route path="/track-order" element={<TrackOrder />} />
 
                 {/* Admin routes */}
                 <Route path="/admin" element={<AdminLayout />}>
