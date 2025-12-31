@@ -74,7 +74,7 @@ const CompareContent: React.FC = () => {
                 Add products to comparison from product pages or listings
               </p>
               <Link to="/">
-                <Button className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark">
+                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
                   Browse Products
                 </Button>
               </Link>
@@ -104,7 +104,7 @@ const CompareContent: React.FC = () => {
                         />
                         <Link 
                           to={`/product/${cp.product_id}`}
-                          className="font-semibold hover:text-brand-gold line-clamp-2"
+                          className="font-semibold hover:text-primary line-clamp-2"
                         >
                           {cp.product?.name}
                         </Link>
@@ -119,7 +119,7 @@ const CompareContent: React.FC = () => {
                   <td className="p-4 font-medium">Price</td>
                   {comparisonProducts.map(cp => (
                     <td key={cp.id} className="p-4 text-center">
-                      <div className="text-xl font-bold text-brand-gold">
+                      <div className="text-xl font-bold text-primary">
                         {formatPrice(cp.product?.price || 0)}
                       </div>
                       {cp.product?.original_price && cp.product.original_price > cp.product.price && (
@@ -196,7 +196,7 @@ const CompareContent: React.FC = () => {
                       <Button
                         onClick={() => handleAddToCart(cp.product)}
                         disabled={(cp.product?.stock || 0) === 0}
-                        className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                        className="bg-primary hover:bg-primary/90 text-primary-foreground"
                       >
                         <ShoppingCart className="h-4 w-4 mr-2" />
                         Add to Cart

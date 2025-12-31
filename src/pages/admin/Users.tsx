@@ -222,7 +222,7 @@ const AdminUsers: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-gold"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -237,7 +237,7 @@ const AdminUsers: React.FC = () => {
         <div className="flex items-center gap-3">
           <Dialog open={createAdminOpen} onOpenChange={setCreateAdminOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark">
+              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 <UserPlus className="h-4 w-4 mr-2" />
                 Create Admin
               </Button>
@@ -287,7 +287,7 @@ const AdminUsers: React.FC = () => {
                 <Button 
                   onClick={handleCreateAdmin} 
                   disabled={isCreatingAdmin}
-                  className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
                 >
                   {isCreatingAdmin ? 'Creating...' : 'Create Admin'}
                 </Button>
@@ -295,7 +295,7 @@ const AdminUsers: React.FC = () => {
             </DialogContent>
           </Dialog>
           <div className="text-sm text-muted-foreground bg-muted px-3 py-2 rounded-md">
-            Admin login: <a href="/admin-login" className="text-brand-gold hover:underline">/admin-login</a>
+            Admin login: <a href="/admin-login" className="text-primary hover:underline">/admin-login</a>
           </div>
         </div>
       </div>

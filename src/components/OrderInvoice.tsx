@@ -156,9 +156,9 @@ const OrderInvoice: React.FC<OrderInvoiceProps> = ({ order, items, isOpen, onClo
         <div ref={invoiceRef} className="bg-white text-foreground p-6">
           <div className="invoice-container">
             {/* Header */}
-            <div className="flex justify-between items-start mb-8 pb-4 border-b-2 border-brand-gold">
+            <div className="flex justify-between items-start mb-8 pb-4 border-b-2 border-primary">
               <div>
-                <h1 className="text-2xl font-bold text-brand-gold">TechGadgets BD</h1>
+                <h1 className="text-2xl font-bold text-primary">TechGadgets BD</h1>
                 <p className="text-sm text-muted-foreground">Premium PC & Mobile Accessories</p>
               </div>
               <div className="text-right">
@@ -246,9 +246,9 @@ const OrderInvoice: React.FC<OrderInvoiceProps> = ({ order, items, isOpen, onClo
                   <span className="text-muted-foreground">Shipping</span>
                   <span>{order.shipping_cost === 0 ? 'Free' : formatPrice(order.shipping_cost)}</span>
                 </div>
-                <div className="flex justify-between py-3 border-t-2 border-brand-gold mt-2">
+                <div className="flex justify-between py-3 border-t-2 border-primary mt-2">
                   <span className="text-lg font-bold">Total</span>
-                  <span className="text-lg font-bold text-brand-gold">{formatPrice(order.total)}</span>
+                  <span className="text-lg font-bold text-primary">{formatPrice(order.total)}</span>
                 </div>
               </div>
             </div>

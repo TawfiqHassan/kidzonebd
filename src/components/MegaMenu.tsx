@@ -58,7 +58,7 @@ const MegaMenu = ({ isOpen, onClose }: MegaMenuProps) => {
                       className={cn(
                         "w-full flex items-center justify-between px-3 py-2 rounded-lg transition-colors text-left",
                         activeCategory === category.slug
-                          ? "bg-brand-gold/10 text-brand-gold"
+                          ? "bg-primary/10 text-primary"
                           : "text-foreground hover:bg-muted"
                       )}
                     >
@@ -99,7 +99,7 @@ const MegaMenu = ({ isOpen, onClose }: MegaMenuProps) => {
                             />
                           )}
                           <div>
-                            <span className="text-foreground group-hover:text-brand-gold transition-colors font-medium">
+                            <span className="text-foreground group-hover:text-primary transition-colors font-medium">
                               {child.name}
                             </span>
                             {child.description && (
@@ -115,7 +115,7 @@ const MegaMenu = ({ isOpen, onClose }: MegaMenuProps) => {
                         <Link
                           to={`/category/${activeCategory}`}
                           onClick={onClose}
-                          className="inline-flex items-center gap-2 text-brand-gold hover:underline"
+                          className="inline-flex items-center gap-2 text-primary hover:underline"
                         >
                           View all products
                           <ChevronRight className="w-4 h-4" />
@@ -133,7 +133,7 @@ const MegaMenu = ({ isOpen, onClose }: MegaMenuProps) => {
             </div>
 
             {/* Right - Featured / Promo */}
-            <div className="col-span-4 bg-gradient-to-br from-brand-gold/10 to-brand-gold/5 rounded-xl p-6">
+            <div className="col-span-4 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-6">
               <h3 className="text-lg font-semibold text-foreground mb-2">Featured Deals</h3>
               <p className="text-muted-foreground text-sm mb-4">
                 Check out our latest deals and offers on top tech products.
@@ -145,10 +145,10 @@ const MegaMenu = ({ isOpen, onClose }: MegaMenuProps) => {
                   className="flex items-center gap-3 p-3 bg-card rounded-lg hover:bg-card/80 transition-colors group"
                 >
                   <div className="w-16 h-16 bg-muted rounded-lg flex items-center justify-center">
-                    <Laptop className="w-8 h-8 text-brand-gold" />
+                    <Laptop className="w-8 h-8 text-primary" />
                   </div>
                   <div>
-                    <span className="font-medium text-foreground group-hover:text-brand-gold">PC Accessories</span>
+                    <span className="font-medium text-foreground group-hover:text-primary">PC Accessories</span>
                     <p className="text-sm text-muted-foreground">Up to 30% off</p>
                   </div>
                 </Link>
@@ -158,10 +158,10 @@ const MegaMenu = ({ isOpen, onClose }: MegaMenuProps) => {
                   className="flex items-center gap-3 p-3 bg-card rounded-lg hover:bg-card/80 transition-colors group"
                 >
                   <div className="w-16 h-16 bg-muted rounded-lg flex items-center justify-center">
-                    <Smartphone className="w-8 h-8 text-brand-gold" />
+                    <Smartphone className="w-8 h-8 text-primary" />
                   </div>
                   <div>
-                    <span className="font-medium text-foreground group-hover:text-brand-gold">Mobile Accessories</span>
+                    <span className="font-medium text-foreground group-hover:text-primary">Mobile Accessories</span>
                     <p className="text-sm text-muted-foreground">New arrivals</p>
                   </div>
                 </Link>

@@ -258,8 +258,8 @@ const AdminAnalytics: React.FC = () => {
                     <AreaChart data={dailyData}>
                       <defs>
                         <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="hsl(var(--brand-gold))" stopOpacity={0.3}/>
-                          <stop offset="95%" stopColor="hsl(var(--brand-gold))" stopOpacity={0}/>
+                          <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
+                          <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
                         </linearGradient>
                       </defs>
                       <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
@@ -272,7 +272,7 @@ const AdminAnalytics: React.FC = () => {
                       <Area 
                         type="monotone" 
                         dataKey="revenue" 
-                        stroke="hsl(var(--brand-gold))" 
+                        stroke="hsl(var(--primary))" 
                         strokeWidth={2}
                         fillOpacity={1}
                         fill="url(#colorRevenue)"
@@ -409,7 +409,7 @@ const AdminAnalytics: React.FC = () => {
                         formatter={(value: number) => formatPrice(value)}
                         contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))' }}
                       />
-                      <Bar dataKey="revenue" fill="hsl(var(--brand-gold))" radius={[4, 4, 0, 0]} />
+                      <Bar dataKey="revenue" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 ) : (
@@ -445,7 +445,7 @@ const AdminAnalytics: React.FC = () => {
                             <p className="text-xs text-muted-foreground">{product.quantity} sold</p>
                           </div>
                         </div>
-                        <span className="font-bold text-brand-gold">{formatPrice(product.revenue)}</span>
+                        <span className="font-bold text-primary">{formatPrice(product.revenue)}</span>
                       </div>
                     ))}
                   </div>

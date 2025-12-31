@@ -159,7 +159,7 @@ export const ProductUrlScraper = ({ categories }: ProductUrlScraperProps) => {
             <Button 
               onClick={handleScrape} 
               disabled={scrapeMutation.isPending || !url.trim()}
-              className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               {scrapeMutation.isPending ? (
                 <>
@@ -181,7 +181,7 @@ export const ProductUrlScraper = ({ categories }: ProductUrlScraperProps) => {
 
           {/* Scraped Product Preview */}
           {scrapedProduct && editedProduct && (
-            <Card className="border-brand-gold/30">
+            <Card className="border-primary/30">
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg flex items-center gap-2">
@@ -292,7 +292,7 @@ export const ProductUrlScraper = ({ categories }: ProductUrlScraperProps) => {
                       )}
                       
                       <div className="flex items-center gap-2">
-                        <span className="text-xl font-bold text-brand-gold">
+                        <span className="text-xl font-bold text-primary">
                           ${editedProduct.price?.toFixed(2) || '0.00'}
                         </span>
                         {editedProduct.original_price && (
@@ -344,7 +344,7 @@ export const ProductUrlScraper = ({ categories }: ProductUrlScraperProps) => {
                   <Button
                     onClick={() => importMutation.mutate()}
                     disabled={importMutation.isPending || !editedProduct.name}
-                    className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground"
                   >
                     {importMutation.isPending ? (
                       <>

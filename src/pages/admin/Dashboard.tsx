@@ -93,7 +93,7 @@ const AdminDashboard: React.FC = () => {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-brand-gold">
+            <div className="text-2xl font-bold text-primary">
               {formatPrice(stats?.totalRevenue || 0)}
             </div>
             <p className="text-xs text-muted-foreground">From all orders</p>
@@ -197,7 +197,7 @@ const AdminDashboard: React.FC = () => {
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium text-brand-gold">
+                      <p className="font-medium text-primary">
                         {formatPrice(Number(order.total))}
                       </p>
                       <span className={`
