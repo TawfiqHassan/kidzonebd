@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Star, ShoppingCart, Heart, Eye, Grid, Heart as HeartIcon, Blocks, Puzzle, Swords, Palette, GraduationCap } from 'lucide-react';
@@ -11,7 +11,7 @@ import { toast } from 'sonner';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { CartProvider } from '@/context/CartContext';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import ProductFilters from '@/components/ProductFilters';
 
 // Extended product type for this page
@@ -48,7 +48,9 @@ const iconMap: Record<string, any> = {
 
 const PCAccessoriesContent = () => {
   const { addToCart } = useCart();
-  const [activeCategory, setActiveCategory] = useState('all');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [activeCategory, setActiveCategory] = useState(() => searchParams.get('category') || 'all');
   const [favorites, setFavorites] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState('featured');
   const [filters, setFilters] = useState<FilterState>({
@@ -57,6 +59,19 @@ const PCAccessoriesContent = () => {
     inStockOnly: false,
     onSaleOnly: false
   });
+
+  useEffect(() => {
+    const categoryFromUrl = searchParams.get('category') || 'all';
+    setActiveCategory((prev) => (prev === categoryFromUrl ? prev : categoryFromUrl));
+  }, [searchParams]);
+
+  const selectCategory = (categoryId: string) => {
+    setActiveCategory(categoryId);
+    const next = new URLSearchParams(searchParams);
+    if (categoryId === 'all') next.delete('category');
+    else next.set('category', categoryId);
+    setSearchParams(next, { replace: true });
+  };
 
   // Fetch ALL toy categories (no parent filter since categories are top-level)
   const { data: categories = [] } = useQuery({
@@ -209,7 +224,7 @@ const PCAccessoriesContent = () => {
               </h3>
               <div className="space-y-2">
                 <button
-                  onClick={() => setActiveCategory('all')}
+                  onClick={() => selectCategory('all')}
                   className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-colors ${
                     activeCategory === 'all'
                       ? 'bg-primary/10 text-primary font-bold'
@@ -224,7 +239,7 @@ const PCAccessoriesContent = () => {
                   return (
                     <button
                       key={cat.id}
-                      onClick={() => setActiveCategory(cat.id)}
+                      onClick={() => selectCategory(cat.id)}
                       className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-colors ${
                         activeCategory === cat.id
                           ? 'bg-primary/10 text-primary font-bold'
