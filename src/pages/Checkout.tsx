@@ -276,6 +276,28 @@ const CheckoutContent = () => {
         // Don't fail the order if email fails
       }
 
+      // Notify admins about the new order
+      try {
+        await supabase.functions.invoke('notify-admin-new-order', {
+          body: {
+            orderId: order.id,
+            orderNumber: order.id.slice(0, 8).toUpperCase(),
+            customerName: formData.customerName.trim(),
+            customerEmail: formData.customerEmail.trim(),
+            customerPhone: formData.customerPhone.trim(),
+            total: total,
+            itemCount: cartItems.reduce((sum, item) => sum + item.quantity, 0),
+            paymentMethod: formData.paymentMethod,
+            shippingAddress: formData.shippingAddress.trim(),
+            city: formData.city
+          }
+        });
+        console.log('Admin notification sent');
+      } catch (adminNotifError) {
+        console.error('Failed to notify admins:', adminNotifError);
+        // Don't fail the order if admin notification fails
+      }
+
       clearCart();
       setOrderNumber(order.id.slice(0, 8).toUpperCase());
       setOrderId(order.id);

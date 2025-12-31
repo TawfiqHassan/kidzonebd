@@ -29,6 +29,7 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import logo from '@/assets/logo.png';
+import AdminNotifications from './AdminNotifications';
 
 const AdminLayout: React.FC = () => {
   const { user, isAdmin, isLoading, signOut } = useAuth();
@@ -198,7 +199,8 @@ const AdminLayout: React.FC = () => {
               </div>
             </div>
             
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
+              <AdminNotifications />
               <span className="text-sm text-muted-foreground hidden sm:inline">
                 {user.email}
               </span>
