@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
+import { CartProvider } from "@/context/CartContext";
 import { useDesignSettings } from "@/hooks/useDesignSettings";
 import Index from "./pages/Index";
 import PCAccessories from "./pages/PCAccessories";
@@ -53,56 +54,58 @@ const DesignSettingsProvider = ({ children }: { children: React.ReactNode }) => 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <DesignSettingsProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <div className="font-body">
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/pc-accessories" element={<PCAccessories />} />
-                <Route path="/mobile-accessories" element={<MobileAccessories />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/auth" element={<Auth />} />
-                <Route path="/admin-login" element={<AdminAuth />} />
-                <Route path="/checkout" element={<Checkout />} />
-                <Route path="/account" element={<Account />} />
-                <Route path="/product/:id" element={<ProductDetail />} />
-                <Route path="/compare" element={<Compare />} />
-                <Route path="/flash-sale/:id" element={<FlashSale />} />
-                <Route path="/track-order" element={<TrackOrder />} />
+      <CartProvider>
+        <DesignSettingsProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <div className="font-body">
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/pc-accessories" element={<PCAccessories />} />
+                  <Route path="/mobile-accessories" element={<MobileAccessories />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/auth" element={<Auth />} />
+                  <Route path="/admin-login" element={<AdminAuth />} />
+                  <Route path="/checkout" element={<Checkout />} />
+                  <Route path="/account" element={<Account />} />
+                  <Route path="/product/:id" element={<ProductDetail />} />
+                  <Route path="/compare" element={<Compare />} />
+                  <Route path="/flash-sale/:id" element={<FlashSale />} />
+                  <Route path="/track-order" element={<TrackOrder />} />
 
-                {/* Admin routes */}
-                <Route path="/admin" element={<AdminLayout />}>
-                  <Route index element={<Dashboard />} />
-                  <Route path="products" element={<Products />} />
-                  <Route path="categories" element={<Categories />} />
-                  <Route path="orders" element={<Orders />} />
-                  <Route path="inventory" element={<Inventory />} />
-                  <Route path="customers" element={<Customers />} />
-                  <Route path="users" element={<Users />} />
-                  <Route path="suppliers" element={<Suppliers />} />
-                  <Route path="coupons" element={<Coupons />} />
-                  <Route path="shipping-zones" element={<ShippingZones />} />
-                  <Route path="flash-sales" element={<FlashSales />} />
-                  <Route path="returns" element={<Returns />} />
-                  <Route path="blog-posts" element={<BlogPosts />} />
-                  <Route path="reviews" element={<Reviews />} />
-                  <Route path="site-content" element={<SiteContent />} />
-                  <Route path="navbar" element={<NavbarSettings />} />
-                  <Route path="design" element={<DesignSettings />} />
-                  <Route path="analytics" element={<Analytics />} />
-                  <Route path="settings" element={<Settings />} />
-                </Route>
+                  {/* Admin routes */}
+                  <Route path="/admin" element={<AdminLayout />}>
+                    <Route index element={<Dashboard />} />
+                    <Route path="products" element={<Products />} />
+                    <Route path="categories" element={<Categories />} />
+                    <Route path="orders" element={<Orders />} />
+                    <Route path="inventory" element={<Inventory />} />
+                    <Route path="customers" element={<Customers />} />
+                    <Route path="users" element={<Users />} />
+                    <Route path="suppliers" element={<Suppliers />} />
+                    <Route path="coupons" element={<Coupons />} />
+                    <Route path="shipping-zones" element={<ShippingZones />} />
+                    <Route path="flash-sales" element={<FlashSales />} />
+                    <Route path="returns" element={<Returns />} />
+                    <Route path="blog-posts" element={<BlogPosts />} />
+                    <Route path="reviews" element={<Reviews />} />
+                    <Route path="site-content" element={<SiteContent />} />
+                    <Route path="navbar" element={<NavbarSettings />} />
+                    <Route path="design" element={<DesignSettings />} />
+                    <Route path="analytics" element={<Analytics />} />
+                    <Route path="settings" element={<Settings />} />
+                  </Route>
 
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </div>
-        </TooltipProvider>
-      </DesignSettingsProvider>
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </div>
+          </TooltipProvider>
+        </DesignSettingsProvider>
+      </CartProvider>
     </AuthProvider>
   </QueryClientProvider>
 );
