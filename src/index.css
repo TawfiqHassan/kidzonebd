@@ -47,14 +47,14 @@
     --font-body: 'Nunito', 'Comic Sans MS', cursive, sans-serif;
     --font-size-base: 16px;
 
-    /* KidZone brand colors (aliased to semantic tokens so Admin > Design updates apply everywhere) */
-    --brand-orange: var(--primary);
-    --brand-orange-dark: var(--primary);
-    --brand-purple: var(--accent);
-    --brand-teal: var(--accent);
-    --brand-yellow: var(--primary);
-    --brand-pink: var(--accent);
-    --brand-green: var(--primary);
+    /* Flash sale gradient colors - derived from primary/accent */
+    --flash-sale-start: var(--primary);
+    --flash-sale-mid: 25 90% 50%;
+    --flash-sale-end: 40 95% 55%;
+    
+    /* Progress bar gradient */
+    --progress-start: var(--primary);
+    --progress-end: 25 90% 50%;
 
     /* Sidebar light theme */
     --sidebar-background: 270 50% 98%;

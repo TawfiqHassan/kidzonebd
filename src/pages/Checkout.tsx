@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, CreditCard, Truck, MapPin, Tag, X, Check } from 'lucide-react';
+import { ArrowLeft, CreditCard, Truck, MapPin, Tag, X, Check, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -28,8 +28,19 @@ interface Coupon {
 const CheckoutContent = () => {
   const navigate = useNavigate();
   const { cartItems, getTotalPrice, clearCart } = useCart();
-  const { user } = useAuth();
+  
+  // Get user safely - AuthContext may not be available
+  let user: any = null;
+  try {
+    const auth = useAuth();
+    user = auth?.user;
+  } catch {
+    // AuthContext not available
+  }
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [orderPlaced, setOrderPlaced] = useState(false);
+  const [orderNumber, setOrderNumber] = useState('');
   const [couponCode, setCouponCode] = useState('');
   const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
   const [couponLoading, setCouponLoading] = useState(false);
@@ -157,23 +168,36 @@ const CheckoutContent = () => {
       return;
     }
 
+    // Basic validation
+    if (!formData.customerName.trim() || !formData.customerEmail.trim() || !formData.customerPhone.trim() || !formData.shippingAddress.trim()) {
+      toast.error('Please fill in all required fields');
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    if (!emailRegex.test(formData.customerEmail.trim())) {
+      toast.error('Please enter a valid email address');
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      // Create the order with user_id if logged in
+      // Create the order - works for both logged in users and guests
       const { data: order, error: orderError } = await supabase
         .from('orders')
         .insert({
           user_id: user?.id || null,
-          customer_name: formData.customerName,
-          customer_email: formData.customerEmail,
-          customer_phone: formData.customerPhone,
-          shipping_address: formData.shippingAddress,
+          customer_name: formData.customerName.trim(),
+          customer_email: formData.customerEmail.trim(),
+          customer_phone: formData.customerPhone.trim(),
+          shipping_address: formData.shippingAddress.trim(),
           city: formData.city,
-          district: formData.district,
-          postal_code: formData.postalCode,
+          district: formData.district || null,
+          postal_code: formData.postalCode || null,
           payment_method: formData.paymentMethod,
-          notes: formData.notes,
+          notes: formData.notes || null,
           subtotal: subtotal,
           shipping_cost: shippingCost,
           discount: discount,
@@ -191,6 +215,7 @@ const CheckoutContent = () => {
       // Create order items
       const orderItems = cartItems.map(item => ({
         order_id: order.id,
+        product_id: item.id,
         product_name: item.name,
         quantity: item.quantity,
         unit_price: item.price,
@@ -203,7 +228,7 @@ const CheckoutContent = () => {
 
       if (itemsError) throw itemsError;
 
-      // Record coupon usage if coupon was applied
+      // Record coupon usage if coupon was applied (only for logged in users)
       if (appliedCoupon && user) {
         await supabase
           .from('coupon_usage')
@@ -221,8 +246,9 @@ const CheckoutContent = () => {
       }
 
       clearCart();
+      setOrderNumber(order.id.slice(0, 8).toUpperCase());
+      setOrderPlaced(true);
       toast.success('Order placed successfully!');
-      navigate('/account');
     } catch (error: any) {
       console.error('Checkout error:', error);
       toast.error('Failed to place order. Please try again.');
@@ -230,6 +256,52 @@ const CheckoutContent = () => {
       setIsSubmitting(false);
     }
   };
+
+  // Order confirmation screen
+  if (orderPlaced) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <div className="container mx-auto px-4 py-16 text-center max-w-lg">
+          <div className="bg-card rounded-lg border border-border p-8">
+            <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Check className="w-10 h-10 text-green-500" />
+            </div>
+            <h1 className="text-2xl font-bold text-foreground mb-2">Order Placed Successfully!</h1>
+            <p className="text-muted-foreground mb-4">
+              Thank you for your order. We'll contact you shortly to confirm.
+            </p>
+            <div className="bg-muted rounded-lg p-4 mb-6">
+              <p className="text-sm text-muted-foreground">Order Number</p>
+              <p className="text-xl font-mono font-bold text-primary">#{orderNumber}</p>
+            </div>
+            <p className="text-sm text-muted-foreground mb-6">
+              A confirmation has been sent to your email. You can track your order status using the order number.
+            </p>
+            <div className="flex flex-col gap-3">
+              <Button 
+                onClick={() => navigate('/')} 
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+              >
+                <ShoppingBag className="w-4 h-4 mr-2" />
+                Continue Shopping
+              </Button>
+              {user && (
+                <Button 
+                  variant="outline"
+                  onClick={() => navigate('/account')} 
+                  className="w-full"
+                >
+                  View My Orders
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   if (cartItems.length === 0) {
     return (
@@ -261,6 +333,16 @@ const CheckoutContent = () => {
         </Button>
 
         <h1 className="text-3xl font-bold text-foreground mb-8">Checkout</h1>
+
+        {/* Guest checkout notice */}
+        {!user && (
+          <div className="bg-muted/50 border border-border rounded-lg p-4 mb-6">
+            <p className="text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">Checking out as guest.</span> You don't need an account to place an order. 
+              We'll send order updates to your email.
+            </p>
+          </div>
+        )}
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Checkout Form */}
@@ -447,7 +529,7 @@ const CheckoutContent = () => {
                       <p className="text-sm text-muted-foreground">Pay via Nagad mobile banking</p>
                     </Label>
                   </div>
-                  <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-primary/50 transition-colors bg-gradient-to-r from-green-500/5 to-blue-500/5">
+                  <div className="flex items-center space-x-3 p-4 border border-border rounded-lg hover:border-primary/50 transition-colors bg-accent/5">
                     <RadioGroupItem value="sslcommerz" id="sslcommerz" />
                     <Label htmlFor="sslcommerz" className="flex-1 cursor-pointer">
                       <span className="font-medium">SSLCommerz</span>
@@ -456,8 +538,8 @@ const CheckoutContent = () => {
                   </div>
                 </RadioGroup>
                 {formData.paymentMethod === 'sslcommerz' && (
-                  <div className="mt-4 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-                    <p className="text-sm text-yellow-600 dark:text-yellow-400">
+                  <div className="mt-4 p-4 bg-accent/10 border border-accent/30 rounded-lg">
+                    <p className="text-sm text-accent-foreground">
                       ⚠️ SSLCommerz integration is being configured. Please use another payment method for now.
                     </p>
                   </div>
