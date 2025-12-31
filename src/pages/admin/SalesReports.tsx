@@ -129,10 +129,10 @@ const AdminSalesReports: React.FC = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <DollarSign className="h-4 w-4 text-brand-gold" />
+            <DollarSign className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-brand-gold">
+            <div className="text-2xl font-bold text-primary">
               {formatPrice(stats?.totalRevenue || 0)}
             </div>
             <p className="text-xs text-muted-foreground">All time earnings</p>
@@ -199,9 +199,9 @@ const AdminSalesReports: React.FC = () => {
                   <Line 
                     type="monotone" 
                     dataKey="revenue" 
-                    stroke="hsl(var(--brand-gold))" 
+                    stroke="hsl(var(--primary))" 
                     strokeWidth={2}
-                    dot={{ fill: 'hsl(var(--brand-gold))' }}
+                    dot={{ fill: 'hsl(var(--primary))' }}
                   />
                 </LineChart>
               </ResponsiveContainer>
@@ -298,7 +298,7 @@ const AdminSalesReports: React.FC = () => {
                         <p className="text-xs text-muted-foreground">{product.quantity} sold</p>
                       </div>
                     </div>
-                    <span className="font-bold text-brand-gold">{formatPrice(product.revenue)}</span>
+                    <span className="font-bold text-primary">{formatPrice(product.revenue)}</span>
                   </div>
                 ))}
               </div>

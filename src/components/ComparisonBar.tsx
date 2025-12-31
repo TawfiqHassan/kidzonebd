@@ -17,7 +17,7 @@ const ComparisonBar: React.FC = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <GitCompare className="h-5 w-5 text-brand-gold" />
+              <GitCompare className="h-5 w-5 text-primary" />
               <span className="font-medium">Compare ({comparisonCount}/4)</span>
             </div>
             
@@ -41,7 +41,7 @@ const ComparisonBar: React.FC = () => {
           </div>
 
           <Link to="/compare">
-            <Button className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark">
+            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
               Compare Now
             </Button>
           </Link>

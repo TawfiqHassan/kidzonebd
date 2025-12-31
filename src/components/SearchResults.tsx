@@ -46,7 +46,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchQuery, onClose }) =
 
       {isLoading ? (
         <div className="p-8 text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-gold mx-auto"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
         </div>
       ) : products && products.length > 0 ? (
         <div className="p-2">
@@ -67,12 +67,12 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchQuery, onClose }) =
                 <Link 
                   to={`/product/${product.id}`} 
                   onClick={onClose}
-                  className="font-medium text-foreground hover:text-brand-gold transition-colors line-clamp-1"
+                  className="font-medium text-foreground hover:text-primary transition-colors line-clamp-1"
                 >
                   {product.name}
                 </Link>
                 <div className="flex items-center gap-2 mt-1">
-                  <span className="text-brand-gold font-bold">
+                  <span className="text-primary font-bold">
                     {formatPrice(Number(product.price))}
                   </span>
                   {product.original_price && Number(product.original_price) > Number(product.price) && (
@@ -91,7 +91,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ searchQuery, onClose }) =
               <Button 
                 size="sm" 
                 onClick={() => handleAddToCart(product)}
-                className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark shrink-0"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground shrink-0"
               >
                 <ShoppingCart className="h-4 w-4" />
               </Button>

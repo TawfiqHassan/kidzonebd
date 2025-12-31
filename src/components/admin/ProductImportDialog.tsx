@@ -133,7 +133,7 @@ const ProductImportDialog = ({
       <DialogContent className="max-w-4xl max-h-[90vh] bg-card">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Package className="w-5 h-5 text-brand-gold" />
+            <Package className="w-5 h-5 text-primary" />
             Import Products from {supplierName}
           </DialogTitle>
           <DialogDescription>
@@ -197,7 +197,7 @@ const ProductImportDialog = ({
                     key={index}
                     className={`flex items-center gap-4 p-3 rounded-lg border transition-colors cursor-pointer ${
                       selectedProducts.has(index)
-                        ? 'border-brand-gold bg-brand-gold/5'
+                        ? 'border-primary bg-primary/5'
                         : 'border-border hover:border-muted-foreground'
                     }`}
                     onClick={() => toggleProduct(index)}
@@ -243,7 +243,7 @@ const ProductImportDialog = ({
                     </div>
 
                     {selectedProducts.has(index) && (
-                      <Check className="w-5 h-5 text-brand-gold" />
+                      <Check className="w-5 h-5 text-primary" />
                     )}
                   </div>
                 ))}
@@ -259,11 +259,11 @@ const ProductImportDialog = ({
           <Button
             onClick={handleImport}
             disabled={selectedProducts.size === 0 || importing || !defaultCategoryId}
-            className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark gap-2"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2"
           >
             {importing ? (
               <>
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-brand-dark"></div>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-foreground"></div>
                 Importing...
               </>
             ) : (

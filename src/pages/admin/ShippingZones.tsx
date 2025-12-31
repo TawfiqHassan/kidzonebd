@@ -148,7 +148,7 @@ const AdminShippingZones: React.FC = () => {
         </div>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button onClick={resetForm} className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark">
+            <Button onClick={resetForm} className="bg-primary hover:bg-primary/90 text-primary-foreground">
               <Plus className="h-4 w-4 mr-2" />
               Add Zone
             </Button>
@@ -214,7 +214,7 @@ const AdminShippingZones: React.FC = () => {
               </div>
               <div className="flex justify-end gap-2">
                 <Button type="button" variant="outline" onClick={resetForm}>Cancel</Button>
-                <Button type="submit" className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark">
+                <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                   {editingZone ? 'Update' : 'Create'}
                 </Button>
               </div>
@@ -267,7 +267,7 @@ const AdminShippingZones: React.FC = () => {
                         )}
                       </div>
                     </TableCell>
-                    <TableCell className="font-medium text-brand-gold">
+                    <TableCell className="font-medium text-primary">
                       ৳{zone.shipping_rate}
                     </TableCell>
                     <TableCell>

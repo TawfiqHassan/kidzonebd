@@ -64,7 +64,7 @@ const RelatedProducts = ({ categoryId, currentProductId, limit = 4 }: RelatedPro
       <h2 className="text-2xl font-fredoka font-bold text-foreground">🎁 Related Toys</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {displayProducts.map((product) => (
-          <Card key={product.id} className="group overflow-hidden bg-card border-2 border-brand-yellow/20 hover:border-brand-orange/50 transition-all rounded-2xl">
+          <Card key={product.id} className="group overflow-hidden bg-card border-2 border-primary/20 hover:border-accent/50 transition-all rounded-2xl">
             <CardContent className="p-0">
               <Link to={`/product/${product.id}`} className="block">
                 <div className="aspect-square relative overflow-hidden">
@@ -82,18 +82,18 @@ const RelatedProducts = ({ categoryId, currentProductId, limit = 4 }: RelatedPro
               </Link>
               <div className="p-3 space-y-2">
                 <Link to={`/product/${product.id}`}>
-                  <h3 className="font-fredoka font-bold text-foreground line-clamp-2 text-sm group-hover:text-brand-orange transition-colors">
+                  <h3 className="font-fredoka font-bold text-foreground line-clamp-2 text-sm group-hover:text-primary transition-colors">
                     {product.name}
                   </h3>
                 </Link>
                 <div className="flex items-center gap-1">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className={`w-3 h-3 ${i < 4 ? 'fill-brand-yellow text-brand-yellow' : 'text-muted-foreground'}`} />
+                    <Star key={i} className={`w-3 h-3 ${i < 4 ? 'fill-primary text-primary' : 'text-muted-foreground'}`} />
                   ))}
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="text-brand-orange font-bold">৳{product.price.toLocaleString()}</span>
+                    <span className="text-primary font-bold">৳{product.price.toLocaleString()}</span>
                     {product.original_price && product.original_price > product.price && (
                       <span className="text-xs text-muted-foreground line-through ml-1">
                         ৳{product.original_price.toLocaleString()}
@@ -103,7 +103,7 @@ const RelatedProducts = ({ categoryId, currentProductId, limit = 4 }: RelatedPro
                   <Button
                     size="icon"
                     variant="ghost"
-                    className="h-8 w-8 hover:bg-brand-orange hover:text-white rounded-full"
+                    className="h-8 w-8 hover:bg-primary hover:text-primary-foreground rounded-full"
                     onClick={(e) => {
                       e.preventDefault();
                       handleAddToCart(product);

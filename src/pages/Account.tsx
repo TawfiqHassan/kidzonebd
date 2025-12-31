@@ -494,7 +494,7 @@ const AccountContent: React.FC = () => {
           <h1 className="text-2xl font-bold mb-4">Please Login</h1>
           <p className="text-muted-foreground mb-6">You need to be logged in to view your account.</p>
           <Link to="/auth">
-            <Button className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark">
+            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
               Login / Sign Up
             </Button>
           </Link>
@@ -513,17 +513,17 @@ const AccountContent: React.FC = () => {
           <div className="relative">
             <Avatar className="h-24 w-24">
               <AvatarImage src={profile?.avatar_url || ''} />
-              <AvatarFallback className="bg-brand-gold text-brand-dark text-2xl">
+              <AvatarFallback className="bg-primary text-primary-foreground text-2xl">
                 {getInitials(profile?.full_name)}
               </AvatarFallback>
             </Avatar>
             <button
               onClick={() => fileInputRef.current?.click()}
               disabled={isUploadingAvatar}
-              className="absolute bottom-0 right-0 p-2 bg-brand-gold rounded-full text-brand-dark hover:bg-brand-gold/90 transition-colors"
+              className="absolute bottom-0 right-0 p-2 bg-primary rounded-full text-primary-foreground hover:bg-primary/90 transition-colors"
             >
               {isUploadingAvatar ? (
-                <div className="h-4 w-4 animate-spin rounded-full border-2 border-brand-dark border-t-transparent" />
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />
               ) : (
                 <Camera className="h-4 w-4" />
               )}
@@ -644,7 +644,7 @@ const AccountContent: React.FC = () => {
                     <div className="flex gap-2">
                       <Button 
                         type="submit" 
-                        className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                        className="bg-primary hover:bg-primary/90 text-primary-foreground"
                         disabled={updateProfileMutation.isPending}
                       >
                         <Save className="h-4 w-4 mr-2" />
@@ -748,7 +748,7 @@ const AccountContent: React.FC = () => {
                         </Button>
                         <Button 
                           type="submit" 
-                          className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                          className="bg-primary hover:bg-primary/90 text-primary-foreground"
                           disabled={isChangingPassword}
                         >
                           {isChangingPassword ? 'Updating...' : 'Update Password'}
@@ -787,7 +787,7 @@ const AccountContent: React.FC = () => {
                             </div>
                             <div className="flex items-center gap-4">
                               <div className="text-right">
-                                <p className="font-bold text-brand-gold">{formatPrice(order.total)}</p>
+                                <p className="font-bold text-primary">{formatPrice(order.total)}</p>
                                 <Badge className={statusColors[order.status] || ''}>
                                   {order.status}
                                 </Badge>
@@ -823,7 +823,7 @@ const AccountContent: React.FC = () => {
                                 </div>
                                 <div className="text-right">
                                   <p className="text-sm text-muted-foreground">Total</p>
-                                  <p className="text-lg font-bold text-brand-gold">{formatPrice(order.total)}</p>
+                                  <p className="text-lg font-bold text-primary">{formatPrice(order.total)}</p>
                                 </div>
                               </div>
                               
@@ -860,7 +860,7 @@ const AccountContent: React.FC = () => {
                                   <Button 
                                     size="sm"
                                     onClick={() => handleReorder(order.id)}
-                                    className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                                    className="bg-primary hover:bg-primary/90 text-primary-foreground"
                                   >
                                     <RefreshCcw className="h-4 w-4 mr-2" />
                                     Reorder
@@ -877,7 +877,7 @@ const AccountContent: React.FC = () => {
                   <div className="text-center py-8 text-muted-foreground">
                     <Package className="h-12 w-12 mx-auto mb-4 opacity-50" />
                     <p>No orders yet</p>
-                    <Link to="/" className="text-brand-gold hover:underline">Start shopping</Link>
+                    <Link to="/" className="text-primary hover:underline">Start shopping</Link>
                   </div>
                 )}
               </CardContent>
@@ -895,7 +895,7 @@ const AccountContent: React.FC = () => {
                 <Dialog open={isAddressDialogOpen} onOpenChange={setIsAddressDialogOpen}>
                   <DialogTrigger asChild>
                     <Button 
-                      className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground"
                       onClick={() => { resetAddressForm(); setIsAddressDialogOpen(true); }}
                     >
                       <Plus className="h-4 w-4 mr-2" />
@@ -959,7 +959,7 @@ const AccountContent: React.FC = () => {
                       </div>
                       <div className="flex gap-2 justify-end">
                         <Button type="button" variant="outline" onClick={resetAddressForm}>Cancel</Button>
-                        <Button type="submit" className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark">
+                        <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                           Save
                         </Button>
                       </div>
@@ -1028,7 +1028,7 @@ const AccountContent: React.FC = () => {
                         />
                         <div className="flex-1">
                           <p className="font-medium line-clamp-2">{item.product?.name}</p>
-                          <p className="text-brand-gold font-bold">{formatPrice(item.product?.price || 0)}</p>
+                          <p className="text-primary font-bold">{formatPrice(item.product?.price || 0)}</p>
                           <Button 
                             size="sm" 
                             variant="destructive" 
@@ -1046,7 +1046,7 @@ const AccountContent: React.FC = () => {
                   <div className="text-center py-8 text-muted-foreground">
                     <Heart className="h-12 w-12 mx-auto mb-4 opacity-50" />
                     <p>Your wishlist is empty</p>
-                    <Link to="/" className="text-brand-gold hover:underline">Browse products</Link>
+                    <Link to="/" className="text-primary hover:underline">Browse products</Link>
                   </div>
                 )}
               </CardContent>
