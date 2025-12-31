@@ -76,7 +76,7 @@ const Auth: React.FC = () => {
   // Show pending approval message
   if (user && !isApproved && !isAdmin && !isLoading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-brand-dark via-background to-brand-slate p-4">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-background via-card to-muted p-4">
         <Card className="w-full max-w-md border-amber-500/50 bg-card/80 backdrop-blur-sm">
           <CardHeader className="text-center">
             <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-amber-500/20 flex items-center justify-center">
@@ -209,7 +209,7 @@ const Auth: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-brand-dark via-background to-brand-slate p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-background via-card to-muted p-4">
       <Link 
         to="/" 
         className="absolute top-6 left-6 flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
@@ -221,7 +221,7 @@ const Auth: React.FC = () => {
       <div className="mb-8">
         <Link to="/" className="flex items-center space-x-2">
           <span className="text-4xl">🧸</span>
-          <span className="text-3xl font-fredoka font-bold bg-gradient-to-r from-brand-orange to-brand-purple bg-clip-text text-transparent">KidZone</span>
+          <span className="text-3xl font-fredoka font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">KidZone</span>
         </Link>
       </div>
       
@@ -287,7 +287,7 @@ const Auth: React.FC = () => {
                 
                 <Button 
                   type="submit" 
-                  className="w-full bg-brand-orange hover:bg-brand-orange-dark text-white"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? 'Signing in...' : 'Sign In'}
@@ -412,7 +412,7 @@ const Auth: React.FC = () => {
                 
                 <Button 
                   type="submit" 
-                  className="w-full bg-brand-orange hover:bg-brand-orange-dark text-white"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? 'Creating account...' : 'Create Account'}

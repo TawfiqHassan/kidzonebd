@@ -47,14 +47,14 @@
     --font-body: 'Nunito', 'Comic Sans MS', cursive, sans-serif;
     --font-size-base: 16px;
 
-    /* KidZone brand colors - playful palette */
-    --brand-orange: 15 95% 55%;
-    --brand-orange-dark: 15 95% 45%;
-    --brand-purple: 270 60% 60%;
-    --brand-teal: 175 70% 45%;
-    --brand-yellow: 45 100% 60%;
-    --brand-pink: 330 80% 65%;
-    --brand-green: 145 60% 50%;
+    /* KidZone brand colors (aliased to semantic tokens so Admin > Design updates apply everywhere) */
+    --brand-orange: var(--primary);
+    --brand-orange-dark: var(--primary);
+    --brand-purple: var(--accent);
+    --brand-teal: var(--accent);
+    --brand-yellow: var(--primary);
+    --brand-pink: var(--accent);
+    --brand-green: var(--primary);
 
     /* Sidebar light theme */
     --sidebar-background: 270 50% 98%;

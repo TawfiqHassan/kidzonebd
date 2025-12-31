@@ -39,7 +39,7 @@ const renderStars = (rating: number) => {
       key={i}
       className={`w-4 h-4 ${
         i < rating
-          ? 'fill-brand-gold text-brand-gold'
+          ? 'fill-primary text-primary'
           : 'text-muted-foreground'
       }`}
     />
@@ -88,7 +88,7 @@ const BlogContent = () => {
   const isLoading = postsLoading || reviewsLoading;
 
   return (
-    <div className="min-h-screen bg-background dark">
+    <div className="min-h-screen bg-background">
       <Header />
       
       {/* Page Header */}
@@ -112,7 +112,7 @@ const BlogContent = () => {
           <TabsContent value="blog">
             {isLoading ? (
               <div className="flex justify-center py-12">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-gold"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
               </div>
             ) : blogPosts && blogPosts.length > 0 ? (
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -132,7 +132,7 @@ const BlogContent = () => {
                     )}
                   </div>
                   <CardContent className="p-6">
-                    <h2 className="text-2xl font-bold text-foreground mb-3 group-hover:text-brand-gold transition-colors">
+                    <h2 className="text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                       {blogPosts[0].title}
                     </h2>
                     {blogPosts[0].excerpt && (
@@ -145,7 +145,7 @@ const BlogContent = () => {
                           {new Date(blogPosts[0].published_at || blogPosts[0].created_at).toLocaleDateString('en-BD')}
                         </span>
                       </div>
-                      <Button variant="ghost" size="sm" className="text-brand-gold hover:text-brand-gold-dark">
+                      <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80">
                         Read More <ChevronRight className="w-4 h-4 ml-1" />
                       </Button>
                     </div>
@@ -171,7 +171,7 @@ const BlogContent = () => {
                           )}
                         </div>
                         <CardContent className="p-4 flex-1">
-                          <h3 className="font-semibold text-foreground text-sm mb-2 line-clamp-2 group-hover:text-brand-gold transition-colors">
+                          <h3 className="font-semibold text-foreground text-sm mb-2 line-clamp-2 group-hover:text-primary transition-colors">
                             {post.title}
                           </h3>
                           {post.excerpt && (
@@ -201,7 +201,7 @@ const BlogContent = () => {
           <TabsContent value="reviews">
             {isLoading ? (
               <div className="flex justify-center py-12">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-gold"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
               </div>
             ) : reviews && reviews.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -210,7 +210,7 @@ const BlogContent = () => {
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between mb-4">
                         <div>
-                          <Badge className="mb-2 bg-brand-gold/10 text-brand-gold border-brand-gold/20">
+                          <Badge className="mb-2 bg-primary/10 text-primary border-primary/20">
                             {review.product_name}
                           </Badge>
                           {review.title && (
