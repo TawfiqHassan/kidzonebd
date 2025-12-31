@@ -40,20 +40,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         .eq('role', 'admin')
         .maybeSingle();
       
-      // Check approval status
+      // Check approval status - default to true for regular customers
       const { data: profileData } = await supabase
         .from('profiles')
         .select('is_approved')
         .eq('user_id', userId)
         .maybeSingle();
       
+      // If no profile exists yet (trigger may not have run), default to approved for customers
+      // Only admins should require explicit approval workflow
+      const isAdminUser = !!roleData;
+      const isApprovedUser = profileData ? (profileData.is_approved ?? true) : true;
+      
       return {
-        isAdmin: !!roleData,
-        isApproved: profileData?.is_approved ?? false
+        isAdmin: isAdminUser,
+        isApproved: isApprovedUser
       };
     } catch (error) {
       console.error('Error checking user status:', error);
-      return { isAdmin: false, isApproved: false };
+      return { isAdmin: false, isApproved: true }; // Default to approved for error cases
     }
   };
 
