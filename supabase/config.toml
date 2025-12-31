@@ -5,3 +5,9 @@ verify_jwt = false
 
 [functions.notify-admin-new-order]
 verify_jwt = false
+
+[functions.scrape-product-url]
+verify_jwt = false
+
+[functions.supplier-api]
+verify_jwt = false
