@@ -13,8 +13,19 @@ export interface MenuItem {
   children?: SubMenuItem[];
 }
 
+export interface HeaderStyle {
+  layout: 'default' | 'centered' | 'minimal';
+  backgroundColor: string;
+  textColor: string;
+  borderColor: string;
+  logoPosition: 'left' | 'center';
+  showSearchInHeader: boolean;
+  stickyHeader: boolean;
+}
+
 export interface NavbarSettings {
   menu_items: MenuItem[];
+  header_style?: HeaderStyle;
 }
 
 const defaultMenuItems: MenuItem[] = [
@@ -25,7 +36,17 @@ const defaultMenuItems: MenuItem[] = [
   { name: 'Contact', href: '/contact' }
 ];
 
-const fetchNavbarSettings = async (): Promise<MenuItem[]> => {
+const defaultHeaderStyle: HeaderStyle = {
+  layout: 'default',
+  backgroundColor: '',
+  textColor: '',
+  borderColor: '',
+  logoPosition: 'left',
+  showSearchInHeader: true,
+  stickyHeader: true,
+};
+
+const fetchNavbarSettings = async (): Promise<NavbarSettings> => {
   const { data, error } = await supabase
     .from('site_settings')
     .select('value')
@@ -36,10 +57,16 @@ const fetchNavbarSettings = async (): Promise<MenuItem[]> => {
 
   if (data?.value) {
     const settings = data.value as unknown as NavbarSettings;
-    return settings.menu_items || defaultMenuItems;
+    return {
+      menu_items: settings.menu_items || defaultMenuItems,
+      header_style: settings.header_style ? { ...defaultHeaderStyle, ...settings.header_style } : defaultHeaderStyle,
+    };
   }
 
-  return defaultMenuItems;
+  return {
+    menu_items: defaultMenuItems,
+    header_style: defaultHeaderStyle,
+  };
 };
 
 export const useNavbarSettings = () => {
@@ -70,9 +97,15 @@ export const useNavbarSettings = () => {
     };
   }, [invalidateNavbar]);
 
-  return useQuery({
+  const query = useQuery({
     queryKey: ['navbar-settings-public'],
     queryFn: fetchNavbarSettings,
     staleTime: 0,
   });
+
+  return {
+    ...query,
+    menuItems: query.data?.menu_items || defaultMenuItems,
+    headerStyle: query.data?.header_style || defaultHeaderStyle,
+  };
 };
