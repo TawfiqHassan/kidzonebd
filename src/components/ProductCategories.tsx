@@ -12,7 +12,7 @@ const ProductCategories = () => {
       description: 'Soft & Cuddly',
       productCount: '50+',
       href: '/pc-accessories',
-      color: 'text-brand-pink'
+      color: 'text-primary'
     },
     {
       id: 'building-blocks',
@@ -21,7 +21,7 @@ const ProductCategories = () => {
       description: 'Creative Building',
       productCount: '60+',
       href: '/pc-accessories',
-      color: 'text-brand-orange'
+      color: 'text-accent'
     },
     {
       id: 'board-games',
@@ -30,7 +30,7 @@ const ProductCategories = () => {
       description: 'Family Fun',
       productCount: '40+',
       href: '/pc-accessories',
-      color: 'text-brand-teal'
+      color: 'text-secondary-foreground'
     },
     {
       id: 'action-figures',
@@ -39,7 +39,7 @@ const ProductCategories = () => {
       description: 'Heroes & Adventures',
       productCount: '45+',
       href: '/pc-accessories',
-      color: 'text-brand-purple'
+      color: 'text-accent'
     },
     {
       id: 'arts-crafts',
@@ -48,7 +48,7 @@ const ProductCategories = () => {
       description: 'Creative Kits',
       productCount: '35+',
       href: '/mobile-accessories',
-      color: 'text-brand-yellow'
+      color: 'text-primary'
     },
     {
       id: 'educational',
@@ -57,7 +57,7 @@ const ProductCategories = () => {
       description: 'Learn & Play',
       productCount: '55+',
       href: '/mobile-accessories',
-      color: 'text-brand-green'
+      color: 'text-secondary-foreground'
     }
   ];
 
@@ -81,7 +81,7 @@ const ProductCategories = () => {
             
             return (
               <Link key={category.id} to={category.href}>
-                <Card className="group bg-card border-2 border-brand-yellow/20 hover:border-brand-orange/50 transition-all duration-300 hover:shadow-xl cursor-pointer h-full rounded-2xl">
+                <Card className="group bg-card border-2 border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-xl cursor-pointer h-full rounded-2xl">
                   <CardContent className="p-5 text-center">
                     {/* Category icon */}
                     <div className={`w-16 h-16 mx-auto mb-3 rounded-2xl bg-secondary flex items-center justify-center group-hover:scale-110 transition-all duration-300`}>
@@ -89,7 +89,7 @@ const ProductCategories = () => {
                     </div>
 
                     {/* Category information */}
-                    <h3 className="font-fredoka font-bold text-foreground mb-1 group-hover:text-brand-orange transition-colors">
+                    <h3 className="font-fredoka font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
                       {category.name}
                     </h3>
                     
@@ -97,7 +97,7 @@ const ProductCategories = () => {
                       {category.description}
                     </p>
                     
-                    <div className="text-brand-orange text-sm font-bold">
+                    <div className="text-primary text-sm font-bold">
                       {category.productCount}
                     </div>
                   </CardContent>
