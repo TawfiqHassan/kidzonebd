@@ -164,7 +164,7 @@ const FlashSaleContent: React.FC = () => {
       <Header />
       
       {/* Flash Sale Header */}
-      <div className="bg-gradient-to-r from-red-600 via-orange-500 to-yellow-500 text-white py-8 px-4">
+      <div className="bg-gradient-to-r from-primary via-[hsl(var(--flash-sale-mid))] to-[hsl(var(--flash-sale-end))] text-primary-foreground py-8 px-4">
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
@@ -175,7 +175,7 @@ const FlashSaleContent: React.FC = () => {
               {flashSale.description && (
                 <p className="text-lg opacity-90">{flashSale.description}</p>
               )}
-              <Badge className="mt-3 bg-white/20 text-white border-0 text-lg px-4 py-1">
+              <Badge className="mt-3 bg-background/20 text-primary-foreground border-0 text-lg px-4 py-1">
                 Up to {flashSale.discount_percentage}% OFF
               </Badge>
             </div>
@@ -187,17 +187,17 @@ const FlashSaleContent: React.FC = () => {
                   <span className="text-sm font-medium">Ends in:</span>
                 </div>
                 <div className="flex gap-2 text-2xl font-bold">
-                  <div className="bg-white/20 px-4 py-2 rounded-lg">
+                  <div className="bg-background/20 px-4 py-2 rounded-lg">
                     <span className="font-mono">{String(timeLeft.hours).padStart(2, '0')}</span>
                     <span className="text-xs block">Hours</span>
                   </div>
                   <span className="self-center">:</span>
-                  <div className="bg-white/20 px-4 py-2 rounded-lg">
+                  <div className="bg-background/20 px-4 py-2 rounded-lg">
                     <span className="font-mono">{String(timeLeft.minutes).padStart(2, '0')}</span>
                     <span className="text-xs block">Mins</span>
                   </div>
                   <span className="self-center">:</span>
-                  <div className="bg-white/20 px-4 py-2 rounded-lg">
+                  <div className="bg-background/20 px-4 py-2 rounded-lg">
                     <span className="font-mono">{String(timeLeft.seconds).padStart(2, '0')}</span>
                     <span className="text-xs block">Secs</span>
                   </div>
@@ -247,12 +247,12 @@ const FlashSaleContent: React.FC = () => {
                     )}
                     
                     {/* Discount Badge */}
-                    <Badge className="absolute top-2 left-2 bg-red-600 text-white">
+                    <Badge className="absolute top-2 left-2 bg-destructive text-destructive-foreground">
                       -{discount}%
                     </Badge>
                     
                     {isOutOfStock && (
-                      <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                      <div className="absolute inset-0 bg-foreground/50 flex items-center justify-center">
                         <Badge variant="destructive">Sold Out</Badge>
                       </div>
                     )}
@@ -282,7 +282,7 @@ const FlashSaleContent: React.FC = () => {
                         </div>
                         <div className="h-2 bg-muted rounded-full overflow-hidden">
                           <div 
-                            className="h-full bg-gradient-to-r from-red-500 to-orange-500 transition-all"
+                            className="h-full bg-gradient-to-r from-primary to-[hsl(var(--progress-end))] transition-all"
                             style={{ width: `${((item.sold_quantity || 0) / item.max_quantity) * 100}%` }}
                           />
                         </div>
