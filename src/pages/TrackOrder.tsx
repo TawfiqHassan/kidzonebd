@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Search, Package, Truck, CheckCircle, Clock, XCircle, ArrowLeft, ShoppingBag } from 'lucide-react';
+import { Search, Package, Truck, CheckCircle, Clock, XCircle, ArrowLeft, ShoppingBag, FileText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -10,6 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import OrderInvoice from '@/components/OrderInvoice';
 import { format } from 'date-fns';
 
 interface OrderItem {
@@ -52,6 +53,7 @@ const TrackOrder = () => {
   const [order, setOrder] = useState<Order | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [searched, setSearched] = useState(false);
+  const [showInvoice, setShowInvoice] = useState(false);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -218,9 +220,19 @@ const TrackOrder = () => {
                             #{order.id.slice(0, 8).toUpperCase()}
                           </CardTitle>
                         </div>
-                        <Badge className={`${getStatusInfo(order.status).color} border`}>
-                          {getStatusInfo(order.status).label}
-                        </Badge>
+                        <div className="flex items-center gap-2">
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => setShowInvoice(true)}
+                          >
+                            <FileText className="w-4 h-4 mr-2" />
+                            Invoice
+                          </Button>
+                          <Badge className={`${getStatusInfo(order.status).color} border`}>
+                            {getStatusInfo(order.status).label}
+                          </Badge>
+                        </div>
                       </div>
                     </CardHeader>
                     <CardContent>
@@ -344,6 +356,33 @@ const TrackOrder = () => {
       </div>
 
       <Footer />
+
+      {/* Invoice Dialog */}
+      {order && (
+        <OrderInvoice
+          order={{
+            id: order.id,
+            created_at: order.created_at,
+            customer_name: order.customer_name,
+            customer_email: order.customer_email,
+            customer_phone: null,
+            shipping_address: order.shipping_address,
+            city: order.city,
+            district: null,
+            postal_code: null,
+            payment_method: order.payment_method,
+            payment_status: order.payment_status,
+            subtotal: order.subtotal,
+            shipping_cost: order.shipping_cost,
+            discount: order.discount,
+            total: order.total,
+            coupon_code: null
+          }}
+          items={order.order_items}
+          isOpen={showInvoice}
+          onClose={() => setShowInvoice(false)}
+        />
+      )}
     </div>
   );
 };
