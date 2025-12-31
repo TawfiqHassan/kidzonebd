@@ -125,15 +125,20 @@ const AdminCustomers: React.FC = () => {
 
   const deleteMutation = useMutation({
     mutationFn: async (userId: string) => {
-      // Delete user roles first
-      await supabase.from('user_roles').delete().eq('user_id', userId);
-      // Delete profile
-      const { error } = await supabase.from('profiles').delete().eq('user_id', userId);
+      // Call edge function to properly delete user from auth system
+      const { data, error } = await supabase.functions.invoke('delete-user', {
+        body: { userId }
+      });
+      
       if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      
+      return data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['admin-customers'] });
-      toast.success('Customer deleted successfully');
+      queryClient.invalidateQueries({ queryKey: ['admin-users'] });
+      toast.success('Customer deleted completely');
     },
     onError: (error: Error) => toast.error(error.message)
   });
