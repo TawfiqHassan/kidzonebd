@@ -103,7 +103,7 @@ const AdminAuth: React.FC = () => {
   // If user is logged in but not admin
   if (user && !isAdmin && !isLoading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-brand-dark via-brand-slate to-gray-900 p-4">
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-background via-card to-muted p-4">
         <Card className="w-full max-w-md border-red-500/50 bg-card/90 backdrop-blur-sm">
           <CardHeader className="text-center">
             <div className="mx-auto mb-4 w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center">
@@ -133,7 +133,7 @@ const AdminAuth: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-brand-dark to-brand-slate p-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-background via-card to-muted p-4">
       <Link 
         to="/" 
         className="absolute top-6 left-6 flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"

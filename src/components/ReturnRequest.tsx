@@ -139,7 +139,7 @@ const ReturnRequest = ({ orderId, orderStatus, orderTotal }: ReturnRequestProps)
           <Button
             onClick={() => returnMutation.mutate()}
             disabled={!reason || returnMutation.isPending}
-            className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground"
           >
             {returnMutation.isPending ? 'Submitting...' : 'Submit Request'}
           </Button>
