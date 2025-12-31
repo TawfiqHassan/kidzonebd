@@ -1,4 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
 export interface SubMenuItem {
@@ -25,6 +26,32 @@ const defaultMenuItems: MenuItem[] = [
 ];
 
 export const useNavbarSettings = () => {
+  const queryClient = useQueryClient();
+
+  // Subscribe to realtime changes
+  useEffect(() => {
+    const channel = supabase
+      .channel('navbar-settings-realtime')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'site_settings',
+          filter: 'key=eq.navbar'
+        },
+        () => {
+          // Invalidate and refetch when navbar settings change
+          queryClient.invalidateQueries({ queryKey: ['navbar-settings-public'] });
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [queryClient]);
+
   return useQuery({
     queryKey: ['navbar-settings-public'],
     queryFn: async () => {
@@ -43,11 +70,6 @@ export const useNavbarSettings = () => {
 
       return defaultMenuItems;
     },
-    // Aggressive refetching for instant updates
     staleTime: 0,
-    gcTime: 0,
-    refetchOnWindowFocus: true,
-    refetchOnMount: 'always',
-    refetchOnReconnect: true,
   });
 };
