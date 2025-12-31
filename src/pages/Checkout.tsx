@@ -196,11 +196,21 @@ const CheckoutContent = () => {
     setIsSubmitting(true);
 
     try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const userIdForOrder = session?.user?.id ?? null;
+
+      // Keep local state in sync (helps UI reflect logged-in/guest correctly)
+      if (userIdForOrder !== currentUserId) {
+        setCurrentUserId(userIdForOrder);
+      }
+
+      console.log('Checkout: session userId', userIdForOrder);
+
       // Create the order - works for both logged in users and guests
       const { data: order, error: orderError } = await supabase
         .from('orders')
         .insert({
-          user_id: currentUserId,
+          user_id: userIdForOrder,
           customer_name: formData.customerName.trim(),
           customer_email: formData.customerEmail.trim(),
           customer_phone: formData.customerPhone.trim(),
@@ -241,12 +251,12 @@ const CheckoutContent = () => {
       if (itemsError) throw itemsError;
 
       // Record coupon usage if coupon was applied (only for logged in users)
-      if (appliedCoupon && currentUserId) {
+      if (appliedCoupon && userIdForOrder) {
         await supabase
           .from('coupon_usage')
           .insert({
             coupon_id: appliedCoupon.id,
-            user_id: currentUserId,
+            user_id: userIdForOrder,
             order_id: order.id
           });
 
