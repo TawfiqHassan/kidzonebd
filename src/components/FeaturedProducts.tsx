@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
 import { Star, ShoppingCart, Heart, Eye, GitCompare } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -14,10 +15,42 @@ const FeaturedProducts = () => {
   const { isInWishlist, toggleWishlist } = useWishlist();
   const { addToComparison, isInComparison } = useProductComparison();
 
-  // Sample featured products data - Kids toys theme (BDT pricing)
-  const featuredProducts: Product[] = [
+  // Fetch featured products from database
+  const { data: featuredProducts = [], isLoading } = useQuery({
+    queryKey: ['featured-products'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('products')
+        .select(`
+          *,
+          category:categories(id, name, slug)
+        `)
+        .eq('is_active', true)
+        .eq('is_featured', true)
+        .order('created_at', { ascending: false })
+        .limit(6);
+      
+      if (error) throw error;
+      
+      return data.map(p => ({
+        id: p.id,
+        name: p.name,
+        price: Number(p.price),
+        image: p.image_url || 'https://images.unsplash.com/photo-1559715745-e1b33a271c8f?w=400&h=300&fit=crop',
+        category: p.category?.name || 'Toys',
+        description: p.description || 'A wonderful toy for kids!',
+        inStock: p.stock > 0,
+        rating: 4.5 + Math.random() * 0.5,
+        reviews: Math.floor(Math.random() * 300) + 50,
+        originalPrice: p.original_price ? Number(p.original_price) : undefined,
+      })) as Product[];
+    }
+  });
+
+  // Fallback products if none in database
+  const fallbackProducts: Product[] = [
     {
-      id: '1',
+      id: 'demo-1',
       name: 'Cuddles the Teddy Bear',
       price: 1499,
       image: 'https://images.unsplash.com/photo-1559715745-e1b33a271c8f?w=400&h=300&fit=crop',
@@ -28,7 +61,7 @@ const FeaturedProducts = () => {
       reviews: 324
     },
     {
-      id: '2',
+      id: 'demo-2',
       name: 'Creative Block Set 200pcs',
       price: 2499,
       image: 'https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&h=300&fit=crop',
@@ -39,7 +72,7 @@ const FeaturedProducts = () => {
       reviews: 256
     },
     {
-      id: '3',
+      id: 'demo-3',
       name: 'Rainbow Unicorn Plush',
       price: 1799,
       image: 'https://images.unsplash.com/photo-1563396983906-b3795482a59a?w=400&h=300&fit=crop',
@@ -50,7 +83,7 @@ const FeaturedProducts = () => {
       reviews: 445
     },
     {
-      id: '4',
+      id: 'demo-4',
       name: 'Superhero Action Set',
       price: 2199,
       image: 'https://images.unsplash.com/photo-1608278047522-58806a6fd94a?w=400&h=300&fit=crop',
@@ -61,7 +94,7 @@ const FeaturedProducts = () => {
       reviews: 189
     },
     {
-      id: '5',
+      id: 'demo-5',
       name: 'Ultimate Art Kit',
       price: 2999,
       image: 'https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=400&h=300&fit=crop',
@@ -72,7 +105,7 @@ const FeaturedProducts = () => {
       reviews: 167
     },
     {
-      id: '6',
+      id: 'demo-6',
       name: 'STEM Science Lab',
       price: 3499,
       image: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=400&h=300&fit=crop',
@@ -83,6 +116,8 @@ const FeaturedProducts = () => {
       reviews: 89
     }
   ];
+
+  const products = featuredProducts.length > 0 ? featuredProducts : fallbackProducts;
 
   // Handle adding product to cart
   const handleAddToCart = (product: Product) => {
@@ -97,17 +132,34 @@ const FeaturedProducts = () => {
         key={i}
         className={`w-4 h-4 ${
           i < Math.floor(rating)
-            ? 'fill-brand-yellow text-brand-yellow'
+            ? 'fill-primary text-primary'
             : i < rating
-            ? 'fill-brand-yellow/50 text-brand-yellow'
+            ? 'fill-primary/50 text-primary'
             : 'text-muted-foreground'
         }`}
       />
     ));
   };
 
+  if (isLoading) {
+    return (
+      <section className="py-16 bg-gradient-to-b from-primary/5 to-accent/5">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-fredoka font-bold text-foreground mb-3">
+              ⭐ Featured Toys
+            </h2>
+          </div>
+          <div className="flex items-center justify-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="py-16 bg-gradient-to-b from-brand-purple/5 to-brand-teal/5">
+    <section className="py-16 bg-gradient-to-b from-primary/5 to-accent/5">
       <div className="container mx-auto px-4">
         {/* Section header */}
         <div className="text-center mb-12">
@@ -121,10 +173,10 @@ const FeaturedProducts = () => {
 
         {/* Products grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredProducts.map((product) => (
+          {products.map((product) => (
             <Card 
               key={product.id}
-              className="group bg-card border-2 border-brand-yellow/20 hover:border-brand-orange/50 transition-all duration-300 hover:shadow-xl overflow-hidden rounded-2xl"
+              className="group bg-card border-2 border-primary/20 hover:border-accent/50 transition-all duration-300 hover:shadow-xl overflow-hidden rounded-2xl"
             >
               <div className="relative">
                 {/* Product image */}
@@ -140,7 +192,7 @@ const FeaturedProducts = () => {
 
                 {/* Product badges */}
                 <div className="absolute top-4 left-4 flex flex-col gap-2">
-                  <Badge className="bg-brand-purple text-white hover:bg-brand-purple/90 rounded-full">
+                  <Badge className="bg-accent text-accent-foreground hover:bg-accent/90 rounded-full">
                     {product.category}
                   </Badge>
                   {!product.inStock && (
@@ -161,7 +213,7 @@ const FeaturedProducts = () => {
                     <Heart 
                       className={`w-4 h-4 ${
                         isInWishlist(product.id) 
-                          ? 'fill-brand-pink text-brand-pink' 
+                          ? 'fill-destructive text-destructive' 
                           : 'text-muted-foreground'
                       }`} 
                     />
@@ -173,7 +225,7 @@ const FeaturedProducts = () => {
                     disabled={isInComparison(product.id)}
                     className="w-10 h-10 p-0 rounded-full"
                   >
-                    <GitCompare className={`w-4 h-4 ${isInComparison(product.id) ? 'text-brand-teal' : ''}`} />
+                    <GitCompare className={`w-4 h-4 ${isInComparison(product.id) ? 'text-accent' : ''}`} />
                   </Button>
                   <Link to={`/product/${product.id}`}>
                     <Button
@@ -192,7 +244,7 @@ const FeaturedProducts = () => {
                 <div className="space-y-3">
                   <div>
                     <Link to={`/product/${product.id}`}>
-                      <h3 className="text-lg font-fredoka font-bold text-foreground mb-1 group-hover:text-brand-orange transition-colors">
+                      <h3 className="text-lg font-fredoka font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
                         {product.name}
                       </h3>
                     </Link>
@@ -204,22 +256,22 @@ const FeaturedProducts = () => {
                   {/* Rating and reviews */}
                   <div className="flex items-center space-x-2">
                     <div className="flex items-center">
-                      {renderStars(product.rating)}
+                      {renderStars(product.rating || 4.5)}
                     </div>
                     <span className="text-sm text-muted-foreground">
-                      {product.rating} ({product.reviews} reviews)
+                      {(product.rating || 4.5).toFixed(1)} ({product.reviews} reviews)
                     </span>
                   </div>
 
                   <div className="flex items-center justify-between pt-2">
-                    <div className="text-xl font-bold text-brand-orange">
+                    <div className="text-xl font-bold text-primary">
                       ৳{product.price.toLocaleString()}
                     </div>
                     <Button
                       onClick={() => handleAddToCart(product)}
                       disabled={!product.inStock}
                       size="sm"
-                      className="bg-brand-orange hover:bg-brand-orange-dark text-white disabled:opacity-50 rounded-full"
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground disabled:opacity-50 rounded-full"
                     >
                       <ShoppingCart className="w-4 h-4 mr-1" />
                       {product.inStock ? 'Add' : 'Out'}
@@ -235,7 +287,7 @@ const FeaturedProducts = () => {
           <Link to="/pc-accessories">
             <Button 
               size="lg"
-              className="bg-brand-purple hover:bg-brand-purple/90 text-white px-8 rounded-full font-bold"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 rounded-full font-bold"
             >
               🎁 View All Toys
             </Button>

@@ -1,65 +1,67 @@
 import { Link } from 'react-router-dom';
-import { Heart, Blocks, Puzzle, Swords, Palette, GraduationCap } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { Heart, Blocks, Puzzle, Swords, Palette, GraduationCap, Grid } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
+// Icon mapping for categories
+const iconMap: Record<string, any> = {
+  'plush-toys': Heart,
+  'building-blocks': Blocks,
+  'board-games': Puzzle,
+  'action-figures': Swords,
+  'arts-crafts': Palette,
+  'educational-toys': GraduationCap,
+};
+
+// Color mapping for categories
+const colorMap: Record<string, string> = {
+  'plush-toys': 'text-primary',
+  'building-blocks': 'text-accent',
+  'board-games': 'text-secondary-foreground',
+  'action-figures': 'text-accent',
+  'arts-crafts': 'text-primary',
+  'educational-toys': 'text-secondary-foreground',
+};
+
 const ProductCategories = () => {
-  // Product categories with icons and details - Kids toys theme
-  const categories = [
-    {
-      id: 'plush-toys',
-      name: 'Plush Toys',
-      icon: Heart,
-      description: 'Soft & Cuddly',
-      productCount: '50+',
-      href: '/pc-accessories',
-      color: 'text-primary'
-    },
-    {
-      id: 'building-blocks',
-      name: 'Building Blocks',
-      icon: Blocks,
-      description: 'Creative Building',
-      productCount: '60+',
-      href: '/pc-accessories',
-      color: 'text-accent'
-    },
-    {
-      id: 'board-games',
-      name: 'Board Games',
-      icon: Puzzle,
-      description: 'Family Fun',
-      productCount: '40+',
-      href: '/pc-accessories',
-      color: 'text-secondary-foreground'
-    },
-    {
-      id: 'action-figures',
-      name: 'Action Figures',
-      icon: Swords,
-      description: 'Heroes & Adventures',
-      productCount: '45+',
-      href: '/pc-accessories',
-      color: 'text-accent'
-    },
-    {
-      id: 'arts-crafts',
-      name: 'Arts & Crafts',
-      icon: Palette,
-      description: 'Creative Kits',
-      productCount: '35+',
-      href: '/mobile-accessories',
-      color: 'text-primary'
-    },
-    {
-      id: 'educational',
-      name: 'Educational',
-      icon: GraduationCap,
-      description: 'Learn & Play',
-      productCount: '55+',
-      href: '/mobile-accessories',
-      color: 'text-secondary-foreground'
+  // Fetch categories from database
+  const { data: categories = [] } = useQuery({
+    queryKey: ['categories-grid'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('categories')
+        .select('*')
+        .order('name');
+      
+      if (error) return [];
+      return data;
     }
-  ];
+  });
+
+  // Fetch product counts per category
+  const { data: productCounts = {} } = useQuery({
+    queryKey: ['category-counts'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('products')
+        .select('category_id')
+        .eq('is_active', true);
+      
+      if (error) return {};
+      
+      const counts: Record<string, number> = {};
+      data.forEach(p => {
+        if (p.category_id) {
+          counts[p.category_id] = (counts[p.category_id] || 0) + 1;
+        }
+      });
+      return counts;
+    }
+  });
+
+  const getIcon = (slug: string) => iconMap[slug] || Grid;
+  const getColor = (slug: string) => colorMap[slug] || 'text-primary';
 
   return (
     <section className="py-16 bg-card/50">
@@ -77,15 +79,17 @@ const ProductCategories = () => {
         {/* Categories grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {categories.map((category) => {
-            const IconComponent = category.icon;
+            const IconComponent = getIcon(category.slug);
+            const colorClass = getColor(category.slug);
+            const count = productCounts[category.id] || 0;
             
             return (
-              <Link key={category.id} to={category.href}>
+              <Link key={category.id} to={`/pc-accessories?category=${category.id}`}>
                 <Card className="group bg-card border-2 border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-xl cursor-pointer h-full rounded-2xl">
                   <CardContent className="p-5 text-center">
                     {/* Category icon */}
                     <div className={`w-16 h-16 mx-auto mb-3 rounded-2xl bg-secondary flex items-center justify-center group-hover:scale-110 transition-all duration-300`}>
-                      <IconComponent className={`w-8 h-8 ${category.color}`} />
+                      <IconComponent className={`w-8 h-8 ${colorClass}`} />
                     </div>
 
                     {/* Category information */}
@@ -94,11 +98,11 @@ const ProductCategories = () => {
                     </h3>
                     
                     <p className="text-muted-foreground text-xs mb-2">
-                      {category.description}
+                      {category.description || 'Fun for all ages'}
                     </p>
                     
                     <div className="text-primary text-sm font-bold">
-                      {category.productCount}
+                      {count > 0 ? `${count} items` : 'Coming soon'}
                     </div>
                   </CardContent>
                 </Card>

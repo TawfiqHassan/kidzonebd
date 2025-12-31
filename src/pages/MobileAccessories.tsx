@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { Star, ShoppingCart, Heart, Eye, Smartphone, Battery, Cable, Headphones, Shield, Grid } from 'lucide-react';
+import { Star, ShoppingCart, Heart, Eye, Grid, Heart as HeartIcon, Blocks, Puzzle, Swords, Palette, GraduationCap, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -36,22 +36,21 @@ interface FilterState {
   onSaleOnly: boolean;
 }
 
-// Icon mapping for subcategories
+// Icon mapping for toy categories
 const iconMap: Record<string, any> = {
-  'chargers': Cable,
-  'power-banks': Battery,
-  'powerbanks': Battery,
-  'earbuds': Headphones,
-  'phone-cases': Shield,
-  'cases': Shield,
-  'screen-protectors': Smartphone,
+  'plush-toys': HeartIcon,
+  'building-blocks': Blocks,
+  'board-games': Puzzle,
+  'action-figures': Swords,
+  'arts-crafts': Palette,
+  'educational-toys': GraduationCap,
 };
 
 const MobileAccessoriesContent = () => {
   const { addToCart } = useCart();
   const [activeCategory, setActiveCategory] = useState('all');
   const [favorites, setFavorites] = useState<string[]>([]);
-  const [sortBy, setSortBy] = useState('featured');
+  const [sortBy, setSortBy] = useState('newest');
   const [filters, setFilters] = useState<FilterState>({
     priceRange: [0, 100000],
     brands: [],
@@ -59,14 +58,13 @@ const MobileAccessoriesContent = () => {
     onSaleOnly: false
   });
 
-  // Fetch subcategories for Mobile Accessories
-  const { data: subcategories = [] } = useQuery({
-    queryKey: ['mobile-subcategories'],
+  // Fetch ALL toy categories
+  const { data: categories = [] } = useQuery({
+    queryKey: ['toy-categories'],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('categories')
         .select('*')
-        .eq('parent_category', 'Mobile Accessories')
         .order('name');
       
       if (error) return [];
@@ -74,9 +72,9 @@ const MobileAccessoriesContent = () => {
     }
   });
 
-  // Fetch products from database
+  // Fetch newest products from database (sorted by created_at desc)
   const { data: products = [], isLoading: productsLoading } = useQuery({
-    queryKey: ['mobile-products', activeCategory, subcategories],
+    queryKey: ['new-arrivals', activeCategory],
     queryFn: async () => {
       let query = supabase
         .from('products')
@@ -88,12 +86,10 @@ const MobileAccessoriesContent = () => {
 
       if (activeCategory !== 'all') {
         query = query.eq('category_id', activeCategory);
-      } else if (subcategories.length > 0) {
-        const categoryIds = subcategories.map(s => s.id);
-        query = query.in('category_id', categoryIds);
       }
 
-      const { data, error } = await query.order('created_at', { ascending: false });
+      // Get newest products first
+      const { data, error } = await query.order('created_at', { ascending: false }).limit(50);
       if (error) throw error;
       
       return data.map(p => ({
@@ -109,8 +105,7 @@ const MobileAccessoriesContent = () => {
         originalPrice: p.original_price ? Number(p.original_price) : undefined,
         brand: p.brand || undefined,
       })) as ProductWithExtras[];
-    },
-    enabled: subcategories.length > 0 || activeCategory !== 'all'
+    }
   });
 
   // Get available brands and max price
@@ -152,7 +147,7 @@ const MobileAccessoriesContent = () => {
       case 'price-low': return a.price - b.price;
       case 'price-high': return b.price - a.price;
       case 'rating': return (b.rating || 0) - (a.rating || 0);
-      default: return 0;
+      default: return 0; // newest - already sorted from query
     }
   });
 
@@ -192,11 +187,16 @@ const MobileAccessoriesContent = () => {
       <Header />
       
       {/* Page Header */}
-      <div className="bg-card border-b border-border py-12">
+      <div className="bg-gradient-to-r from-accent/10 via-card to-primary/10 border-b-4 border-accent py-12">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold text-foreground mb-2">Mobile Accessories</h1>
+          <div className="flex items-center gap-3 mb-2">
+            <Sparkles className="w-8 h-8 text-accent" />
+            <h1 className="text-4xl font-fredoka font-bold text-foreground">
+              New Arrivals
+            </h1>
+          </div>
           <p className="text-muted-foreground text-lg">
-            Chargers, power banks, earbuds, and cases for your mobile devices
+            Check out our latest toys and games - fresh from the toy factory!
           </p>
         </div>
       </div>
@@ -214,24 +214,24 @@ const MobileAccessoriesContent = () => {
               <div className="space-y-2">
                 <button
                   onClick={() => setActiveCategory('all')}
-                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${
+                  className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-colors ${
                     activeCategory === 'all'
-                      ? 'bg-primary/10 text-primary'
+                      ? 'bg-primary/10 text-primary font-bold'
                       : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
                   }`}
                 >
                   <Grid className="w-4 h-4" />
-                  All Products
+                  All New Arrivals
                 </button>
-                {subcategories.map((cat) => {
+                {categories.map((cat) => {
                   const IconComponent = getIcon(cat.slug);
                   return (
                     <button
                       key={cat.id}
                       onClick={() => setActiveCategory(cat.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-2 rounded-md transition-colors ${
+                      className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-colors ${
                         activeCategory === cat.id
-                          ? 'bg-primary/10 text-primary'
+                          ? 'bg-primary/10 text-primary font-bold'
                           : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
                       }`}
                     >
@@ -257,14 +257,14 @@ const MobileAccessoriesContent = () => {
             {/* Toolbar */}
             <div className="flex items-center justify-between mb-6">
               <p className="text-muted-foreground">
-                Showing {sortedProducts.length} products
+                Showing {sortedProducts.length} new products
               </p>
               <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger className="w-48">
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="featured">Featured</SelectItem>
+                  <SelectItem value="newest">Newest First</SelectItem>
                   <SelectItem value="price-low">Price: Low to High</SelectItem>
                   <SelectItem value="price-high">Price: High to Low</SelectItem>
                   <SelectItem value="rating">Highest Rated</SelectItem>
@@ -279,14 +279,15 @@ const MobileAccessoriesContent = () => {
               </div>
             ) : sortedProducts.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-muted-foreground">No products found in this category.</p>
+                <Sparkles className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
+                <p className="text-muted-foreground">No new arrivals in this category yet!</p>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {sortedProducts.map((product) => (
                   <Card 
                     key={product.id}
-                    className="group bg-card border-border hover:border-primary/50 transition-all duration-300 overflow-hidden"
+                    className="group bg-card border-2 border-primary/20 hover:border-accent/50 transition-all duration-300 overflow-hidden rounded-2xl"
                   >
                     <div className="relative">
                       <Link to={`/product/${product.id}`}>
@@ -300,8 +301,11 @@ const MobileAccessoriesContent = () => {
                       </Link>
 
                       <div className="absolute top-3 left-3 flex flex-col gap-2">
+                        <Badge className="bg-accent text-accent-foreground">
+                          New
+                        </Badge>
                         {product.originalPrice && product.originalPrice > product.price && (
-                          <Badge className="bg-red-500 text-white">
+                          <Badge className="bg-destructive text-destructive-foreground">
                             {Math.round((1 - product.price / product.originalPrice) * 100)}% OFF
                           </Badge>
                         )}
@@ -320,7 +324,7 @@ const MobileAccessoriesContent = () => {
                           <Heart 
                             className={`w-4 h-4 ${
                               favorites.includes(product.id) 
-                                ? 'fill-red-500 text-red-500' 
+                                ? 'fill-destructive text-destructive' 
                                 : ''
                             }`} 
                           />
@@ -335,7 +339,7 @@ const MobileAccessoriesContent = () => {
 
                     <CardContent className="p-4">
                       <Link to={`/product/${product.id}`}>
-                        <h3 className="font-semibold text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-1">
+                        <h3 className="font-fredoka font-bold text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-1">
                           {product.name}
                         </h3>
                       </Link>
@@ -365,7 +369,7 @@ const MobileAccessoriesContent = () => {
                           onClick={() => handleAddToCart(product)}
                           disabled={!product.inStock}
                           size="sm"
-                          className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                          className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full"
                         >
                           <ShoppingCart className="w-4 h-4 mr-1" />
                           Add

@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { Star, ShoppingCart, Heart, Eye, Grid, Keyboard, Mouse, Gamepad2, Headphones, Volume2 } from 'lucide-react';
+import { Star, ShoppingCart, Heart, Eye, Grid, Heart as HeartIcon, Blocks, Puzzle, Swords, Palette, GraduationCap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -36,18 +36,14 @@ interface FilterState {
   onSaleOnly: boolean;
 }
 
-// Icon mapping for subcategories
+// Icon mapping for toy categories
 const iconMap: Record<string, any> = {
-  'keyboards': Keyboard,
-  'mice': Mouse,
-  'gaming-mice': Mouse,
-  'gaming mice': Mouse,
-  'gamepads': Gamepad2,
-  'controllers': Gamepad2,
-  'headsets': Headphones,
-  'headphones': Headphones,
-  'speakers': Volume2,
-  'audio': Volume2,
+  'plush-toys': HeartIcon,
+  'building-blocks': Blocks,
+  'board-games': Puzzle,
+  'action-figures': Swords,
+  'arts-crafts': Palette,
+  'educational-toys': GraduationCap,
 };
 
 const PCAccessoriesContent = () => {
@@ -62,14 +58,13 @@ const PCAccessoriesContent = () => {
     onSaleOnly: false
   });
 
-  // Fetch subcategories for PC Accessories
-  const { data: subcategories = [] } = useQuery({
-    queryKey: ['pc-subcategories'],
+  // Fetch ALL toy categories (no parent filter since categories are top-level)
+  const { data: categories = [] } = useQuery({
+    queryKey: ['toy-categories'],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('categories')
         .select('*')
-        .eq('parent_category', 'PC Accessories')
         .order('name');
       
       if (error) return [];
@@ -79,7 +74,7 @@ const PCAccessoriesContent = () => {
 
   // Fetch products from database
   const { data: products = [], isLoading: productsLoading } = useQuery({
-    queryKey: ['pc-products', activeCategory, subcategories],
+    queryKey: ['all-products', activeCategory],
     queryFn: async () => {
       let query = supabase
         .from('products')
@@ -91,10 +86,6 @@ const PCAccessoriesContent = () => {
 
       if (activeCategory !== 'all') {
         query = query.eq('category_id', activeCategory);
-      } else if (subcategories.length > 0) {
-        // Get all products from PC subcategories
-        const categoryIds = subcategories.map(s => s.id);
-        query = query.in('category_id', categoryIds);
       }
 
       const { data, error } = await query.order('created_at', { ascending: false });
@@ -113,8 +104,7 @@ const PCAccessoriesContent = () => {
         originalPrice: p.original_price ? Number(p.original_price) : undefined,
         brand: p.brand || undefined,
       })) as ProductWithExtras[];
-    },
-    enabled: subcategories.length > 0 || activeCategory !== 'all'
+    }
   });
 
   // Get available brands and max price
@@ -179,7 +169,7 @@ const PCAccessoriesContent = () => {
         key={i}
         className={`w-4 h-4 ${
           i < Math.floor(rating)
-            ? 'fill-brand-yellow text-brand-yellow'
+            ? 'fill-primary text-primary'
             : 'text-muted-foreground'
         }`}
       />
@@ -192,11 +182,11 @@ const PCAccessoriesContent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background dark">
+    <div className="min-h-screen bg-background">
       <Header />
       
       {/* Page Header */}
-      <div className="bg-gradient-to-r from-brand-purple/10 via-card to-brand-teal/10 border-b-4 border-brand-yellow py-12">
+      <div className="bg-gradient-to-r from-primary/10 via-card to-accent/10 border-b-4 border-primary py-12">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl font-fredoka font-bold text-foreground mb-2">
             🧸 All Toys
@@ -222,14 +212,14 @@ const PCAccessoriesContent = () => {
                   onClick={() => setActiveCategory('all')}
                   className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-colors ${
                     activeCategory === 'all'
-                      ? 'bg-brand-orange/10 text-brand-orange font-bold'
+                      ? 'bg-primary/10 text-primary font-bold'
                       : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
                   }`}
                 >
                   <Grid className="w-4 h-4" />
                   All Toys
                 </button>
-                {subcategories.map((cat) => {
+                {categories.map((cat) => {
                   const IconComponent = getIcon(cat.slug);
                   return (
                     <button
@@ -237,7 +227,7 @@ const PCAccessoriesContent = () => {
                       onClick={() => setActiveCategory(cat.id)}
                       className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl transition-colors ${
                         activeCategory === cat.id
-                          ? 'bg-brand-orange/10 text-brand-orange font-bold'
+                          ? 'bg-primary/10 text-primary font-bold'
                           : 'text-muted-foreground hover:bg-secondary hover:text-foreground'
                       }`}
                     >
@@ -281,7 +271,7 @@ const PCAccessoriesContent = () => {
             {/* Products Grid */}
             {productsLoading ? (
               <div className="flex items-center justify-center py-12">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-orange"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
               </div>
             ) : sortedProducts.length === 0 ? (
               <div className="text-center py-12">
@@ -292,7 +282,7 @@ const PCAccessoriesContent = () => {
                 {sortedProducts.map((product) => (
                   <Card 
                     key={product.id}
-                    className="group bg-card border-2 border-brand-yellow/20 hover:border-brand-orange/50 transition-all duration-300 overflow-hidden rounded-2xl"
+                    className="group bg-card border-2 border-primary/20 hover:border-accent/50 transition-all duration-300 overflow-hidden rounded-2xl"
                   >
                     <div className="relative">
                       <Link to={`/product/${product.id}`}>
@@ -307,7 +297,7 @@ const PCAccessoriesContent = () => {
 
                       <div className="absolute top-3 left-3 flex flex-col gap-2">
                         {product.originalPrice && product.originalPrice > product.price && (
-                          <Badge className="bg-red-500 text-white">
+                          <Badge className="bg-destructive text-destructive-foreground">
                             {Math.round((1 - product.price / product.originalPrice) * 100)}% OFF
                           </Badge>
                         )}
@@ -326,7 +316,7 @@ const PCAccessoriesContent = () => {
                           <Heart 
                             className={`w-4 h-4 ${
                               favorites.includes(product.id) 
-                                ? 'fill-red-500 text-red-500' 
+                                ? 'fill-destructive text-destructive' 
                                 : ''
                             }`} 
                           />
@@ -341,7 +331,7 @@ const PCAccessoriesContent = () => {
 
                     <CardContent className="p-4">
                       <Link to={`/product/${product.id}`}>
-                        <h3 className="font-fredoka font-bold text-foreground mb-1 group-hover:text-brand-orange transition-colors line-clamp-1">
+                        <h3 className="font-fredoka font-bold text-foreground mb-1 group-hover:text-primary transition-colors line-clamp-1">
                           {product.name}
                         </h3>
                       </Link>
@@ -371,7 +361,7 @@ const PCAccessoriesContent = () => {
                           onClick={() => handleAddToCart(product)}
                           disabled={!product.inStock}
                           size="sm"
-                          className="bg-brand-orange hover:bg-brand-orange-dark text-white rounded-full"
+                          className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full"
                         >
                           <ShoppingCart className="w-4 h-4 mr-1" />
                           Add
