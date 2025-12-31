@@ -196,20 +196,31 @@ const CheckoutContent = () => {
     setIsSubmitting(true);
 
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      const userIdForOrder = session?.user?.id ?? null;
+      const [{ data: sessionData }, { data: userData, error: userError }] = await Promise.all([
+        supabase.auth.getSession(),
+        supabase.auth.getUser(),
+      ]);
+
+      const sessionUserId = sessionData.session?.user?.id ?? null;
+      const userIdForOrder = userData.user?.id ?? sessionUserId;
+
+      if (userError) {
+        console.warn('Checkout: getUser error (will fallback to session)', userError);
+      }
 
       // Keep local state in sync (helps UI reflect logged-in/guest correctly)
       if (userIdForOrder !== currentUserId) {
         setCurrentUserId(userIdForOrder);
       }
 
-      console.log('Checkout: session userId', userIdForOrder);
+      const newOrderId = crypto.randomUUID();
+      console.log('Checkout: userId', userIdForOrder, 'orderId', newOrderId);
 
       // Create the order - works for both logged in users and guests
-      const { data: order, error: orderError } = await supabase
+      const { error: orderError } = await supabase
         .from('orders')
         .insert({
+          id: newOrderId,
           user_id: userIdForOrder,
           customer_name: formData.customerName.trim(),
           customer_email: formData.customerEmail.trim(),
@@ -228,15 +239,13 @@ const CheckoutContent = () => {
           total: total,
           status: 'pending',
           payment_status: 'pending'
-        })
-        .select()
-        .single();
+        });
 
       if (orderError) throw orderError;
 
       // Create order items
       const orderItems = cartItems.map(item => ({
-        order_id: order.id,
+        order_id: newOrderId,
         product_id: item.id,
         product_name: item.name,
         quantity: item.quantity,
@@ -257,7 +266,7 @@ const CheckoutContent = () => {
           .insert({
             coupon_id: appliedCoupon.id,
             user_id: userIdForOrder,
-            order_id: order.id
+            order_id: newOrderId
           });
 
         // Update coupon used_count
@@ -272,8 +281,8 @@ const CheckoutContent = () => {
         const emailPayload = {
           customerName: formData.customerName.trim(),
           customerEmail: formData.customerEmail.trim(),
-          orderNumber: order.id.slice(0, 8).toUpperCase(),
-          orderId: order.id,
+          orderNumber: newOrderId.slice(0, 8).toUpperCase(),
+          orderId: newOrderId,
           items: cartItems.map(item => ({
             name: item.name,
             quantity: item.quantity,
@@ -301,8 +310,8 @@ const CheckoutContent = () => {
       try {
         await supabase.functions.invoke('notify-admin-new-order', {
           body: {
-            orderId: order.id,
-            orderNumber: order.id.slice(0, 8).toUpperCase(),
+            orderId: newOrderId,
+            orderNumber: newOrderId.slice(0, 8).toUpperCase(),
             customerName: formData.customerName.trim(),
             customerEmail: formData.customerEmail.trim(),
             customerPhone: formData.customerPhone.trim(),
@@ -320,8 +329,8 @@ const CheckoutContent = () => {
       }
 
       clearCart();
-      setOrderNumber(order.id.slice(0, 8).toUpperCase());
-      setOrderId(order.id);
+      setOrderNumber(newOrderId.slice(0, 8).toUpperCase());
+      setOrderId(newOrderId);
       setOrderPlaced(true);
       toast.success('Order placed successfully!');
     } catch (error: any) {
