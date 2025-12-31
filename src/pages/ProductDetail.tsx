@@ -56,7 +56,7 @@ const ProductDetailContent = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background dark">
+      <div className="min-h-screen bg-background">
         <Header />
         <div className="container mx-auto px-4 py-16">
           <div className="flex items-center justify-center h-64">
@@ -70,7 +70,7 @@ const ProductDetailContent = () => {
 
   if (error || !product) {
     return (
-      <div className="min-h-screen bg-background dark">
+      <div className="min-h-screen bg-background">
         <Header />
         <div className="container mx-auto px-4 py-16">
           <div className="text-center">
@@ -89,7 +89,7 @@ const ProductDetailContent = () => {
   const specifications = product.specifications as Record<string, string> | null;
 
   return (
-    <div className="min-h-screen bg-background dark">
+    <div className="min-h-screen bg-background">
       <Header />
       
       <div className="container mx-auto px-4 py-8">
@@ -97,7 +97,7 @@ const ProductDetailContent = () => {
         <div className="mb-6">
           <Breadcrumbs
             items={[
-              { label: product.category?.name || 'Products', href: product.category ? `/category/${product.category.slug}` : '/products' },
+              { label: product.category?.name || 'All Toys', href: product.category_id ? `/pc-accessories?category=${product.category_id}` : '/pc-accessories' },
               { label: product.name },
             ]}
           />

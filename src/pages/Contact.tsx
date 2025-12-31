@@ -30,7 +30,7 @@ const ContactContent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background dark">
+    <div className="min-h-screen bg-background">
       <Header />
       
       {/* Page Header */}
