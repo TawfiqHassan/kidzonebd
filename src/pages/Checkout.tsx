@@ -29,15 +29,16 @@ const CheckoutContent = () => {
   const navigate = useNavigate();
   const { cartItems, getTotalPrice, clearCart } = useCart();
   
-  // Get user safely - AuthContext may not be available
-  let user: any = null;
+  // Get user from AuthContext if available
+  let authUser: any = null;
   try {
     const auth = useAuth();
-    user = auth?.user;
+    authUser = auth?.user;
   } catch {
     // AuthContext not available
   }
   
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
@@ -59,29 +60,39 @@ const CheckoutContent = () => {
     notes: ''
   });
 
-  // Pre-fill form with user data if logged in
+  // Get user ID directly from Supabase session to ensure consistency with RLS
   useEffect(() => {
-    const fetchUserProfile = async () => {
-      if (user) {
+    const getCurrentUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setCurrentUserId(session?.user?.id || null);
+      
+      // Pre-fill form with user data if logged in
+      if (session?.user) {
         const { data: profile } = await supabase
           .from('profiles')
           .select('full_name, email, phone, city')
-          .eq('user_id', user.id)
-          .single();
+          .eq('user_id', session.user.id)
+          .maybeSingle();
         
         if (profile) {
           setFormData(prev => ({
             ...prev,
             customerName: profile.full_name || '',
-            customerEmail: profile.email || user.email || '',
+            customerEmail: profile.email || session.user.email || '',
             customerPhone: profile.phone || '',
             city: profile.city || 'Dhaka'
+          }));
+        } else {
+          // Use email from session if no profile
+          setFormData(prev => ({
+            ...prev,
+            customerEmail: session.user.email || ''
           }));
         }
       }
     };
-    fetchUserProfile();
-  }, [user]);
+    getCurrentUser();
+  }, []);
 
   const subtotal = getTotalPrice();
   const shippingCost = subtotal >= 5000 ? 0 : 100;
@@ -189,7 +200,7 @@ const CheckoutContent = () => {
       const { data: order, error: orderError } = await supabase
         .from('orders')
         .insert({
-          user_id: user?.id || null,
+          user_id: currentUserId,
           customer_name: formData.customerName.trim(),
           customer_email: formData.customerEmail.trim(),
           customer_phone: formData.customerPhone.trim(),
@@ -230,12 +241,12 @@ const CheckoutContent = () => {
       if (itemsError) throw itemsError;
 
       // Record coupon usage if coupon was applied (only for logged in users)
-      if (appliedCoupon && user) {
+      if (appliedCoupon && currentUserId) {
         await supabase
           .from('coupon_usage')
           .insert({
             coupon_id: appliedCoupon.id,
-            user_id: user.id,
+            user_id: currentUserId,
             order_id: order.id
           });
 
@@ -349,7 +360,7 @@ const CheckoutContent = () => {
                 <ShoppingBag className="w-4 h-4 mr-2" />
                 Continue Shopping
               </Button>
-              {user && (
+              {currentUserId && (
                 <Button 
                   variant="outline"
                   onClick={() => navigate('/account')} 
@@ -398,7 +409,7 @@ const CheckoutContent = () => {
         <h1 className="text-3xl font-bold text-foreground mb-8">Checkout</h1>
 
         {/* Guest checkout notice */}
-        {!user && (
+        {!currentUserId && (
           <div className="bg-muted/50 border border-border rounded-lg p-4 mb-6">
             <p className="text-sm text-muted-foreground">
               <span className="font-medium text-foreground">Checking out as guest.</span> You don't need an account to place an order. 
