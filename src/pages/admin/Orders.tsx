@@ -79,6 +79,7 @@ const AdminOrders: React.FC = () => {
   const queryClient = useQueryClient();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [paymentStatusFilter, setPaymentStatusFilter] = useState('all');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
   const [dateRange, setDateRange] = useState<{ from: Date | undefined; to: Date | undefined }>({
@@ -87,7 +88,7 @@ const AdminOrders: React.FC = () => {
   });
 
   const { data: orders, isLoading } = useQuery({
-    queryKey: ['admin-orders', searchQuery, statusFilter, dateRange.from, dateRange.to],
+    queryKey: ['admin-orders', searchQuery, statusFilter, paymentStatusFilter, dateRange.from, dateRange.to],
     queryFn: async () => {
       let query = supabase
         .from('orders')
@@ -100,6 +101,10 @@ const AdminOrders: React.FC = () => {
 
       if (statusFilter !== 'all') {
         query = query.eq('status', statusFilter);
+      }
+
+      if (paymentStatusFilter !== 'all') {
+        query = query.eq('payment_status', paymentStatusFilter);
       }
 
       if (dateRange.from) {
@@ -143,6 +148,24 @@ const AdminOrders: React.FC = () => {
       queryClient.invalidateQueries({ queryKey: ['admin-orders'] });
       queryClient.invalidateQueries({ queryKey: ['admin-stats'] });
       toast.success('Order status updated');
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
+    }
+  });
+
+  const updatePaymentStatusMutation = useMutation({
+    mutationFn: async ({ id, payment_status }: { id: string; payment_status: string }) => {
+      const { error } = await supabase
+        .from('orders')
+        .update({ payment_status })
+        .eq('id', id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-orders'] });
+      queryClient.invalidateQueries({ queryKey: ['admin-stats'] });
+      toast.success('Payment status updated');
     },
     onError: (error: Error) => {
       toast.error(error.message);
@@ -266,6 +289,7 @@ const AdminOrders: React.FC = () => {
   });
 
   const statusOptions = ['pending', 'processing', 'shipped', 'delivered', 'cancelled'];
+  const paymentStatusOptions = ['pending', 'paid', 'failed', 'refunded'];
 
   return (
     <div className="space-y-6">
@@ -294,11 +318,25 @@ const AdminOrders: React.FC = () => {
         
         <Select value={statusFilter} onValueChange={setStatusFilter}>
           <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Filter by status" />
+            <SelectValue placeholder="Order Status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Status</SelectItem>
+            <SelectItem value="all">All Order Status</SelectItem>
             {statusOptions.map((status) => (
+              <SelectItem key={status} value={status}>
+                {status.charAt(0).toUpperCase() + status.slice(1)}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select value={paymentStatusFilter} onValueChange={setPaymentStatusFilter}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Payment Status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Payment Status</SelectItem>
+            {paymentStatusOptions.map((status) => (
               <SelectItem key={status} value={status}>
                 {status.charAt(0).toUpperCase() + status.slice(1)}
               </SelectItem>
@@ -389,14 +427,15 @@ const AdminOrders: React.FC = () => {
               <TableHead>Customer</TableHead>
               <TableHead>Date</TableHead>
               <TableHead>Total</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead>Order Status</TableHead>
+              <TableHead>Payment</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {isLoading ? (
               <TableRow>
-                <TableCell colSpan={7} className="text-center py-8">
+                <TableCell colSpan={8} className="text-center py-8">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
                 </TableCell>
               </TableRow>
@@ -436,6 +475,27 @@ const AdminOrders: React.FC = () => {
                       </SelectTrigger>
                       <SelectContent>
                         {statusOptions.map((status) => (
+                          <SelectItem key={status} value={status}>
+                            {status.charAt(0).toUpperCase() + status.slice(1)}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </TableCell>
+                  <TableCell>
+                    <Select 
+                      value={order.payment_status} 
+                      onValueChange={(value) => updatePaymentStatusMutation.mutate({ id: order.id, payment_status: value })}
+                    >
+                      <SelectTrigger className={`w-[110px] h-8 ${
+                        order.payment_status === 'paid' ? 'text-green-600 border-green-200' : 
+                        order.payment_status === 'failed' ? 'text-red-600 border-red-200' : 
+                        order.payment_status === 'refunded' ? 'text-orange-600 border-orange-200' : ''
+                      }`}>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {paymentStatusOptions.map((status) => (
                           <SelectItem key={status} value={status}>
                             {status.charAt(0).toUpperCase() + status.slice(1)}
                           </SelectItem>
@@ -485,7 +545,7 @@ const AdminOrders: React.FC = () => {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
+                <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
                   No orders found
                 </TableCell>
               </TableRow>
