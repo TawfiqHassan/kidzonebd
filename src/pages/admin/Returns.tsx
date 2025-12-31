@@ -224,7 +224,7 @@ const AdminReturns: React.FC = () => {
                     <TableCell className="max-w-[200px]">
                       <p className="line-clamp-2 text-sm">{ret.reason}</p>
                     </TableCell>
-                    <TableCell className="font-medium text-brand-gold">
+                    <TableCell className="font-medium text-primary">
                       ৳{(ret.refund_amount || ret.order?.total || 0).toLocaleString()}
                     </TableCell>
                     <TableCell>{getStatusBadge(ret.status)}</TableCell>
@@ -273,7 +273,7 @@ const AdminReturns: React.FC = () => {
                 </div>
                 <div>
                   <Label className="text-muted-foreground">Refund Amount</Label>
-                  <p className="font-bold text-brand-gold">
+                  <p className="font-bold text-primary">
                     ৳{(selectedReturn.refund_amount || selectedReturn.order?.total || 0).toLocaleString()}
                   </p>
                 </div>
@@ -333,7 +333,7 @@ const AdminReturns: React.FC = () => {
                 {selectedReturn.status === 'approved' && (
                   <Button
                     onClick={() => handleUpdateStatus('refunded')}
-                    className="flex-1 bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                    className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
                     disabled={updateMutation.isPending}
                   >
                     Mark as Refunded

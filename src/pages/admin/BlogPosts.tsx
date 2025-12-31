@@ -152,7 +152,7 @@ const AdminBlogPosts: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-gold"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -167,7 +167,7 @@ const AdminBlogPosts: React.FC = () => {
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button 
-              className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground"
               onClick={() => { resetForm(); setIsDialogOpen(true); }}
             >
               <Plus className="h-4 w-4 mr-2" />
@@ -238,7 +238,7 @@ const AdminBlogPosts: React.FC = () => {
               </div>
               <div className="flex gap-2 justify-end">
                 <Button type="button" variant="outline" onClick={resetForm}>Cancel</Button>
-                <Button type="submit" className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark">
+                <Button type="submit" className="bg-primary hover:bg-primary/90 text-primary-foreground">
                   {editingPost ? 'Update' : 'Create'}
                 </Button>
               </div>

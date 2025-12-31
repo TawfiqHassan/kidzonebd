@@ -480,7 +480,7 @@ const AdminAnalytics: React.FC = () => {
                         formatter={(value: number) => formatPrice(value)}
                         contentStyle={{ backgroundColor: 'hsl(var(--card))', border: '1px solid hsl(var(--border))' }}
                       />
-                      <Bar dataKey="revenue" fill="hsl(var(--brand-gold))" radius={[0, 4, 4, 0]} />
+                      <Bar dataKey="revenue" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 ) : (
