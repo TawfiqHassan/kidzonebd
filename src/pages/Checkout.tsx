@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, CreditCard, Truck, MapPin, Tag, X, Check, ShoppingBag } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
+import { ArrowLeft, CreditCard, Truck, MapPin, Tag, X, Check, ShoppingBag, Package } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -41,6 +41,7 @@ const CheckoutContent = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
+  const [orderId, setOrderId] = useState('');
   const [couponCode, setCouponCode] = useState('');
   const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
   const [couponLoading, setCouponLoading] = useState(false);
@@ -245,8 +246,39 @@ const CheckoutContent = () => {
           .eq('id', appliedCoupon.id);
       }
 
+      // Send order confirmation email
+      try {
+        const emailPayload = {
+          customerName: formData.customerName.trim(),
+          customerEmail: formData.customerEmail.trim(),
+          orderNumber: order.id.slice(0, 8).toUpperCase(),
+          orderId: order.id,
+          items: cartItems.map(item => ({
+            name: item.name,
+            quantity: item.quantity,
+            price: item.price
+          })),
+          subtotal: subtotal,
+          shipping: shippingCost,
+          discount: discount,
+          total: total,
+          shippingAddress: formData.shippingAddress.trim(),
+          city: formData.city,
+          paymentMethod: formData.paymentMethod
+        };
+
+        await supabase.functions.invoke('send-order-confirmation', {
+          body: emailPayload
+        });
+        console.log('Order confirmation email sent');
+      } catch (emailError) {
+        console.error('Failed to send confirmation email:', emailError);
+        // Don't fail the order if email fails
+      }
+
       clearCart();
       setOrderNumber(order.id.slice(0, 8).toUpperCase());
+      setOrderId(order.id);
       setOrderPlaced(true);
       toast.success('Order placed successfully!');
     } catch (error: any) {
@@ -279,6 +311,15 @@ const CheckoutContent = () => {
               A confirmation has been sent to your email. You can track your order status using the order number.
             </p>
             <div className="flex flex-col gap-3">
+              <Link to={`/track-order?order=${orderId}`} className="w-full">
+                <Button 
+                  variant="outline"
+                  className="w-full"
+                >
+                  <Package className="w-4 h-4 mr-2" />
+                  Track Your Order
+                </Button>
+              </Link>
               <Button 
                 onClick={() => navigate('/')} 
                 className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
