@@ -113,20 +113,20 @@ const Header = () => {
     <>
       {/* Top announcement bar */}
       {announcement?.is_visible !== false && (
-        <div className="bg-gradient-to-r from-brand-orange via-brand-pink to-brand-purple text-white text-center py-2 text-sm font-bold">
+        <div className="bg-gradient-to-r from-primary via-accent to-primary text-primary-foreground text-center py-2 text-sm font-bold">
           <Sparkles className="inline-block w-4 h-4 mr-2 animate-wiggle" />
           {announcement?.message || '🎁 ঢাকায় ৳৫,০০০+ অর্ডারে ফ্রি ডেলিভারি!'} 
           <Sparkles className="inline-block w-4 h-4 ml-2 animate-wiggle" />
         </div>
       )}
 
-      <header className="bg-card/95 backdrop-blur-sm border-b-4 border-brand-yellow sticky top-0 z-50">
+      <header className="bg-card/95 backdrop-blur-sm border-b-4 border-primary/30 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2">
               <span className="text-3xl">🧸</span>
-              <span className="text-2xl font-fredoka font-bold bg-gradient-to-r from-brand-orange to-brand-purple bg-clip-text text-transparent">
+              <span className="text-2xl font-fredoka font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 KidZone
               </span>
             </Link>
@@ -138,17 +138,17 @@ const Header = () => {
                   <NavigationMenuItem key={item.name}>
                     {hasChildren(item) ? (
                       <>
-                        <NavigationMenuTrigger className={`bg-transparent font-semibold ${isActive(item.href) ? 'text-brand-orange' : 'text-foreground/80 hover:text-brand-orange'}`}>
+                        <NavigationMenuTrigger className={`bg-transparent font-semibold ${isActive(item.href) ? 'text-primary' : 'text-foreground/80 hover:text-primary'}`}>
                           {item.name}
                         </NavigationMenuTrigger>
                         <NavigationMenuContent>
-                          <ul className="grid w-48 gap-1 p-2 bg-card border-2 border-brand-yellow/30 rounded-xl">
+                          <ul className="grid w-48 gap-1 p-2 bg-card border-2 border-primary/30 rounded-xl">
                             {item.children?.map((child) => (
                               <li key={child.name}>
                                 <NavigationMenuLink asChild>
                                   <Link
                                     to={child.href}
-                                    className="block select-none rounded-lg p-3 leading-none no-underline outline-none transition-colors hover:bg-brand-yellow/20 hover:text-brand-orange font-medium"
+                                    className="block select-none rounded-lg p-3 leading-none no-underline outline-none transition-colors hover:bg-primary/10 hover:text-primary font-medium"
                                   >
                                     {child.name}
                                   </Link>
@@ -163,8 +163,8 @@ const Header = () => {
                         to={item.href}
                         className={`px-4 py-2 font-semibold transition-colors duration-200 ${
                           isActive(item.href)
-                            ? 'text-brand-orange'
-                            : 'text-foreground/80 hover:text-brand-orange'
+                            ? 'text-primary'
+                            : 'text-foreground/80 hover:text-primary'
                         }`}
                       >
                         {item.name}
@@ -178,19 +178,19 @@ const Header = () => {
             {/* Search bar with dropdown */}
             <div className="hidden md:flex items-center space-x-4 flex-1 max-w-sm mx-6" ref={searchRef}>
               <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-brand-purple w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-accent w-4 h-4" />
                 <Input
                   type="text"
                   placeholder="Search toys..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={() => searchQuery.length >= 2 && setShowResults(true)}
-                  className="pl-10 bg-secondary border-2 border-brand-purple/20 focus:border-brand-orange rounded-full"
+                  className="pl-10 bg-secondary border-2 border-accent/20 focus:border-primary rounded-full"
                 />
                 
                 {/* Search Results Dropdown */}
                 {showResults && (
-                  <div className="absolute top-full left-0 right-0 mt-2 bg-card border-2 border-brand-yellow/30 rounded-2xl shadow-xl z-50 max-h-80 overflow-y-auto">
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-card border-2 border-primary/30 rounded-2xl shadow-xl z-50 max-h-80 overflow-y-auto">
                     {isSearching ? (
                       <div className="p-4 text-center text-muted-foreground">Searching...</div>
                     ) : searchResults.length > 0 ? (
@@ -198,7 +198,7 @@ const Header = () => {
                         <button
                           key={product.id}
                           onClick={() => handleProductClick(product.id)}
-                          className="w-full flex items-center gap-3 p-3 hover:bg-brand-yellow/10 transition-colors text-left rounded-xl m-1"
+                          className="w-full flex items-center gap-3 p-3 hover:bg-primary/10 transition-colors text-left rounded-xl m-1"
                         >
                           <img
                             src={product.image_url || '/placeholder.svg'}
@@ -207,7 +207,7 @@ const Header = () => {
                           />
                           <div className="flex-1 min-w-0">
                             <p className="text-sm font-semibold text-foreground truncate">{product.name}</p>
-                            <p className="text-sm font-bold text-brand-orange">${product.price.toLocaleString()}</p>
+                            <p className="text-sm font-bold text-primary">${product.price.toLocaleString()}</p>
                           </div>
                         </button>
                       ))
@@ -228,17 +228,17 @@ const Header = () => {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="relative text-foreground hover:text-brand-orange hover:bg-brand-yellow/20 rounded-full"
+                      className="relative text-foreground hover:text-primary hover:bg-primary/10 rounded-full"
                     >
                       <Bell className="w-5 h-5" />
                       {unreadCount > 0 && (
-                        <span className="absolute -top-1 -right-1 bg-brand-pink text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                        <span className="absolute -top-1 -right-1 bg-accent text-accent-foreground text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                           {unreadCount > 9 ? '9+' : unreadCount}
                         </span>
                       )}
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-80 max-h-96 overflow-y-auto rounded-2xl border-2 border-brand-yellow/30">
+                  <DropdownMenuContent align="end" className="w-80 max-h-96 overflow-y-auto rounded-2xl border-2 border-primary/30">
                     {notifications.length > 0 ? (
                       notifications.slice(0, 10).map((notification) => (
                         <DropdownMenuItem
@@ -247,7 +247,7 @@ const Header = () => {
                             markAsRead(notification.id);
                             if (notification.link) navigate(notification.link);
                           }}
-                          className={`flex flex-col items-start gap-1 cursor-pointer rounded-xl ${!notification.is_read ? 'bg-brand-yellow/10' : ''}`}
+                          className={`flex flex-col items-start gap-1 cursor-pointer rounded-xl ${!notification.is_read ? 'bg-primary/10' : ''}`}
                         >
                           <span className="font-semibold">{notification.title}</span>
                           <span className="text-xs text-muted-foreground line-clamp-2">{notification.message}</span>
@@ -266,7 +266,7 @@ const Header = () => {
                 variant="ghost"
                 size="sm"
                 onClick={() => navigate(user ? '/account' : '/auth')}
-                className="text-foreground hover:text-brand-orange hover:bg-brand-yellow/20 rounded-full"
+                className="text-foreground hover:text-primary hover:bg-primary/10 rounded-full"
               >
                 <User className="w-5 h-5" />
               </Button>
@@ -275,11 +275,11 @@ const Header = () => {
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsCartOpen(true)}
-                className="relative text-foreground hover:text-brand-orange hover:bg-brand-yellow/20 rounded-full"
+                className="relative text-foreground hover:text-primary hover:bg-primary/10 rounded-full"
               >
                 <ShoppingCart className="w-5 h-5" />
                 {getTotalItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-brand-orange text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 bg-primary text-primary-foreground text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                     {getTotalItems()}
                   </span>
                 )}
@@ -289,7 +289,7 @@ const Header = () => {
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="lg:hidden text-foreground hover:text-brand-orange hover:bg-brand-yellow/20 rounded-full"
+                className="lg:hidden text-foreground hover:text-primary hover:bg-primary/10 rounded-full"
               >
                 {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </Button>
@@ -298,17 +298,17 @@ const Header = () => {
 
           {/* Mobile menu */}
           {isMenuOpen && (
-            <div className="lg:hidden mt-4 pb-4 border-t-2 border-brand-yellow/30">
+            <div className="lg:hidden mt-4 pb-4 border-t-2 border-primary/30">
               <div className="flex flex-col space-y-2 mt-4">
                 {/* Mobile search */}
                 <div className="relative mb-4">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-brand-purple w-4 h-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-accent w-4 h-4" />
                   <Input
                     type="text"
                     placeholder="Search toys..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10 bg-secondary border-2 border-brand-purple/20 rounded-full"
+                    className="pl-10 bg-secondary border-2 border-accent/20 rounded-full"
                   />
                 </div>
                 
@@ -320,8 +320,8 @@ const Header = () => {
                           onClick={() => setExpandedMobile(expandedMobile === item.name ? null : item.name)}
                           className={`w-full flex items-center justify-between py-3 px-4 rounded-xl transition-colors duration-200 ${
                             isActive(item.href)
-                              ? 'bg-brand-yellow/20 text-brand-orange font-bold'
-                              : 'text-foreground hover:text-brand-orange hover:bg-brand-yellow/10'
+                              ? 'bg-primary/20 text-primary font-bold'
+                              : 'text-foreground hover:text-primary hover:bg-primary/10'
                           }`}
                         >
                           {item.name}
@@ -334,7 +334,7 @@ const Header = () => {
                                 key={child.name}
                                 to={child.href}
                                 onClick={() => setIsMenuOpen(false)}
-                                className="block py-2 px-4 text-muted-foreground hover:text-brand-orange transition-colors rounded-lg"
+                                className="block py-2 px-4 text-muted-foreground hover:text-primary transition-colors rounded-lg"
                               >
                                 {child.name}
                               </Link>
@@ -348,8 +348,8 @@ const Header = () => {
                         onClick={() => setIsMenuOpen(false)}
                         className={`block py-3 px-4 rounded-xl transition-colors duration-200 ${
                           isActive(item.href)
-                            ? 'bg-brand-yellow/20 text-brand-orange font-bold'
-                            : 'text-foreground hover:text-brand-orange hover:bg-brand-yellow/10'
+                            ? 'bg-primary/20 text-primary font-bold'
+                            : 'text-foreground hover:text-primary hover:bg-primary/10'
                         }`}
                       >
                         {item.name}
