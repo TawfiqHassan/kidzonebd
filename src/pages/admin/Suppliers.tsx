@@ -332,10 +332,10 @@ const Suppliers = () => {
   return (
     <div className="space-y-6">
       {/* Tutorial Card */}
-      <Card className="bg-gradient-to-r from-brand-gold/10 to-brand-gold/5 border-brand-gold/20">
+      <Card className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center gap-2 text-lg">
-            <HelpCircle className="w-5 h-5 text-brand-gold" />
+            <HelpCircle className="w-5 h-5 text-primary" />
             How to Add External Supplier APIs
           </CardTitle>
         </CardHeader>
@@ -348,28 +348,28 @@ const Suppliers = () => {
               <AccordionContent>
                 <div className="space-y-3 text-sm">
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-brand-gold mt-0.5" />
+                    <CheckCircle2 className="w-5 h-5 text-primary mt-0.5" />
                     <div>
                       <p className="font-medium text-foreground">Step 1: Get API credentials from your supplier</p>
                       <p className="text-muted-foreground">Contact the supplier and request API access. They'll provide an API endpoint URL and API key.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-brand-gold mt-0.5" />
+                    <CheckCircle2 className="w-5 h-5 text-primary mt-0.5" />
                     <div>
                       <p className="font-medium text-foreground">Step 2: Add the supplier</p>
                       <p className="text-muted-foreground">Click "Add Supplier", enter their details, API endpoint (e.g., https://api.supplier.com/products), and API key.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-brand-gold mt-0.5" />
+                    <CheckCircle2 className="w-5 h-5 text-primary mt-0.5" />
                     <div>
                       <p className="font-medium text-foreground">Step 3: Test the connection</p>
                       <p className="text-muted-foreground">Click "Test" to verify the API works. You'll see a success message if connected.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Package className="w-5 h-5 text-brand-gold mt-0.5" />
+                    <Package className="w-5 h-5 text-primary mt-0.5" />
                     <div>
                       <p className="font-medium text-foreground">Step 4: Fetch and import products</p>
                       <p className="text-muted-foreground">Click "Fetch" to retrieve products, then select which ones to import to your store.</p>
@@ -392,7 +392,7 @@ const Suppliers = () => {
           if (!open) resetForm();
         }}>
           <DialogTrigger asChild>
-            <Button className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark gap-2">
+            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2">
               <Plus className="w-4 h-4" />
               Add Supplier
             </Button>
@@ -464,7 +464,7 @@ const Suppliers = () => {
               
               <div className="col-span-2 border-t border-border pt-4 mt-2">
                 <div className="flex items-center gap-2 mb-3">
-                  <Zap className="w-5 h-5 text-brand-gold" />
+                  <Zap className="w-5 h-5 text-primary" />
                   <h4 className="font-medium text-foreground">External API Integration</h4>
                 </div>
                 <p className="text-sm text-muted-foreground mb-4">
@@ -555,7 +555,7 @@ const Suppliers = () => {
               <Button variant="outline" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
               <Button 
                 onClick={handleSubmit} 
-                className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground"
                 disabled={createMutation.isPending || updateMutation.isPending}
               >
                 {createMutation.isPending || updateMutation.isPending ? 'Saving...' : (editingSupplier ? 'Update' : 'Add')} Supplier
@@ -573,7 +573,7 @@ const Suppliers = () => {
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-2">
-              <Building2 className="w-8 h-8 text-brand-gold" />
+              <Building2 className="w-8 h-8 text-primary" />
               <span className="text-3xl font-bold text-foreground">{suppliers.length}</span>
             </div>
           </CardContent>
@@ -623,7 +623,7 @@ const Suppliers = () => {
               {isLoading ? (
                 <TableRow>
                   <TableCell colSpan={5} className="text-center py-8">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-gold mx-auto" />
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto" />
                   </TableCell>
                 </TableRow>
               ) : suppliers.length === 0 ? (
@@ -656,7 +656,7 @@ const Suppliers = () => {
                             href={supplier.website}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-sm text-brand-gold hover:underline inline-flex items-center gap-1"
+                            className="text-sm text-primary hover:underline inline-flex items-center gap-1"
                           >
                             Website <ExternalLink className="w-3 h-3" />
                           </a>

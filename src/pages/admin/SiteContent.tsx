@@ -122,7 +122,7 @@ const AdminSiteContent: React.FC = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-gold"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -136,7 +136,7 @@ const AdminSiteContent: React.FC = () => {
         </div>
         <Button 
           onClick={handleSaveAll}
-          className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+          className="bg-primary hover:bg-primary/90 text-primary-foreground"
           disabled={saveMutation.isPending}
         >
           <Save className="h-4 w-4 mr-2" />

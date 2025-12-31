@@ -47,7 +47,7 @@ const ProductDetailContent = () => {
         key={i}
         className={`w-5 h-5 ${
           i < Math.floor(rating)
-            ? 'fill-brand-gold text-brand-gold'
+            ? 'fill-primary text-primary'
             : 'text-muted-foreground'
         }`}
       />
@@ -60,7 +60,7 @@ const ProductDetailContent = () => {
         <Header />
         <div className="container mx-auto px-4 py-16">
           <div className="flex items-center justify-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-gold"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
           </div>
         </div>
         <Footer />
@@ -76,7 +76,7 @@ const ProductDetailContent = () => {
           <div className="text-center">
             <h1 className="text-2xl font-bold text-foreground mb-4">Product Not Found</h1>
             <p className="text-muted-foreground mb-6">The product you're looking for doesn't exist.</p>
-            <Button onClick={() => navigate('/')} className="bg-brand-gold text-brand-dark">
+            <Button onClick={() => navigate('/')} className="bg-primary text-primary-foreground">
               Go Home
             </Button>
           </div>
@@ -114,7 +114,7 @@ const ProductDetailContent = () => {
           <div className="space-y-6">
             <div>
               {product.category && (
-                <Badge className="bg-brand-gold/10 text-brand-gold mb-3">
+                <Badge className="bg-primary/10 text-primary mb-3">
                   {product.category.name}
                 </Badge>
               )}
@@ -184,7 +184,7 @@ const ProductDetailContent = () => {
               <Button
                 onClick={handleAddToCart}
                 disabled={product.stock <= 0}
-                className="flex-1 h-12 bg-brand-gold hover:bg-brand-gold-dark text-brand-dark font-semibold"
+                className="flex-1 h-12 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
               >
                 <ShoppingCart className="w-5 h-5 mr-2" />
                 Add to Cart
@@ -205,15 +205,15 @@ const ProductDetailContent = () => {
             {/* Features */}
             <div className="grid grid-cols-3 gap-4 pt-4">
               <div className="flex flex-col items-center text-center p-4 bg-card rounded-lg border border-border">
-                <Truck className="w-6 h-6 text-brand-gold mb-2" />
+                <Truck className="w-6 h-6 text-primary mb-2" />
                 <span className="text-sm text-muted-foreground">Free Delivery</span>
               </div>
               <div className="flex flex-col items-center text-center p-4 bg-card rounded-lg border border-border">
-                <Shield className="w-6 h-6 text-brand-gold mb-2" />
+                <Shield className="w-6 h-6 text-primary mb-2" />
                 <span className="text-sm text-muted-foreground">Warranty</span>
               </div>
               <div className="flex flex-col items-center text-center p-4 bg-card rounded-lg border border-border">
-                <Package className="w-6 h-6 text-brand-gold mb-2" />
+                <Package className="w-6 h-6 text-primary mb-2" />
                 <span className="text-sm text-muted-foreground">Easy Returns</span>
               </div>
             </div>
@@ -224,10 +224,10 @@ const ProductDetailContent = () => {
         <div className="mt-16">
           <Tabs defaultValue="specifications" className="w-full">
             <TabsList className="w-full justify-start bg-card border border-border">
-              <TabsTrigger value="specifications" className="data-[state=active]:bg-brand-gold data-[state=active]:text-brand-dark">
+              <TabsTrigger value="specifications" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                 Specifications
               </TabsTrigger>
-              <TabsTrigger value="reviews" className="data-[state=active]:bg-brand-gold data-[state=active]:text-brand-dark">
+              <TabsTrigger value="reviews" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                 Reviews
               </TabsTrigger>
             </TabsList>

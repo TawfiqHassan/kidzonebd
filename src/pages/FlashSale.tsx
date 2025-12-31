@@ -132,7 +132,7 @@ const FlashSaleContent: React.FC = () => {
       <div className="min-h-screen bg-background">
         <Header />
         <main className="container mx-auto px-4 py-16 flex justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-gold"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
         </main>
         <Footer />
       </div>
@@ -148,7 +148,7 @@ const FlashSaleContent: React.FC = () => {
           <h1 className="text-2xl font-bold mb-4">Flash Sale Not Found</h1>
           <p className="text-muted-foreground mb-6">This flash sale may have ended or doesn't exist.</p>
           <Link to="/">
-            <Button className="bg-brand-gold hover:bg-brand-gold/90 text-brand-dark">
+            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Home
             </Button>
@@ -260,13 +260,13 @@ const FlashSaleContent: React.FC = () => {
                   
                   <CardContent className="p-4">
                     <Link to={`/product/${item.product.id}`}>
-                      <h3 className="font-medium line-clamp-2 hover:text-brand-gold transition-colors mb-2">
+                      <h3 className="font-medium line-clamp-2 hover:text-primary transition-colors mb-2">
                         {item.product.name}
                       </h3>
                     </Link>
                     
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-lg font-bold text-brand-gold">
+                      <span className="text-lg font-bold text-primary">
                         {formatPrice(item.sale_price)}
                       </span>
                       <span className="text-sm text-muted-foreground line-through">
@@ -292,7 +292,7 @@ const FlashSaleContent: React.FC = () => {
                     <Button
                       onClick={() => handleAddToCart(item)}
                       disabled={isOutOfStock || !timeLeft}
-                      className="w-full bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                       size="sm"
                     >
                       <ShoppingCart className="h-4 w-4 mr-2" />

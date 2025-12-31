@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
 export interface SubMenuItem {
@@ -25,8 +25,29 @@ const defaultMenuItems: MenuItem[] = [
   { name: 'Contact', href: '/contact' }
 ];
 
+const fetchNavbarSettings = async (): Promise<MenuItem[]> => {
+  const { data, error } = await supabase
+    .from('site_settings')
+    .select('value')
+    .eq('key', 'navbar')
+    .maybeSingle();
+
+  if (error) throw error;
+
+  if (data?.value) {
+    const settings = data.value as unknown as NavbarSettings;
+    return settings.menu_items || defaultMenuItems;
+  }
+
+  return defaultMenuItems;
+};
+
 export const useNavbarSettings = () => {
   const queryClient = useQueryClient();
+
+  const invalidateNavbar = useCallback(() => {
+    queryClient.invalidateQueries({ queryKey: ['navbar-settings-public'] });
+  }, [queryClient]);
 
   // Subscribe to realtime changes
   useEffect(() => {
@@ -40,36 +61,18 @@ export const useNavbarSettings = () => {
           table: 'site_settings',
           filter: 'key=eq.navbar'
         },
-        () => {
-          // Invalidate and refetch when navbar settings change
-          queryClient.invalidateQueries({ queryKey: ['navbar-settings-public'] });
-        }
+        invalidateNavbar
       )
       .subscribe();
 
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [queryClient]);
+  }, [invalidateNavbar]);
 
   return useQuery({
     queryKey: ['navbar-settings-public'],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('site_settings')
-        .select('value')
-        .eq('key', 'navbar')
-        .maybeSingle();
-
-      if (error) throw error;
-
-      if (data?.value) {
-        const settings = data.value as unknown as NavbarSettings;
-        return settings.menu_items || defaultMenuItems;
-      }
-
-      return defaultMenuItems;
-    },
+    queryFn: fetchNavbarSettings,
     staleTime: 0,
   });
 };

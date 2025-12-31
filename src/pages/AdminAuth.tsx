@@ -94,8 +94,8 @@ const AdminAuth: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-brand-dark">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-gold"></div>
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -146,13 +146,13 @@ const AdminAuth: React.FC = () => {
         <Link to="/" className="inline-block">
           <img src={logo} alt="TiqBud" className="h-16 w-auto mx-auto" />
         </Link>
-        <div className="mt-4 flex items-center justify-center gap-2 text-brand-gold">
+        <div className="mt-4 flex items-center justify-center gap-2 text-primary">
           <Shield className="h-5 w-5" />
           <span className="text-lg font-semibold">Admin Portal</span>
         </div>
       </div>
       
-      <Card className="w-full max-w-md border-brand-gold/30 bg-card/90 backdrop-blur-sm">
+      <Card className="w-full max-w-md border-primary/30 bg-card/90 backdrop-blur-sm">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">
             {mode === 'login' ? 'Admin Login' : 'Reset Password'}
@@ -177,7 +177,7 @@ const AdminAuth: React.FC = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   autoComplete="email"
-                  className="border-border/50 focus:border-brand-gold"
+                  className="border-border/50 focus:border-primary"
                 />
               </div>
               
@@ -192,7 +192,7 @@ const AdminAuth: React.FC = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     autoComplete="current-password"
-                    className="border-border/50 focus:border-brand-gold"
+                    className="border-border/50 focus:border-primary"
                   />
                   <Button
                     type="button"
@@ -208,7 +208,7 @@ const AdminAuth: React.FC = () => {
               
               <Button 
                 type="submit" 
-                className="w-full bg-brand-gold hover:bg-brand-gold/90 text-brand-dark font-semibold"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'Signing in...' : 'Sign In to Admin'}
@@ -259,7 +259,7 @@ const AdminAuth: React.FC = () => {
               
               <Button 
                 type="submit" 
-                className="w-full bg-brand-gold hover:bg-brand-gold/90 text-brand-dark"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'Sending...' : 'Send Reset Link'}
@@ -279,7 +279,7 @@ const AdminAuth: React.FC = () => {
       </Card>
       
       <p className="mt-6 text-sm text-muted-foreground">
-        Not an admin? <Link to="/auth" className="text-brand-gold hover:underline">Customer Login</Link>
+        Not an admin? <Link to="/auth" className="text-primary hover:underline">Customer Login</Link>
       </p>
     </div>
   );

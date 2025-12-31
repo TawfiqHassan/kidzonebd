@@ -63,7 +63,7 @@ const OrderStatusTimeline: React.FC<OrderStatusTimelineProps> = ({ status, creat
                   className={cn(
                     "relative z-10 flex items-center justify-center w-10 h-10 rounded-full border-2 transition-all",
                     isCompleted
-                      ? "bg-brand-gold border-brand-gold text-brand-dark"
+                      ? "bg-primary border-primary text-primary-foreground"
                       : "bg-background border-border text-muted-foreground"
                   )}
                 >
@@ -85,7 +85,7 @@ const OrderStatusTimeline: React.FC<OrderStatusTimelineProps> = ({ status, creat
                     {step.label}
                   </p>
                   {isCurrent && (
-                    <p className="text-sm text-brand-gold">Current status</p>
+                    <p className="text-sm text-primary">Current status</p>
                   )}
                   {index === 0 && (
                     <p className="text-xs text-muted-foreground">

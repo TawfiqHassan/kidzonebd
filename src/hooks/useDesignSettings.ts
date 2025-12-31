@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -22,23 +22,49 @@ interface DesignSettings {
   };
 }
 
+const fetchDesignSettings = async (): Promise<DesignSettings | null> => {
+  const { data, error } = await supabase
+    .from('site_settings')
+    .select('value')
+    .eq('key', 'design')
+    .single();
+  
+  if (error && error.code !== 'PGRST116') throw error;
+  return data?.value as unknown as DesignSettings | null;
+};
+
 export const useDesignSettings = () => {
   const queryClient = useQueryClient();
+
+  const invalidateDesign = useCallback(() => {
+    queryClient.invalidateQueries({ queryKey: ['design-settings'] });
+  }, [queryClient]);
+
+  // Subscribe to realtime changes for instant updates
+  useEffect(() => {
+    const channel = supabase
+      .channel('design-settings-realtime')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'site_settings',
+          filter: 'key=eq.design'
+        },
+        invalidateDesign
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [invalidateDesign]);
   
   const { data: settings, refetch } = useQuery({
     queryKey: ['design-settings'],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('site_settings')
-        .select('value')
-        .eq('key', 'design')
-        .single();
-      
-      if (error && error.code !== 'PGRST116') throw error;
-      return data?.value as unknown as DesignSettings | null;
-    },
-    staleTime: 0, // Always refetch
-    refetchOnWindowFocus: true,
+    queryFn: fetchDesignSettings,
+    staleTime: 0,
   });
 
   // Apply design settings to CSS variables

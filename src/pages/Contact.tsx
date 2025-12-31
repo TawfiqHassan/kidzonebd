@@ -51,8 +51,8 @@ const ContactContent = () => {
             <Card className="bg-card border-border">
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-brand-gold/10 flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-6 h-6 text-brand-gold" />
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-6 h-6 text-primary" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">Our Location</h3>
@@ -71,8 +71,8 @@ const ContactContent = () => {
             <Card className="bg-card border-border">
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-brand-gold/10 flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-6 h-6 text-brand-gold" />
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-6 h-6 text-primary" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">Phone Numbers</h3>
@@ -90,8 +90,8 @@ const ContactContent = () => {
             <Card className="bg-card border-border">
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-brand-gold/10 flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-6 h-6 text-brand-gold" />
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-6 h-6 text-primary" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">Email Us</h3>
@@ -109,8 +109,8 @@ const ContactContent = () => {
             <Card className="bg-card border-border">
               <CardContent className="p-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-brand-gold/10 flex items-center justify-center flex-shrink-0">
-                    <Clock className="w-6 h-6 text-brand-gold" />
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Clock className="w-6 h-6 text-primary" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">Business Hours</h3>
@@ -129,7 +129,7 @@ const ContactContent = () => {
           <Card className="lg:col-span-2 bg-card border-border">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-foreground">
-                <MessageCircle className="w-5 h-5 text-brand-gold" />
+                <MessageCircle className="w-5 h-5 text-primary" />
                 Send us a Message
               </CardTitle>
             </CardHeader>
@@ -145,7 +145,7 @@ const ContactContent = () => {
                       onChange={handleChange}
                       placeholder="Your full name"
                       required
-                      className="bg-secondary border-border focus:border-brand-gold"
+                      className="bg-secondary border-border focus:border-primary"
                     />
                   </div>
                   <div className="space-y-2">
@@ -158,7 +158,7 @@ const ContactContent = () => {
                       onChange={handleChange}
                       placeholder="your.email@example.com"
                       required
-                      className="bg-secondary border-border focus:border-brand-gold"
+                      className="bg-secondary border-border focus:border-primary"
                     />
                   </div>
                 </div>
@@ -172,7 +172,7 @@ const ContactContent = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="+880 1XXX-XXXXXX"
-                      className="bg-secondary border-border focus:border-brand-gold"
+                      className="bg-secondary border-border focus:border-primary"
                     />
                   </div>
                   <div className="space-y-2">
@@ -184,7 +184,7 @@ const ContactContent = () => {
                       onChange={handleChange}
                       placeholder="How can we help?"
                       required
-                      className="bg-secondary border-border focus:border-brand-gold"
+                      className="bg-secondary border-border focus:border-primary"
                     />
                   </div>
                 </div>
@@ -199,13 +199,13 @@ const ContactContent = () => {
                     placeholder="Write your message here..."
                     rows={6}
                     required
-                    className="bg-secondary border-border focus:border-brand-gold resize-none"
+                    className="bg-secondary border-border focus:border-primary resize-none"
                   />
                 </div>
 
                 <Button 
                   type="submit" 
-                  className="w-full bg-brand-gold hover:bg-brand-gold-dark text-brand-dark font-semibold py-3"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3"
                 >
                   <Send className="w-4 h-4 mr-2" />
                   Send Message
@@ -220,10 +220,10 @@ const ContactContent = () => {
           <Card className="bg-card border-border overflow-hidden">
             <div className="aspect-[21/9] bg-secondary flex items-center justify-center">
               <div className="text-center text-muted-foreground">
-                <MapPin className="w-12 h-12 mx-auto mb-4 text-brand-gold" />
+                <MapPin className="w-12 h-12 mx-auto mb-4 text-primary" />
                 <p className="text-lg font-medium text-foreground">Bashundhara City Shopping Complex</p>
                 <p>Panthapath, Dhaka 1215, Bangladesh</p>
-                <Button variant="outline" className="mt-4 border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-brand-dark">
+                <Button variant="outline" className="mt-4 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                   Open in Google Maps
                 </Button>
               </div>
