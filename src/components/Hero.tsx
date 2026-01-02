@@ -84,9 +84,10 @@ const Hero = () => {
             <div className="relative z-10">
               <div className="bg-card rounded-3xl p-6 shadow-2xl border-4 border-primary/30">
                 <img
-                  src="https://images.unsplash.com/photo-1558060370-d644479cb6f7?w=600&h=400&fit=crop"
+                  src="https://images.unsplash.com/photo-1558060370-d644479cb6f7?w=600&h=400&fit=crop&fm=webp&q=80"
                   alt="Happy Kids Playing with Toys"
                   className="w-full h-72 object-cover rounded-2xl"
+                  fetchPriority="high"
                 />
                 
                 {/* Floating product cards */}
