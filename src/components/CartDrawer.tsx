@@ -45,6 +45,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
             variant="ghost"
             size="sm"
             onClick={onClose}
+            aria-label="Close cart"
             className="text-muted-foreground hover:text-foreground"
           >
             <X className="w-5 h-5" />
@@ -86,6 +87,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                       variant="ghost"
                       size="sm"
                       onClick={() => removeFromCart(item.id)}
+                      aria-label={`Remove ${item.name} from cart`}
                       className="text-destructive hover:text-destructive hover:bg-destructive/10"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -99,6 +101,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                         size="sm"
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
                         disabled={item.quantity <= 1}
+                        aria-label={`Decrease quantity of ${item.name}`}
                         className="w-8 h-8 p-0 border-border"
                       >
                         <Minus className="w-3 h-3" />
@@ -112,6 +115,7 @@ const CartDrawer = ({ isOpen, onClose }: CartDrawerProps) => {
                         variant="outline"
                         size="sm"
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                        aria-label={`Increase quantity of ${item.name}`}
                         className="w-8 h-8 p-0 border-border"
                       >
                         <Plus className="w-3 h-3" />

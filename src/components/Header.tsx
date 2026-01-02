@@ -218,6 +218,7 @@ const Header = () => {
             <Button
               variant="ghost"
               size="sm"
+              aria-label={`Notifications${unreadCount > 0 ? `, ${unreadCount} unread` : ''}`}
               className="relative text-foreground hover:text-primary hover:bg-primary/10 rounded-full"
             >
               <Bell className="w-5 h-5" />
@@ -256,6 +257,7 @@ const Header = () => {
         variant="ghost"
         size="sm"
         onClick={() => navigate(user ? '/account' : '/auth')}
+        aria-label={user ? 'My account' : 'Sign in'}
         className="text-foreground hover:text-primary hover:bg-primary/10 rounded-full"
       >
         <User className="w-5 h-5" />
@@ -265,6 +267,7 @@ const Header = () => {
         variant="ghost"
         size="sm"
         onClick={() => setIsCartOpen(true)}
+        aria-label={`Shopping cart${getTotalItems() > 0 ? `, ${getTotalItems()} items` : ''}`}
         className="relative text-foreground hover:text-primary hover:bg-primary/10 rounded-full"
       >
         <ShoppingCart className="w-5 h-5" />
@@ -279,6 +282,7 @@ const Header = () => {
         variant="ghost"
         size="sm"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
+        aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
         className="lg:hidden text-foreground hover:text-primary hover:bg-primary/10 rounded-full"
       >
         {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
