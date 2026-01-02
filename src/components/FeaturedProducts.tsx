@@ -209,6 +209,7 @@ const FeaturedProducts = () => {
                     size="sm"
                     variant="secondary"
                     onClick={() => toggleWishlist(product.id)}
+                    aria-label={isInWishlist(product.id) ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
                     className="w-10 h-10 p-0 rounded-full"
                   >
                     <Heart 
@@ -224,6 +225,7 @@ const FeaturedProducts = () => {
                     variant="secondary"
                     onClick={() => addToComparison(product.id)}
                     disabled={isInComparison(product.id)}
+                    aria-label={isInComparison(product.id) ? `${product.name} is in comparison` : `Compare ${product.name}`}
                     className="w-10 h-10 p-0 rounded-full"
                   >
                     <GitCompare className={`w-4 h-4 ${isInComparison(product.id) ? 'text-accent' : ''}`} />
