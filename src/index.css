@@ -17,8 +17,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 260 30% 20%;
 
-    /* Vibrant orange-red for primary (playful & energetic) */
-    --primary: 15 95% 55%;
+    /* Vibrant orange-red for primary (playful & energetic) - darkened for WCAG AA contrast */
+    --primary: 15 95% 42%;
     --primary-foreground: 0 0% 100%;
 
     /* Soft lavender for secondary */
