@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
 import ImageZoom from './ImageZoom';
 import { cn } from '@/lib/utils';
-
 interface ImageGalleryProps {
   images: string[];
   productName: string;
@@ -43,6 +43,7 @@ const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
               variant="ghost"
               size="icon"
               onClick={goToPrevious}
+              aria-label="Previous image"
               className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white opacity-0 group-hover:opacity-100 transition-opacity"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -51,6 +52,7 @@ const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
               variant="ghost"
               size="icon"
               onClick={goToNext}
+              aria-label="Next image"
               className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white opacity-0 group-hover:opacity-100 transition-opacity"
             >
               <ChevronRight className="w-5 h-5" />
@@ -64,12 +66,16 @@ const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
             <Button
               variant="ghost"
               size="icon"
+              aria-label="Zoom image"
               className="absolute top-2 right-2 bg-black/50 hover:bg-black/70 text-white opacity-0 group-hover:opacity-100 transition-opacity"
             >
               <ZoomIn className="w-5 h-5" />
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-4xl bg-card p-0">
+          <DialogContent className="max-w-4xl bg-card p-0" aria-describedby={undefined}>
+            <VisuallyHidden>
+              <DialogTitle>{productName} - Image Gallery</DialogTitle>
+            </VisuallyHidden>
             <div className="relative">
               <img
                 src={currentImage}
@@ -82,6 +88,7 @@ const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
                     variant="ghost"
                     size="icon"
                     onClick={goToPrevious}
+                    aria-label="Previous image"
                     className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white"
                   >
                     <ChevronLeft className="w-6 h-6" />
@@ -90,6 +97,7 @@ const ImageGallery = ({ images, productName }: ImageGalleryProps) => {
                     variant="ghost"
                     size="icon"
                     onClick={goToNext}
+                    aria-label="Next image"
                     className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white"
                   >
                     <ChevronRight className="w-6 h-6" />

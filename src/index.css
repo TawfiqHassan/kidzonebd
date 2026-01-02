@@ -27,7 +27,7 @@
 
     /* Light pastel for muted */
     --muted: 45 40% 96%;
-    --muted-foreground: 260 20% 50%;
+    --muted-foreground: 260 25% 38%;
 
     /* Bright teal accent */
     --accent: 175 70% 45%;
@@ -85,7 +85,7 @@
     --secondary-foreground: 45 100% 98%;
 
     --muted: 260 30% 22%;
-    --muted-foreground: 260 20% 65%;
+    --muted-foreground: 260 20% 72%;
 
     --accent: 175 70% 45%;
     --accent-foreground: 0 0% 100%;
