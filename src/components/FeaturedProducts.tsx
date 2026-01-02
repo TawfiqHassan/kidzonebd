@@ -228,11 +228,13 @@ const FeaturedProducts = () => {
                   >
                     <GitCompare className={`w-4 h-4 ${isInComparison(product.id) ? 'text-accent' : ''}`} />
                   </Button>
-                  <Link to={`/product/${product.id}`}>
+                  <Link to={`/product/${product.id}`} aria-label={`View ${product.name}`}>
                     <Button
                       size="sm"
                       variant="secondary"
                       className="w-10 h-10 p-0 rounded-full"
+                      aria-hidden="true"
+                      tabIndex={-1}
                     >
                       <Eye className="w-4 h-4" />
                     </Button>
