@@ -140,7 +140,7 @@ const MegaMenu = ({ isOpen, onClose }: MegaMenuProps) => {
               </p>
               <div className="space-y-3">
                 <Link
-                  to="/pc-accessories"
+                  to="/all-toys"
                   onClick={onClose}
                   className="flex items-center gap-3 p-3 bg-card rounded-lg hover:bg-card/80 transition-colors group"
                 >
@@ -148,12 +148,12 @@ const MegaMenu = ({ isOpen, onClose }: MegaMenuProps) => {
                     <Laptop className="w-8 h-8 text-primary" />
                   </div>
                   <div>
-                    <span className="font-medium text-foreground group-hover:text-primary">PC Accessories</span>
+                    <span className="font-medium text-foreground group-hover:text-primary">All Toys</span>
                     <p className="text-sm text-muted-foreground">Up to 30% off</p>
                   </div>
                 </Link>
                 <Link
-                  to="/mobile-accessories"
+                  to="/new-arrivals"
                   onClick={onClose}
                   className="flex items-center gap-3 p-3 bg-card rounded-lg hover:bg-card/80 transition-colors group"
                 >
@@ -161,8 +161,8 @@ const MegaMenu = ({ isOpen, onClose }: MegaMenuProps) => {
                     <Smartphone className="w-8 h-8 text-primary" />
                   </div>
                   <div>
-                    <span className="font-medium text-foreground group-hover:text-primary">Mobile Accessories</span>
-                    <p className="text-sm text-muted-foreground">New arrivals</p>
+                    <span className="font-medium text-foreground group-hover:text-primary">New Arrivals</span>
+                    <p className="text-sm text-muted-foreground">Latest toys</p>
                   </div>
                 </Link>
               </div>

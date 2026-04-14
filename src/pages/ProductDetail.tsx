@@ -97,7 +97,7 @@ const ProductDetailContent = () => {
         <div className="mb-6">
           <Breadcrumbs
             items={[
-              { label: product.category?.name || 'All Toys', href: product.category_id ? `/pc-accessories?category=${product.category_id}` : '/pc-accessories' },
+              { label: product.category?.name || 'All Toys', href: product.category_id ? `/all-toys?category=${product.category_id}` : '/all-toys' },
               { label: product.name },
             ]}
           />
