@@ -700,8 +700,6 @@ export type Database = {
           id: string
           is_approved: boolean
           phone: string | null
-          security_answer: string | null
-          security_question: string | null
           updated_at: string
           user_id: string
           username: string | null
@@ -715,8 +713,6 @@ export type Database = {
           id?: string
           is_approved?: boolean
           phone?: string | null
-          security_answer?: string | null
-          security_question?: string | null
           updated_at?: string
           user_id: string
           username?: string | null
@@ -730,8 +726,6 @@ export type Database = {
           id?: string
           is_approved?: boolean
           phone?: string | null
-          security_answer?: string | null
-          security_question?: string | null
           updated_at?: string
           user_id?: string
           username?: string | null
@@ -999,6 +993,10 @@ export type Database = {
         Returns: boolean
       }
       is_admin: { Args: never; Returns: boolean }
+      lookup_order_by_email: {
+        Args: { _email: string; _order_prefix: string }
+        Returns: Json[]
+      }
     }
     Enums: {
       app_role: "admin" | "user"
