@@ -74,43 +74,18 @@ const TrackOrder = () => {
     setSearched(true);
 
     try {
-      // Search by order ID (partial match on the beginning) and email
+      // Search by order ID prefix and email using secure RPC
       const cleanOrderNumber = orderNumber.replace('#', '').trim().toLowerCase();
       
       const { data, error } = await supabase
-        .from('orders')
-        .select(`
-          id,
-          created_at,
-          status,
-          payment_status,
-          payment_method,
-          customer_name,
-          customer_email,
-          shipping_address,
-          city,
-          subtotal,
-          shipping_cost,
-          discount,
-          total,
-          order_items (
-            id,
-            product_name,
-            quantity,
-            unit_price,
-            total_price
-          )
-        `)
-        .ilike('customer_email', email.trim())
-        .order('created_at', { ascending: false });
+        .rpc('lookup_order_by_email', {
+          _email: email.trim(),
+          _order_prefix: cleanOrderNumber
+        });
 
       if (error) throw error;
 
-      // Filter orders that match the order number (first 8 chars of UUID)
-      const matchingOrder = data?.find(o => 
-        o.id.toLowerCase().startsWith(cleanOrderNumber) ||
-        o.id.slice(0, 8).toLowerCase() === cleanOrderNumber
-      );
+      const matchingOrder = data?.[0] || null;
 
       if (matchingOrder) {
         setOrder(matchingOrder as unknown as Order);
