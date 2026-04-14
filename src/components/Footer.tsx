@@ -66,7 +66,7 @@ const Footer = () => {
             <ul className="space-y-2">
               {['🧸 Plush Toys', '🎮 Board Games', '🚗 Vehicles', '🎨 Arts & Crafts', '🧩 Puzzles', '🎪 Outdoor Play'].map((cat) => (
                 <li key={cat}>
-                  <Link to="/pc-accessories" className="text-muted-foreground hover:text-primary transition-colors text-sm font-medium">
+                  <Link to="/all-toys" className="text-muted-foreground hover:text-primary transition-colors text-sm font-medium">
                     {cat}
                   </Link>
                 </li>

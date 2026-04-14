@@ -221,7 +221,7 @@ const AdminSiteContent: React.FC = () => {
                     id="hero-cta-link"
                     value={hero.cta_link}
                     onChange={(e) => setHero({ ...hero, cta_link: e.target.value })}
-                    placeholder="/pc-accessories"
+                    placeholder="/all-toys"
                   />
                 </div>
               </div>

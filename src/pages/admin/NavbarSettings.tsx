@@ -74,8 +74,8 @@ const AdminNavbarSettings: React.FC = () => {
     } else {
       setMenuItems([
         { name: 'Home', href: '/' },
-        { name: 'PC Accessories', href: '/pc-accessories' },
-        { name: 'Mobile Accessories', href: '/mobile-accessories' },
+        { name: 'All Toys', href: '/all-toys' },
+        { name: 'New Arrivals', href: '/new-arrivals' },
         { name: 'Blog & Reviews', href: '/blog' },
         { name: 'Contact', href: '/contact' }
       ]);
