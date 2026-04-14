@@ -45,8 +45,8 @@ const Footer = () => {
             <ul className="space-y-2">
               {[
                 { name: 'Home', href: '/' },
-                { name: 'All Toys', href: '/pc-accessories' },
-                { name: 'New Arrivals', href: '/mobile-accessories' },
+                { name: 'All Toys', href: '/all-toys' },
+                { name: 'New Arrivals', href: '/new-arrivals' },
                 { name: 'Track Order', href: '/track-order' },
                 { name: 'Blog', href: '/blog' },
                 { name: 'Contact', href: '/contact' },

@@ -35,7 +35,7 @@ const Hero = () => {
 
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/pc-accessories">
+              <Link to="/all-toys">
                 <Button 
                   size="lg" 
                   className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 font-bold text-lg rounded-full shadow-lg hover:shadow-xl transition-all w-full sm:w-auto"

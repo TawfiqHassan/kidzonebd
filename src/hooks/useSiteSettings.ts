@@ -37,7 +37,7 @@ const defaultSettings: SiteSettingsData = {
     subtitle: 'Discover amazing toys, games, and adventures for kids of all ages!',
     image_url: '',
     cta_text: 'Shop Toys',
-    cta_link: '/pc-accessories'
+    cta_link: '/all-toys'
   },
   announcement_bar: {
     message: '🎁 ঢাকায় ৳৫,০০০+ অর্ডারে ফ্রি ডেলিভারি!',

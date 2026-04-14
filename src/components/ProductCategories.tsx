@@ -84,7 +84,7 @@ const ProductCategories = () => {
             const count = productCounts[category.id] || 0;
             
             return (
-              <Link key={category.id} to={`/pc-accessories?category=${category.id}`}>
+              <Link key={category.id} to={`/all-toys?category=${category.id}`}>
                 <Card className="group bg-card border-2 border-primary/20 hover:border-primary/50 transition-all duration-300 hover:shadow-xl cursor-pointer h-full rounded-2xl">
                   <CardContent className="p-5 text-center">
                     {/* Category icon */}

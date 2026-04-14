@@ -63,8 +63,8 @@ const App = () => (
               <BrowserRouter>
                 <Routes>
                   <Route path="/" element={<Index />} />
-                  <Route path="/pc-accessories" element={<PCAccessories />} />
-                  <Route path="/mobile-accessories" element={<MobileAccessories />} />
+                  <Route path="/all-toys" element={<PCAccessories />} />
+                  <Route path="/new-arrivals" element={<MobileAccessories />} />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/auth" element={<Auth />} />

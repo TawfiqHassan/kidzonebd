@@ -289,7 +289,7 @@ const FeaturedProducts = () => {
         </div>
 
         <div className="text-center mt-10">
-          <Link to="/pc-accessories">
+          <Link to="/all-toys">
             <Button 
               size="lg"
               className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 rounded-full font-bold"

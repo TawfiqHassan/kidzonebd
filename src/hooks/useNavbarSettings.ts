@@ -30,8 +30,8 @@ export interface NavbarSettings {
 
 const defaultMenuItems: MenuItem[] = [
   { name: 'Home', href: '/' },
-  { name: 'All Toys', href: '/pc-accessories' },
-  { name: 'New Arrivals', href: '/mobile-accessories' },
+  { name: 'All Toys', href: '/all-toys' },
+  { name: 'New Arrivals', href: '/new-arrivals' },
   { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '/contact' }
 ];
