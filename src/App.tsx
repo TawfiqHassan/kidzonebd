@@ -60,7 +60,7 @@ const App = () => (
             <Toaster />
             <Sonner />
             <div className="font-body">
-              <BrowserRouter>
+              <BrowserRouter basename="/kidzonebd">
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/all-toys" element={<PCAccessories />} />
@@ -99,6 +99,7 @@ const App = () => (
                     <Route path="settings" element={<Settings />} />
                   </Route>
 
+                  <Route path="/404" element={<NotFound />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </BrowserRouter>
